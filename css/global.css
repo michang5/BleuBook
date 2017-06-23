@@ -14,9 +14,6 @@ body {
   line-height: 1.5;
   overflow-x: hidden;
 }
-body.season2 {
-  background: #FAF8F5;
-}
 
 h1, h2, h3, h4, h5, h6 {
   line-height: 1.8;
@@ -40,22 +37,10 @@ h1 {
 }
 
 h2 {
-  font-size: 40px;
+  font-size: 28px;
   line-height: 1.15;
-}
-@media only screen and (max-width: 767px) {
-  h2 {
-    font-size: 36px;
-  }
-}
-body.season2 h2 {
-  color: #8C6631;
-  font-size: 40px;
-}
-@media only screen and (max-width: 767px) {
-  body.season2 h2 {
-    font-size: 36px;
-  }
+  color: #45423D;
+  font-weight: normal;
 }
 
 h3 {
@@ -80,7 +65,7 @@ h6 {
 }
 
 p, li {
-  font-size: 17px;
+  font-size: 15px;
   font-weight: normal;
   margin-bottom: 0;
   color: #4A4A4A;
@@ -262,7 +247,8 @@ body.season2 .btn-default:hover, body.season2 .btn-default:active, body.season2 
 }
 
 .wrapper {
-  margin-top: 120px;
+  margin-top: 0;
+  padding-bottom: 60px;
 }
 
 #navigation {
@@ -324,7 +310,7 @@ body.season2 .btn-default:hover, body.season2 .btn-default:active, body.season2 
   -o-transition: all, 0.5s, ease-in-out;
   -webkit-transition: all, 0.5s, ease-in-out;
   transition: all, 0.5s, ease-in-out;
-  color: #111;
+  color: #45423D;
   padding: 18px 40px;
   font-weight: 300;
 }
@@ -395,7 +381,7 @@ body.season2 .btn-default:hover, body.season2 .btn-default:active, body.season2 
   width: 30px;
   height: 2px;
   margin-top: 8px;
-  background: #111;
+  background: #45423D;
   -webkit-transition: all 0.4s ease-in-out;
   transition: all 0.4s ease-in-out;
 }
@@ -406,7 +392,7 @@ body.season2 .btn-default:hover, body.season2 .btn-default:active, body.season2 
   z-index: -1;
   width: 30px;
   height: 2px;
-  background: #111;
+  background: #45423D;
   -webkit-transition: all 0.4s ease-in-out;
   transition: all 0.4s ease-in-out;
 }
@@ -432,4 +418,21 @@ body.season2 .btn-default:hover, body.season2 .btn-default:active, body.season2 
   -webkit-transform: rotate(45deg);
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
+}
+
+.footer .container-fluid .footer-content {
+  border-top: 1px solid #AF946F;
+  text-align: center;
+  padding-top: 40px;
+  font-size: 15px;
+}
+.footer .container-fluid .footer-content ul li {
+  display: inline-block;
+}
+.footer .container-fluid .footer-content ul li span img {
+  width: 24px;
+  margin-right: 10px;
+}
+.footer .container-fluid .footer-content ul li a img {
+  width: 20px;
 }

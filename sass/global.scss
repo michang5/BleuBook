@@ -12,7 +12,6 @@ body, html {
 	height: 100%;
 	padding: 0;
 	margin: 0;
-	
 }
 body {
 	font-family: 'Roboto', "source-han-sans-traditional", sans-serif, 'times',"Microsoft JhengHei";
@@ -20,9 +19,6 @@ body {
 	word-break: normal;
 	line-height: 1.5;
 	overflow-x: hidden;
-	&.season2 {
-		background: $rice;
-	}
 }
 
 //basic style
@@ -44,20 +40,10 @@ h1 {
 //	letter-spacing: .115em;
 }
 h2 {
-//	letter-spacing: .09em;
-	font-size: 40px;
+	font-size: 28px;
     line-height: 1.15;
-    @include respond-to (only-mobile){
-        font-size: 36px;
-    }
-	body.season2 & {
-		color: $dark-gold;
-        font-size: 40px;
-        @include respond-to (only-mobile){
-            font-size: 36px;
-        }
-	}
-    
+    color: $black;
+    font-weight: normal;
 }
 h3 {
 	line-height: 1.2;
@@ -78,7 +64,7 @@ h6 {
     color: $gray;
 }
 p, li {
-	font-size: 17px;
+	font-size: 15px;
 	font-weight: normal;
 	margin-bottom: 0;
 	color: $dark-gray;
@@ -273,7 +259,11 @@ a.btn.btn-fb {
     
 }
 .wrapper {
-	margin-top: 120px;
+	margin-top: 0;
+    padding-bottom: 60px;
+}
+.section1 {
+    
 }
 //.btn-primary {
 //	background-color: transparent;
@@ -487,4 +477,31 @@ $hamburger__colour: $black;
 			transform: rotate(45deg);
 		}
 	}
+}
+
+.footer {
+    .container-fluid {
+        .footer-content {
+            border-top: 1px solid $gold;
+            text-align: center;
+            padding-top: 40px;
+            font-size: 15px;
+            ul {
+                li {
+                    display: inline-block;
+                    span {
+                        img {
+                            width: 24px;
+                            margin-right: 10px;
+                        }
+                    }
+                    a {
+                        img {
+                            width: 20px;
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
