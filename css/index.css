@@ -1,0 +1,30 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto+Condensed:700");
+/* ------------ base ------------ */
+#section1 {
+  padding-top: 0;
+  padding-bottom: 0;
+  border-bottom: 1px solid #AF946F;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+#section2, #section3, #section4 {
+  text-align: center;
+}
+#section2 h4, #section3 h4, #section4 h4 {
+  line-height: 1.6;
+}
+
+.book-cover-list .book-cover {
+  height: 100%;
+  vertical-align: bottom;
+  display: table;
+}
+.book-cover-list .book-cover > a {
+  display: table-cell;
+  vertical-align: bottom;
+}
+.book-cover-list img {
+  vertical-align: bottom;
+  width: 100%;
+}

@@ -1,0 +1,40 @@
+@charset 'utf-8';
+@import 'compass';
+@import 'base/fonts';
+@import 'base/style';
+@import 'base/media';
+@import url('https://fonts.googleapis.com/css?family=Roboto+Condensed:700');
+//@import 'base/css3-mixins';
+
+/* ------------ base ------------ */
+
+
+
+#section1 {
+	padding-top: 0;
+	padding-bottom: 0;
+	border-bottom: 1px solid $gold;
+	padding-left: 0;
+	padding-right: 0;
+}
+#section2, #section3, #section4 {
+	text-align: center;
+	h4 {
+		line-height: 1.6;
+	}
+}
+.book-cover-list {
+	.book-cover {
+		height: 100%;
+		vertical-align: bottom;
+		display: table;
+		>a {
+			display: table-cell;
+			vertical-align: bottom;
+		}
+	}
+	img {
+		vertical-align: bottom;
+		width: 100%;
+	}
+}
