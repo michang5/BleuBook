@@ -10,6 +10,47 @@ $(function () {
 			return false;
 		}
 	});
+	$('.slider').slick({
+		infinite: false,
+		speed: 300,
+		slidesToShow: 4,
+		slidesToScroll: 4,
+		responsive: [
+//			{
+//				breakpoint: 1200,
+//				settings: {
+//					slidesToShow: 4,
+//					slidesToScroll: 4,
+//					infinite: true,
+//					dots: true
+//				}
+//    },
+//			{
+//				breakpoint: 992,
+//				settings: {
+//					slidesToShow: 4,
+//					slidesToScroll: 4,
+//					infinite: true,
+//					dots: true
+//				}
+//    },
+			{
+				breakpoint: 640,
+				settings: {
+					slidesToShow: 3,
+					slidesToScroll: 3
+				}
+    },
+			
+			{
+				breakpoint: 480,
+				settings: {
+					slidesToShow: 2,
+					slidesToScroll: 2
+				}
+    }
+  ]
+	});
 });
 $(function () {
 	var addClass = function (elem, className) {

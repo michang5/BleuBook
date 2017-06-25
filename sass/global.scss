@@ -162,17 +162,23 @@ ul, li {
 p.note {
     font-size: 12px;
 }
-a.btn.btn-fb {
-	display: block;
-	background: #3B5998;
-	border-radius: 25px;
-	line-height: 40px;
-	height: 40px;
-	color: $white;
-	padding: 0 30px;
-	margin: 0 auto;
-	width: 200px;
-	margin-top: 20px;
+.a-btn-lg {
+	line-height: 50px;
+	height: 50px;
+	color: $black;
+	width: 240px;
+	margin: 10px auto;
+	
+	a {
+		display: block;
+		text-align: center;
+		color: $black;
+		border: 1px solid $black;
+		&:hover {
+			background: $rice;
+			border: 1px solid $gray;
+		}
+	}
 }
 .tab-container {
 	padding: 10px;
@@ -274,16 +280,24 @@ a.btn.btn-fb {
 		margin-top: 0;
 		margin-bottom: 50px;
 	}
-	.row {
-	  display: -webkit-box;
-	  display: -webkit-flex;
-	  display: -ms-flexbox;
-	  display: flex;
+//	.row {
+//	  display: -webkit-box;
+//	  display: -webkit-flex;
+//	  display: -ms-flexbox;
+//	  display: flex;
+//	}
+//	.row > [class*='col-'] {
+//		 display: flex;
+//		 flex-direction: column;
+//	}
+	.row [class*="col-"]{
+	  margin-bottom: -99999px;
+	  padding-bottom: 99999px;
 	}
-	.row > [class*='col-'] {
-		 display: flex;
-		 flex-direction: column;
+	.row{
+	  overflow: hidden; 
 	}
+
 	@include respond-to (only-mobile){
 		padding-top: 25px;
 		padding-bottom: 25px;
@@ -360,6 +374,8 @@ a.btn.btn-fb {
 		float: none;
 		background: white;
 		position: relative;
+		border-bottom: 1px solid $gold;
+//		height: 56px;
 	}
 	.logo {
         margin: 0;
@@ -775,12 +791,207 @@ blockquote {
 		width: 100%;
 	}
 }
-
-.book-cover {
-	img {
-		border: 1px solid #ddd;
+.content {
+	margin: 0 auto;
+	width: 98%;
+	.slider {
+		.slick-list {
+		}
+		a {
+			width: 92%;
+			margin: 0 auto;
+			color: $gray;
+			display: block;
+			&:active,
+			&:focus {
+				outline: 0;
+			}
+			img {
+				&:active {
+					box-shadow: 0 0 0 4px $yellow;
+				}
+			}
+		}
+		.book-cover {
+			width: 100%;
+//			min-height: 400px;
+			display: block;
+//			border: 1px solid $gray;
+			background: no-repeat;
+			background-size: contain;
+			background-position: center bottom;
+		}
+		img {
+			width: 100%;
+//			height: 200px;
+			border-radius: 50%;
+			display: inline-block;
+			&.active {
+				box-shadow: 0 0 0 4px $yellow;
+			}
+		}
+		span {
+			display: block;
+			line-height: $xxl-font;
+			margin: 5px 0;
+		}
+	}
+	.slick-dots {
+		display: none!important;
+	}
+	.slick-initialized .slick-slide {
+		text-align: center;
+		background: $white;
+		padding-top: 10px;
+		padding-bottom: 6px;
+		//			padding-left: 5%;
+		//			padding-right: 5%;
+	}
+	.slick-prev,
+	.slick-next {
+		border: 1px solid #999;
+		width: 40px;
+		height: 40px;
+		top: 38%;
+		z-index: 99;
+		&::before {
+			color: $black;
+			content: "\f105";
+			font-family: FontAwesome;
+			font-style: normal;
+			font-weight: normal;
+		}
+	}
+	.slick-prev {
+		left: -40px;
+		&::before {
+			content: "\f104";
+		}
+	}
+	.slick-next {
+		right: -40px;
+	}
+	@include respond-to (xlg-screen){
+		.slider {
+			.book-cover {
+				min-height: 340px;
+//				border: 1px solid pink;
+			}
+		}
+	}
+	@media only screen and (min-width: 1300px) {
+		.slider {
+			.book-cover {
+				min-height: 414px;
+//				border: 1px solid purple;
+			}
+		}
+	}
+	@include respond-to (lg-screen){
+		.slider {
+			.slick-prev,
+			.slick-next {
+				top: 32%;
+			}
+			.book-cover {
+				min-height: 300px;
+//				border: 1px solid blue;
+			}
+		}
+	}
+	@include respond-to (md-screen){
+		.slider {
+			.book-cover {
+				min-height: 280px;
+				border: 1px solid green;
+			}
+		}
+	}
+	@media only screen and (min-width: 769px) and (max-width: 890px) {
+		.slider {
+			.book-cover {
+				min-height: 240px;
+//				border: 1px solid purple;
+			}
+		}
+	}
+	@include respond-to (only-device){
+		.slider {
+			.slick-prev,
+			.slick-next {
+				top: 110px;
+			}
+			.book-cover {
+				min-height: 220px;
+//				border: 1px solid pink;
+			}
+		}
+	}
+	@media only screen and (min-width: 641px) and (max-width: 700px) {
+		.slider {
+			.book-cover {
+				min-height: 190px;
+//				border: 1px solid purple;
+			}
+		}
+	}
+	@media only screen and (min-width: 561px) and (max-width: 640px) {
+		.slider {
+			.book-cover {
+				min-height: 220px;
+//				border: 1px solid orange;
+			}
+		}
+	}
+	@media only screen and (min-width: 480px) and (max-width: 560px) {
+		.slider {
+			.book-cover {
+				min-height: 180px;
+//				border: 1px solid green;
+			}
+		}
+	}
+	@include respond-to (normal-mobile){
+		.slick-prev {
+			left: -20px;
+		}
+		.slick-next {
+			right: -20px;
+		}
+		.slider {
+			.book-cover {
+				min-height: 220px;
+//				border: 1px solid pink;
+			}
+		}
+	}
+	@include respond-to (xxs-mobile){
+		.slider {
+			.slick-prev,
+			.slick-next {
+				top: 80px;
+			}
+			.book-cover {
+				min-height: 150px;
+//				border: 1px solid pink;
+			}
+		}
 	}
 }
+//.book-cover {
+//	width: 100%;
+//	height: 150%;
+//	display: table-cell;
+//	border: 1px solid red;
+//	a {
+//		display: block;
+//		width: 100%;
+//		height: 150%;
+//	}
+//	img {
+//		border: 1px solid #ddd;
+//	}
+//}
 //book detail
 .book-detail {
 	ul {
@@ -851,11 +1062,11 @@ blockquote {
 	color: $gold;
 	border: 1px solid $gold;
 }
-#cart-icon {
+#cart-icon, #list-icon {
 	position: relative;
 	cursor: pointer;
 }
-#cart-icon-count {
+#cart-icon-count, #list-icon-count {
 	background: $gold;
 	color: white;
 	font-size: 14px;
