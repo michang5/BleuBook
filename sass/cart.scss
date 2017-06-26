@@ -40,21 +40,25 @@
         text-align: center;
         width: 100px;
         img {
-            height: 120px;
+            width: 100%;
         }
     }
-    .book-cover, .detail, .book-title, .amount { 
+    .book-cover, .detail { 
         display: table-cell; 
         vertical-align: middle;
     }
     .book-title {
         width: 50%;
+		display: inline-block;
+		padding-left: 10px;
     }
     .amount {
         width: 50%;
+		display: inline;
     }
-    .qty, .book-price, .delete {
+    .qty, .book-price, .delete, .price_del {
         display: inline-block;
+		vertical-align: top;
     }
     #quantity-plus, #quantity-minus {
         color: $gray;
@@ -71,17 +75,23 @@
     }
     .book-price {
         width: 60px;
+		line-height: 36px;
         text-align: right;
     }
+	.price_del {
+		float: right;
+	}
     .delete {
         width: 50px;
         a {
             display: block;
-            width: 50px;
-            height: 50px;
+            width: 36px;
+            height: 36px;
             text-align: center;
-            line-height: 50px;
+            line-height: 36px;
             color: $black;
+			margin-left: 10px;
+//			border: 1px solid $light-gray;
             i {
                 font-size: 20px;  
             }
@@ -93,6 +103,7 @@
     .total {
         text-align: right;
         padding-right: 50px;
+		width: 100%;
         .amount-money {
             color: #CA7600;
             font-weight: bold;
@@ -112,10 +123,9 @@
         }
         .book-cover {
             text-align: right;
-            background: red;
         }
         .book-cover, .detail  { 
-//            display: inline-flex;
+			display: inline-block;
             vertical-align: middle;
         }
         .book-title, .amount {
@@ -123,15 +133,39 @@
             width: 100%;
         }
         .book-cover {
-            display: inline-flex;
+//            display: inline-flex;
             width: 100px;
         }
         .detail {
-//            -webkit-flex: initial;
-//            -webkit-flex: 1;
+            -webkit-flex: initial;
+            -webkit-flex: 1;
         }
         .amount {
             width: 100%;
         }
+		.delete {
+			float: right;
+		}
     }
+	@include respond-to (normal-mobile){
+		.book-cover {
+			width: 60px;
+		}
+		.total {
+//			text-align: center;
+			padding-right: 14px;
+		}
+		
+		#quantity-plus, #quantity-minus {
+			margin: 0 4px;
+		}
+		.qty {
+			width: auto;
+		}
+	}
+	@include respond-to (xxs-mobile){
+		.delete {
+			display: block;
+		}
+	}
 }
