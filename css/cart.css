@@ -10,11 +10,98 @@
 }
 .list .book-cover {
   text-align: center;
+  width: 100px;
 }
 .list .book-cover img {
   height: 120px;
 }
-.list .book-detail, .list .book-cover, .list .qty, .list .book-price, .list .delete {
+.list .book-cover, .list .detail, .list .book-title, .list .amount {
   display: table-cell;
   vertical-align: middle;
+}
+.list .book-title {
+  width: 50%;
+}
+.list .amount {
+  width: 50%;
+}
+.list .qty, .list .book-price, .list .delete {
+  display: inline-block;
+}
+.list #quantity-plus, .list #quantity-minus {
+  color: #666;
+  font-size: 15px;
+}
+.list #quantity-input {
+  border: 1px solid #666;
+}
+.list #quantity-input-text {
+  color: #666;
+}
+.list .qty {
+  width: 140px;
+}
+.list .book-price {
+  width: 60px;
+  text-align: right;
+}
+.list .delete {
+  width: 50px;
+}
+.list .delete a {
+  display: block;
+  width: 50px;
+  height: 50px;
+  text-align: center;
+  line-height: 50px;
+  color: #45423D;
+}
+.list .delete a i {
+  font-size: 20px;
+}
+.list .delete a:hover {
+  color: #45423D;
+}
+.list .total {
+  text-align: right;
+  padding-right: 50px;
+}
+.list .total .amount-money {
+  color: #CA7600;
+  font-weight: bold;
+  font-size: 22px;
+}
+@media screen and (max-width: 920px) {
+  .list {
+    width: 100%;
+  }
+}
+@media only screen and (max-width: 767px) {
+  .list {
+    display: flex;
+    height: auto;
+    width: 100%;
+  }
+  .list .book-title {
+    padding-bottom: 30px;
+    padding-left: 5px;
+  }
+  .list .book-cover {
+    text-align: right;
+    background: red;
+  }
+  .list .book-cover, .list .detail {
+    vertical-align: middle;
+  }
+  .list .book-title, .list .amount {
+    display: block;
+    width: 100%;
+  }
+  .list .book-cover {
+    display: inline-flex;
+    width: 100px;
+  }
+  .list .amount {
+    width: 100%;
+  }
 }

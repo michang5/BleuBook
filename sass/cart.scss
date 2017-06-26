@@ -38,12 +38,100 @@
     padding: 20px;
     .book-cover {
         text-align: center;
+        width: 100px;
         img {
             height: 120px;
         }
     }
-    .book-detail, .book-cover, .qty, .book-price , .delete { 
+    .book-cover, .detail, .book-title, .amount { 
         display: table-cell; 
         vertical-align: middle;
+    }
+    .book-title {
+        width: 50%;
+    }
+    .amount {
+        width: 50%;
+    }
+    .qty, .book-price, .delete {
+        display: inline-block;
+    }
+    #quantity-plus, #quantity-minus {
+        color: $gray;
+        font-size: 15px;
+    }
+    #quantity-input {
+        border: 1px solid $gray;
+    }
+    #quantity-input-text {
+        color: $gray;
+    }
+    .qty {
+        width: 140px;
+    }
+    .book-price {
+        width: 60px;
+        text-align: right;
+    }
+    .delete {
+        width: 50px;
+        a {
+            display: block;
+            width: 50px;
+            height: 50px;
+            text-align: center;
+            line-height: 50px;
+            color: $black;
+            i {
+                font-size: 20px;  
+            }
+            &:hover {
+                color: $black;
+            } 
+        }
+    }
+    .total {
+        text-align: right;
+        padding-right: 50px;
+        .amount-money {
+            color: #CA7600;
+            font-weight: bold;
+            font-size: 22px;
+        }
+    }
+    @media screen and (max-width: 920px) {
+        width: 100%;
+    }
+    @include respond-to (only-mobile){
+        display: flex;
+        height: auto;
+        width: 100%;
+        .book-title {
+            padding-bottom: 30px;
+            padding-left: 5px;
+        }
+        .book-cover {
+            text-align: right;
+            background: red;
+        }
+        .book-cover, .detail  { 
+//            display: inline-flex;
+            vertical-align: middle;
+        }
+        .book-title, .amount {
+            display: block;
+            width: 100%;
+        }
+        .book-cover {
+            display: inline-flex;
+            width: 100px;
+        }
+        .detail {
+//            -webkit-flex: initial;
+//            -webkit-flex: 1;
+        }
+        .amount {
+            width: 100%;
+        }
     }
 }

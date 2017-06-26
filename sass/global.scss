@@ -263,7 +263,7 @@ p.note {
 	padding-top: 120px;
     padding-bottom: 20px;
     min-height: 100%;
-	@include respond-to (only-device){
+	@include respond-to (only-mobile){
 		padding-bottom: 10px;
 		padding-top: 36px;
 	}

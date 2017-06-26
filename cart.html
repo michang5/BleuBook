@@ -59,7 +59,9 @@
 					<ul class="nav navbar-nav">
 						<li><a href="index.html">活動</a></li>
 						<li><a href="books.html">選書</a></li>
-						<li><a href="list.html">訂書單</a></li>
+						<li id="list-icon"><a href="list.html">訂書單<div id="list-icon-count" class="inline">
+		<div id="cart-icon-count-num">0</div>
+	</div></a></li>
 						<li id="cart-icon"><a href="cart.html">購物車<div id="cart-icon-count" class="inline">
 		<div id="cart-icon-count-num">0</div>
 	</div>  </a></li>
@@ -73,64 +75,77 @@
 	<div class="wrapper">
 	    <div class="content-wraper">
 		<!--section1 購物清單-->
-		<div id="section1" class="section container-fluid">
-            <div class="col-sm-10 col-md-offset-1">
-                <div class="row">
-                       <div class="list">
+            <div id="section1" class="section container-fluid">
+                <div class="col-md-10 col-md-offset-1 col-sm-12">
+                    <div class="row">
+                        <div class="list">
                             <div class="book-cover">
                                 <img src="images/book_1.jpg" alt="欲望的教育：美意識創造未來">
                             </div>
-                            <div class="book-detail">
-                                <span>欲望的教育：美意識創造未來</span>
-                            </div>
-                            <div class="qty">
-                                <div id="quantity-minus" class="inline">
-                                    <i class="fa fa-minus-circle"></i>
+                            <div class="detail">
+                                <div class="book-title">
+                                    <span>欲望的教育：美意識創造未來</span>
                                 </div>
-                                <div id="quantity-input" class="inline">
-                                    <div id="quantity-input-text" class="inline">1</div>
+                                <div class="amount">
+                                    <div class="qty">
+                                    <div id="quantity-minus" class="inline">
+                                            <i class="fa fa-minus-circle"></i>
+                                        </div>
+                                        <div id="quantity-input" class="inline">
+                                            <div id="quantity-input-text" class="inline">1</div>
+                                        </div>
+                                        <div id="quantity-plus" class="inline">
+                                            <i class="fa fa-plus-circle"></i>
+                                        </div>
+                                    </div>
+                                    <div class="book-price">
+                                        234元
+                                    </div>
+                                    <div class="delete">
+                                        <a href=""><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                                    </div>
                                 </div>
-                                <div id="quantity-plus" class="inline">
-                                    <i class="fa fa-plus-circle"></i>
+                            </div>
+                        </div>
+                        <div class="list">
+                            <div class="book-cover">
+                                <img src="images/book_2.jpg" alt="給未來的創新經營者：從蔦屋書店到佐藤可士和的六堂設計管理課">
+                            </div>
+                            
+                            <div class="detail">
+                                <div class="book-title">
+                                    <span>給未來的創新經營者：從蔦屋書店到佐藤可士和的六堂設計管理課</span>
+                                </div>
+                                <div class="amount">
+                                    <div class="qty">
+                                    <div id="quantity-minus" class="inline">
+                                            <i class="fa fa-minus-circle"></i>
+                                        </div>
+                                        <div id="quantity-input" class="inline">
+                                            <div id="quantity-input-text" class="inline">1</div>
+                                        </div>
+                                        <div id="quantity-plus" class="inline">
+                                            <i class="fa fa-plus-circle"></i>
+                                        </div>
+                                    </div>
+                                    <div class="book-price">
+                                        234元
+                                    </div>
+                                    <div class="delete">
+                                        <a href=""><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="book-price">
-                                234元
-                            </div>
-                            <div class="delete">
-                                <i class="fa fa-trash-o" aria-hidden="true"></i>
-                            </div>
                         </div>
-<!--
-                    <div class="list">
-                        <div class="book-cover col-xs-2">
-                            <img src="images/book_1.jpg" alt="欲望的教育：美意識創造未來">
-                        </div>
-                        <div class="book-detail col-xs-5">
-                            <span>欲望的教育：美意識創造未來</span>
-                        </div>
-                        <div class="qty col-xs-3">
-                            <div id="quantity-minus" class="inline">
-                                <i class="fa fa-minus-circle"></i>
+                        <div class="list">
+                            <div class="total">
+                                <span>總計：</span>
+                                <span class="amount-money">1234 元</span>
                             </div>
-                            <div id="quantity-input" class="inline">
-                                <div id="quantity-input-text" class="inline">0</div>
-                            </div>
-                            <div id="quantity-plus" class="inline">
-                                <i class="fa fa-plus-circle"></i>
-                            </div>
-                        </div>
-                        <div class="book-price col-xs-1">
-                            234元
-                        </div>
-                        <div class="delete col-xs-1">
-                            <i class="fa fa-trash-o" aria-hidden="true"></i>
                         </div>
                     </div>
--->
                 </div>
             </div>
-        </div>
         </div>
     </div>
 	<!--footer-->
@@ -143,66 +158,6 @@
 			<p><a href="#">使用條款與隱私聲明</a></p>
 		</div>
     </div>
-    
-    
-    <div class="modal fade" id="book-single" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<button type="button" class="close hairline" data-dismiss="modal"></button>
-				<div class="modal-body">
-					<div class="container">
-						<div class="row">
-							<div class="col-sm-4 col-sm-offset-2 book-cover">
-								<img src="images/book_1.jpg" alt="欲望的教育：美意識創造未來 作者：原研哉" class="img-responsive">
-							</div>
-							<div class="col-sm-4">
-								<div class="book-detail">
-									<ul>
-										<li>作者：原研哉</li>
-										<li>譯者：李柏黎</li>
-										<li>出版社：雄獅美術</li></li>
-										<li>建議售價：<span class="del">420元</span></li>
-										<li>定價：<span class="discount">9</span> 折 <span class="price">378</span>元</li>
-									</ul>
-									<div id="quantity-container">
-										<div id="quantity-title" class="inline">
-											數量:
-										</div>
-										<div id="quantity-minus" class="inline"><i class="fa fa-minus-circle"></i></div>
-										<div id="quantity-input" class="inline">
-											<div id="quantity-input-text" class="inline">0</div>
-										</div>
-										<div id="quantity-plus" class="inline"><i class="fa fa-plus-circle"></i></div>
-										<div>
-											<div id="quantity-add-cart" class="add-cart-null">
-												加入購物車
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-sm-8 col-sm-offset-2">
-								<div class="recommand-block">
-									<div class="row">
-										<div class="recommended col-sm-2 col-xs-3"><img src="images/participant_2.jpg" alt="杜祖業 GQ 雜誌總編輯" class="img-responsive"></div>
-										<div class="recommended-content col-sm-10 col-xs-9">
-											<p class="name">杜祖業 <span class="title">GQ 雜誌總編輯</span><span class="icon_recommand"><img src="images/icon_recommand.png" alt=""></span></p>
-											<p class="recommand">如此的簡潔並非是理性探求之下所得到的成果，也不是偶然的產物。而是將「什麼都沒有」這件事給有意圖地設定為目的。藉著空無一物之器皿的建立，「空（emptiness）」的概念就得以體現，進而吸引人群注意並產生向心力，此概念便能被有效運用。</p>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	
-
-
 
 	<!--jQuery--> 
 	<script type="text/javascript" src="js/jquery-2.2.4.js"></script>
