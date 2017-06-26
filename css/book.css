@@ -28,7 +28,6 @@
 @media only screen and (min-width: 1200px) {
   .book-cover-list .book-cover {
     min-height: 264px;
-    border: 1px solid red;
   }
 }
 @media only screen and (min-width: 1300px) {

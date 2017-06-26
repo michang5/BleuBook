@@ -260,15 +260,20 @@ p.note {
 .container-fluid {
 }
 .wrapper {
-	margin-top: 120px;
+	padding-top: 120px;
     padding-bottom: 20px;
+    min-height: 100%;
 	@include respond-to (only-device){
 		padding-bottom: 10px;
-		margin-top: 36px;
+		padding-top: 36px;
 	}
 //	#books & {
 //		margin-top: 120px;
 //	}
+}
+.content-wraper {
+    overflow: hidden;
+    padding-bottom: 150px;
 }
 #section1, #section2, #section3, #section4 {
     max-width: 1400px;
@@ -374,8 +379,13 @@ p.note {
 		float: none;
 		background: white;
 		position: relative;
+        height: auto;
 //		border-bottom: 1px solid $gold;
-		height: 56px;
+        @include respond-to (only-mobile){
+            height: 56px;
+            border-bottom: 1px solid $light-gray;
+        }
+		
 	}
 	.logo {
         margin: 0;
@@ -387,16 +397,20 @@ p.note {
 	#main-nav {
 		z-index: 999;
 		background: white;
-		margin-top: -3px;
+		margin-top: 0px;
 		border-bottom: 1px solid $gold;
 	}
 	.navbar {
 		border: none;
 		margin: 0;
 		min-height: inherit;
-		height: 56px;
+//		height: 56px;
 		background: white;
-        border-bottom: 1px solid $black;
+//        border-bottom: 1px solid $black;
+        @include respond-to (only-mobile){
+            height: 56px;
+//            border-bottom: 1px solid $black;
+        }
 	}
 	.navbar-toggle {
 		font-size: $xxl-font;
@@ -542,6 +556,7 @@ $hamburger__colour: $black;
 }
 
 .footer {
+    margin-top: -133px;
 	border-top: 1px solid $gold;
 	.footer-content {
 		text-align: center;

@@ -1,0 +1,49 @@
+@charset 'utf-8';
+@import 'compass';
+@import 'base/fonts';
+@import 'base/style';
+@import 'base/media';
+@import url('https://fonts.googleapis.com/css?family=Roboto+Condensed:700');
+//@import 'base/css3-mixins';
+
+/* ------------ base ------------ */
+
+
+//.list {
+//    border: 1px solid $gray;
+//    padding: 20px;
+//    display: table;
+//    height: auto;
+//    
+//    > div {
+//        display: table-cell;
+//        vertical-align: middle;
+//    }
+//    .book-cover {
+//         vertical-align: middle;
+//        img {
+//            width: 80px;
+//        }
+//    }
+//    .book-detail {
+//         vertical-align: middle;
+//    }
+//}
+.list { 
+    display:table; 
+    height: 120px; 
+    width: 80%;
+    margin: 0 auto;
+    border-bottom: 1px solid #ddd;
+    padding: 20px;
+    .book-cover {
+        text-align: center;
+        img {
+            height: 120px;
+        }
+    }
+    .book-detail, .book-cover, .qty, .book-price , .delete { 
+        display: table-cell; 
+        vertical-align: middle;
+    }
+}

@@ -143,7 +143,7 @@ ul, li {
   cursor: pointer;
   top: 12px;
   right: 12px;
-  background: #F7F7F7;
+  background: #ddd;
 }
 .close:hover {
   background-color: transparent;
@@ -257,14 +257,20 @@ p.note {
 }
 
 .wrapper {
-  margin-top: 120px;
+  padding-top: 120px;
   padding-bottom: 20px;
+  min-height: 100%;
 }
 @media only screen and (max-width: 768px) {
   .wrapper {
     padding-bottom: 10px;
-    margin-top: 36px;
+    padding-top: 36px;
   }
+}
+
+.content-wraper {
+  overflow: hidden;
+  padding-bottom: 150px;
 }
 
 #section1, #section2, #section3, #section4 {
@@ -311,7 +317,13 @@ p.note {
   float: none;
   background: white;
   position: relative;
-  height: 56px;
+  height: auto;
+}
+@media only screen and (max-width: 767px) {
+  #navigation .navbar-header {
+    height: 56px;
+    border-bottom: 1px solid #ddd;
+  }
 }
 #navigation .logo {
   margin: 0;
@@ -323,16 +335,19 @@ p.note {
 #navigation #main-nav {
   z-index: 999;
   background: white;
-  margin-top: -3px;
+  margin-top: 0px;
   border-bottom: 1px solid #AF946F;
 }
 #navigation .navbar {
   border: none;
   margin: 0;
   min-height: inherit;
-  height: 56px;
   background: white;
-  border-bottom: 1px solid #45423D;
+}
+@media only screen and (max-width: 767px) {
+  #navigation .navbar {
+    height: 56px;
+  }
 }
 #navigation .navbar-toggle {
   font-size: 1.5em;
@@ -473,6 +488,7 @@ p.note {
 }
 
 .footer {
+  margin-top: -133px;
   border-top: 1px solid #AF946F;
 }
 .footer .footer-content {

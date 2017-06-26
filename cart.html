@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<meta name="description" content="">
+
+	<!--og info-->
+	<meta property="og:title" content="青鳥線上"/>
+	<meta property="og:url" content=""/>
+	<meta property="og:image" content=""/>
+	<meta property="og:site_name" content="青鳥線上"/>
+	<meta property="og:description" content="青鳥線上">
+
+	<title>青鳥線上</title>
+ 
+	<meta name="keywords" content="" />
+	<meta name="description" content="" />
+	
+	<!--css-->
+	<link href="css/bootstrap.css" rel="stylesheet">
+	<link href="css/global.css" rel="stylesheet">
+	<link href="css/slick-theme.css" rel="stylesheet">
+	<link href="css/slick.css" rel="stylesheet">
+	<link href="css/cart.css" rel="stylesheet">
+	<link href="fonts/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+
+	<!--google-->
+	<meta name="google-site-verification" content="-MLXb98KIXlOE_dmJ18CK9Ynil6NnPMRct9vU1ZYDpg" />
+	<link href="https://fonts.googleapis.com/css?family=Lora|Roboto:100,700,500" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Spectral:400,700" rel="stylesheet">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.2.2/velocity.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.2.2/velocity.ui.min.js"></script>
+	<script src="https://use.typekit.net/oem8boq.js"></script>
+	<script>try{Typekit.load({ async: true });}catch(e){}</script>
+	<!--[if lt IE 9]>
+		<script type="text/javascript" src="js/html5shiv.min.js"></script>
+		<script type="text/javascript" src="js/respond.min.js"></script>
+	<![endif]-->
+	<!--GA-->
+	<div id="fb-root"></div>
+	
+</head>
+<body id="cart">
+	
+	<!-- Navigation -->
+	<div id="navigation" class="container-fluid">
+		<nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
+			<div class="">
+				<div class="navbar-header">
+					<h2 class="logo"><a href="index.html"><img src="images/BleuBook_logo.png" alt="青鳥書店 Bleu Book" title="青鳥書店 Bleu Book"></a></h2>
+					<div class="header__menu">
+						<a id="header__button" class="hamburger" href="#"  data-toggle="collapse" data-target="#main-nav">
+							<div class="hamburger__inner"></div>
+						</a>  
+					</div>
+				</div>
+				<div class="collapse navbar-collapse" id="main-nav">
+					<ul class="nav navbar-nav">
+						<li><a href="index.html">活動</a></li>
+						<li><a href="books.html">選書</a></li>
+						<li><a href="list.html">訂書單</a></li>
+						<li id="cart-icon"><a href="cart.html">購物車<div id="cart-icon-count" class="inline">
+		<div id="cart-icon-count-num">0</div>
+	</div>  </a></li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+	</div>
+	<!-- /.Navigation -->
+	
+	<div class="wrapper">
+	    <div class="content-wraper">
+		<!--section1 購物清單-->
+		<div id="section1" class="section container-fluid">
+            <div class="col-sm-10 col-md-offset-1">
+                <div class="row">
+                       <div class="list">
+                            <div class="book-cover">
+                                <img src="images/book_1.jpg" alt="欲望的教育：美意識創造未來">
+                            </div>
+                            <div class="book-detail">
+                                <span>欲望的教育：美意識創造未來</span>
+                            </div>
+                            <div class="qty">
+                                <div id="quantity-minus" class="inline">
+                                    <i class="fa fa-minus-circle"></i>
+                                </div>
+                                <div id="quantity-input" class="inline">
+                                    <div id="quantity-input-text" class="inline">1</div>
+                                </div>
+                                <div id="quantity-plus" class="inline">
+                                    <i class="fa fa-plus-circle"></i>
+                                </div>
+                            </div>
+                            <div class="book-price">
+                                234元
+                            </div>
+                            <div class="delete">
+                                <i class="fa fa-trash-o" aria-hidden="true"></i>
+                            </div>
+                        </div>
+<!--
+                    <div class="list">
+                        <div class="book-cover col-xs-2">
+                            <img src="images/book_1.jpg" alt="欲望的教育：美意識創造未來">
+                        </div>
+                        <div class="book-detail col-xs-5">
+                            <span>欲望的教育：美意識創造未來</span>
+                        </div>
+                        <div class="qty col-xs-3">
+                            <div id="quantity-minus" class="inline">
+                                <i class="fa fa-minus-circle"></i>
+                            </div>
+                            <div id="quantity-input" class="inline">
+                                <div id="quantity-input-text" class="inline">0</div>
+                            </div>
+                            <div id="quantity-plus" class="inline">
+                                <i class="fa fa-plus-circle"></i>
+                            </div>
+                        </div>
+                        <div class="book-price col-xs-1">
+                            234元
+                        </div>
+                        <div class="delete col-xs-1">
+                            <i class="fa fa-trash-o" aria-hidden="true"></i>
+                        </div>
+                    </div>
+-->
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+	<!--footer-->
+	<div class="footer container-fluid">
+		<div class="footer-content">
+			<ul>
+				<li><span><img src="images/BleuBook_logo_s.png" alt=""></span>© bleu & book 青鳥書店</li>
+				<li><a href=""><img src="images/icon_fb.png" alt=""></a></li>
+			</ul>
+			<p><a href="#">使用條款與隱私聲明</a></p>
+		</div>
+    </div>
+    
+    
+    <div class="modal fade" id="book-single" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<button type="button" class="close hairline" data-dismiss="modal"></button>
+				<div class="modal-body">
+					<div class="container">
+						<div class="row">
+							<div class="col-sm-4 col-sm-offset-2 book-cover">
+								<img src="images/book_1.jpg" alt="欲望的教育：美意識創造未來 作者：原研哉" class="img-responsive">
+							</div>
+							<div class="col-sm-4">
+								<div class="book-detail">
+									<ul>
+										<li>作者：原研哉</li>
+										<li>譯者：李柏黎</li>
+										<li>出版社：雄獅美術</li></li>
+										<li>建議售價：<span class="del">420元</span></li>
+										<li>定價：<span class="discount">9</span> 折 <span class="price">378</span>元</li>
+									</ul>
+									<div id="quantity-container">
+										<div id="quantity-title" class="inline">
+											數量:
+										</div>
+										<div id="quantity-minus" class="inline"><i class="fa fa-minus-circle"></i></div>
+										<div id="quantity-input" class="inline">
+											<div id="quantity-input-text" class="inline">0</div>
+										</div>
+										<div id="quantity-plus" class="inline"><i class="fa fa-plus-circle"></i></div>
+										<div>
+											<div id="quantity-add-cart" class="add-cart-null">
+												加入購物車
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-8 col-sm-offset-2">
+								<div class="recommand-block">
+									<div class="row">
+										<div class="recommended col-sm-2 col-xs-3"><img src="images/participant_2.jpg" alt="杜祖業 GQ 雜誌總編輯" class="img-responsive"></div>
+										<div class="recommended-content col-sm-10 col-xs-9">
+											<p class="name">杜祖業 <span class="title">GQ 雜誌總編輯</span><span class="icon_recommand"><img src="images/icon_recommand.png" alt=""></span></p>
+											<p class="recommand">如此的簡潔並非是理性探求之下所得到的成果，也不是偶然的產物。而是將「什麼都沒有」這件事給有意圖地設定為目的。藉著空無一物之器皿的建立，「空（emptiness）」的概念就得以體現，進而吸引人群注意並產生向心力，此概念便能被有效運用。</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+
+
+
+	<!--jQuery--> 
+	<script type="text/javascript" src="js/jquery-2.2.4.js"></script>
+	<script type="text/javascript" src="js/bootstrap.min.js" ></script>
+	<script type="text/javascript" src="js/slick.min.js" ></script>
+	<!--script type="text/javascript" src="js/jquery.mobile.custom.min.js"></script-->
+	<script type="text/javascript" src="js/script.js" ></script>
+	
+
+</body>
+</html>

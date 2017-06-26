@@ -1,0 +1,20 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto+Condensed:700");
+/* ------------ base ------------ */
+.list {
+  display: table;
+  height: 120px;
+  width: 80%;
+  margin: 0 auto;
+  border-bottom: 1px solid #ddd;
+  padding: 20px;
+}
+.list .book-cover {
+  text-align: center;
+}
+.list .book-cover img {
+  height: 120px;
+}
+.list .book-detail, .list .book-cover, .list .qty, .list .book-price, .list .delete {
+  display: table-cell;
+  vertical-align: middle;
+}

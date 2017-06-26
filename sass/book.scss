@@ -37,7 +37,7 @@
         background-position: center bottom;
         @include respond-to (xlg-screen){
             min-height: 264px;
-            border: 1px solid red;
+//            border: 1px solid red;
         }
         @media only screen and (min-width: 1300px) {
             min-height: 280px;
