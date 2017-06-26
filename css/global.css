@@ -841,13 +841,13 @@ blockquote:hover:after {
   font-weight: normal;
 }
 .content .slick-prev {
-  left: -40px;
+  left: -20px;
 }
 .content .slick-prev::before {
   content: "\f104";
 }
 .content .slick-next {
-  right: -40px;
+  right: -20px;
 }
 @media only screen and (min-width: 1200px) {
   .content .slider .book-cover {

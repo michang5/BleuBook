@@ -900,13 +900,13 @@ blockquote {
 		}
 	}
 	.slick-prev {
-		left: -40px;
+		left: -20px;
 		&::before {
 			content: "\f104";
 		}
 	}
 	.slick-next {
-		right: -40px;
+		right: -20px;
 	}
 	@include respond-to (xlg-screen){
 		.slider {
