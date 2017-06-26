@@ -52,7 +52,8 @@ h3 {
 	line-height: 1.2;
 	font-weight: 600;
 	color: $dark-gray;
-	font-size: 32px;
+	font-size: 20px;
+	font-weight: normal;
 }
 h4 {
 	font-size: 18px;
@@ -116,7 +117,9 @@ ul, li {
 	-webkit-padding-start: 0;
 	list-style: none;
 }
-	
+.gold {
+	color: $gold;
+}
 .close {
 	position: absolute;
 	display: inline-block;
@@ -167,8 +170,7 @@ p.note {
 	height: 50px;
 	color: $black;
 	width: 240px;
-	margin: 10px auto;
-	
+	margin: 30px auto;
 	a {
 		display: block;
 		text-align: center;
@@ -178,6 +180,9 @@ p.note {
 			background: $rice;
 			border: 1px solid $gray;
 		}
+	}
+	&.full {
+		width: 100%;
 	}
 }
 .tab-container {
@@ -1168,4 +1173,12 @@ blockquote {
             }
         }
     }
+}
+.form-control {
+	border-radius: 0;
+	height: 40px;
+	margin: 12px 0;
+}
+form label {
+	font-weight: normal;
 }

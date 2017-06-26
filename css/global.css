@@ -52,7 +52,8 @@ h3 {
   line-height: 1.2;
   font-weight: 600;
   color: #4A4A4A;
-  font-size: 32px;
+  font-size: 20px;
+  font-weight: normal;
 }
 
 h4 {
@@ -131,6 +132,10 @@ ul, li {
   list-style: none;
 }
 
+.gold {
+  color: #AF946F;
+}
+
 .close {
   position: absolute;
   display: inline-block;
@@ -190,7 +195,7 @@ p.note {
   height: 50px;
   color: #45423D;
   width: 240px;
-  margin: 10px auto;
+  margin: 30px auto;
 }
 .a-btn-lg a {
   display: block;
@@ -201,6 +206,9 @@ p.note {
 .a-btn-lg a:hover {
   background: #FAF8F5;
   border: 1px solid #666;
+}
+.a-btn-lg.full {
+  width: 100%;
 }
 
 .tab-container {
@@ -1068,4 +1076,14 @@ blockquote:hover:after {
   .pagination-container .pagination > li > a, .pagination-container .pagination > li > span {
     margin: 0 1px;
   }
+}
+
+.form-control {
+  border-radius: 0;
+  height: 40px;
+  margin: 12px 0;
+}
+
+form label {
+  font-weight: normal;
 }
