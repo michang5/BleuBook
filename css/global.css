@@ -260,14 +260,11 @@ p.note {
   margin-top: 120px;
   padding-bottom: 20px;
 }
-@media only screen and (max-width: 767px) {
+@media only screen and (max-width: 768px) {
   .wrapper {
     padding-bottom: 10px;
     margin-top: 36px;
   }
-}
-#books .wrapper {
-  margin-top: 120px;
 }
 
 #section1, #section2, #section3, #section4 {
@@ -280,13 +277,6 @@ p.note {
 #section1 h2, #section2 h2, #section3 h2, #section4 h2 {
   margin-top: 0;
   margin-bottom: 50px;
-}
-#section1 .row [class*="col-"], #section2 .row [class*="col-"], #section3 .row [class*="col-"], #section4 .row [class*="col-"] {
-  margin-bottom: -99999px;
-  padding-bottom: 99999px;
-}
-#section1 .row, #section2 .row, #section3 .row, #section4 .row {
-  overflow: hidden;
 }
 @media only screen and (max-width: 767px) {
   #section1, #section2, #section3, #section4 {
@@ -321,7 +311,7 @@ p.note {
   float: none;
   background: white;
   position: relative;
-  border-bottom: 1px solid #AF946F;
+  height: 56px;
 }
 #navigation .logo {
   margin: 0;
@@ -342,6 +332,7 @@ p.note {
   min-height: inherit;
   height: 56px;
   background: white;
+  border-bottom: 1px solid #45423D;
 }
 #navigation .navbar-toggle {
   font-size: 1.5em;
@@ -431,7 +422,7 @@ p.note {
   top: 20px;
   right: 20px;
 }
-@media screen and (min-width: 769px) {
+@media screen and (min-width: 768px) {
   .hamburger {
     display: none;
   }
@@ -842,7 +833,6 @@ blockquote:hover:after {
 @media only screen and (min-width: 769px) and (max-width: 991px) {
   .content .slider .book-cover {
     min-height: 280px;
-    border: 1px solid green;
   }
 }
 @media only screen and (min-width: 769px) and (max-width: 890px) {
@@ -1024,4 +1014,20 @@ blockquote:hover:after {
 .recommand-block .icon_recommand img {
   width: 25px;
   margin-top: -4px;
+}
+
+.pagination-container {
+  text-align: center;
+}
+.pagination-container .pagination > li > a, .pagination-container .pagination > li > span {
+  border-radius: 0;
+  font-weight: lighter;
+  font-size: 13px;
+  margin: 0 2px;
+  color: #45423D;
+}
+@media only screen and (max-width: 768px) {
+  .pagination-container .pagination > li > a, .pagination-container .pagination > li > span {
+    margin: 0 1px;
+  }
 }

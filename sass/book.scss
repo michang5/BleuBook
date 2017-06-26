@@ -9,32 +9,65 @@
 /* ------------ base ------------ */
 
 
-
-#section1 {
-	padding-top: 0;
-	padding-bottom: 0;
-	border-bottom: 1px solid $gold;
-	padding-left: 0;
-	padding-right: 0;
+.book-cover-list {
+    .col-xs-3 {
+        margin-bottom: 18px;
+//        border: 1px solid red;
+        a {
+            display: block;
+            width: 100%;
+            height: 100%;
+            cursor: pointer; 
+        }
+        h4 {
+            font-size: 16px;
+            line-height: 1.4;
+            color: $black;
+        }
+        h5 {
+            line-height: 1.4;
+            color: $black;
+        }
+    }
+    .book-cover {
+        width: 100%;
+        min-height: 250px;
+        background: no-repeat;
+        background-size: contain;
+        background-position: center bottom;
+        @include respond-to (xlg-screen){
+            min-height: 264px;
+            border: 1px solid red;
+        }
+        @media only screen and (min-width: 1300px) {
+            min-height: 280px;
+        }
+        @include respond-to (lg-screen){
+            min-height: 200px;
+        }
+        @include respond-to (md-screen){
+            min-height: 170px;
+        }
+        @media only screen and (min-width: 769px) and (max-width: 890px) {
+            min-height: 150px;
+        }
+        @include respond-to (only-device){
+            min-height: 140px;
+        }
+        @media only screen and (min-width: 641px) and (max-width: 767px) {
+            min-height: 200px;
+        }
+        @include respond-to (normal-mobile){
+            min-height: 120px;
+        }
+        @media only screen and (min-width: 375px) and (max-width: 413px) {
+            min-height: 110px;
+        }
+        @media only screen and (min-width: 321px) and (max-width: 374px) {
+            min-height: 90px;
+        }
+        @include respond-to (xxs-mobile){
+            min-height: 90px;
+        }
+    }
 }
-#section2, #section3, #section4 {
-	text-align: center;
-	h4 {
-		line-height: 1.6;
-	}
-}
-//.book-cover-list {
-//	.book-cover {
-//		height: 100%;
-//		vertical-align: bottom;
-//		display: table;
-//		>a {
-//			display: table-cell;
-//			vertical-align: bottom;
-//		}
-//	}
-//	img {
-//		vertical-align: bottom;
-//		width: 100%;
-//	}
-//}
