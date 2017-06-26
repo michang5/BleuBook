@@ -588,8 +588,27 @@ $hamburger__colour: $black;
 
 //carousel
 .carousel-caption {
+    @media screen and (min-width: 769px) {
+        display: none;
+    }
 	position: static;
-	height: 600px;
+    text-shadow: none;
+    padding-top: 12px;
+    padding-bottom: 40px;
+    h3 {
+        font-size: 18px;
+        color: $black;
+        font-weight: normal;
+    }
+    h4 {
+        font-size: 15px;
+        color: $gray;
+        font-weight: lighter;
+    }
+    h3, h4 {
+        line-height: 1.2;
+        margin: 0;
+    }
 }
 .carousel-control {
 	width: 5%;
@@ -610,10 +629,12 @@ $hamburger__colour: $black;
 	li {
 		border-color: $light-gold;
 	}
+    @media screen and (max-width: 768px) {
+        bottom: 0;
+    }
 }
 @media screen and (max-width: 768px) {
 	.carousel-caption {
-		height: 620px;
 	}
 	.carousel-control {
 		width: 15%;

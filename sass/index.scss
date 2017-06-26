@@ -9,7 +9,113 @@
 /* ------------ base ------------ */
 
 
-
+.event-pagination {
+    padding: 20px 0;
+    clear: left;
+    display: flex;
+    .now {
+        -webkit-flex: initial;
+        -webkit-flex: 1;
+        flex: 1;
+        padding: 4px;
+        text-align: center;
+        h2, h3 {
+            margin-bottom: 6px!important;
+        }
+        h2 {
+            font-size: 18px;
+            color: $black;
+            font-weight: normal;
+        }
+        h3 {
+            font-size: 15px;
+            color: $gray;
+            font-weight: lighter;
+        }
+    }
+    .next, .prev {
+        width: 240px;
+        height: 60px;
+        padding: 10px;
+        border: 1px solid $gold;
+        -webkit-flex: none;
+        flex: none;
+        position: relative;
+        a {
+//            display: flex;
+           .goto, .title, sub-title {
+            }
+            .goto-left, .goto-right {
+                position: absolute;
+                padding: 0 6px;
+                top: 7px;
+            }
+            .goto-left {
+                left: 0;
+            }
+            .goto-right {
+                right: 0;
+            }
+            .title {
+                height: 40px;
+                overflow: hidden;
+                display: block;
+            }
+        }
+        
+    } 
+    .next {
+        float: right;
+        padding-right: 24px;
+        text-align: right;
+    }
+    .prev {
+        padding-left: 24px;
+    }
+    @media screen and (min-width: 768px) {
+        .title-sub {
+            display: none;
+        }
+        .next, .prev {
+            width: 150px;
+        }
+    }
+    @media screen and (min-width: 992px) {
+        .next, .prev {
+            width: 220px;
+        }
+    }
+    @media screen and (max-width: 767px) {
+        .next, .prev {
+            width: 80px;
+            height: 26px;
+            padding-top: 4px;
+            font-size: 12px;
+            a {
+                .goto-left, .goto-right {
+                    top: 4px;
+                }
+                .title {
+                    display: none;
+                }
+                .title-sub {
+                    display: block;
+                }
+            }
+        }
+    }
+    @include respond-to (xxs-mobile){
+        .next, .prev {
+            width: 26px;
+            padding: 0;
+            a {
+                .title-sub {
+                    display: none;
+                }
+            }
+        }
+    }
+}
 #section1 {
 	padding-top: 0;
 	padding-bottom: 0;

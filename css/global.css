@@ -514,7 +514,28 @@ p.note {
 
 .carousel-caption {
   position: static;
-  height: 600px;
+  text-shadow: none;
+  padding-top: 12px;
+  padding-bottom: 40px;
+}
+@media screen and (min-width: 769px) {
+  .carousel-caption {
+    display: none;
+  }
+}
+.carousel-caption h3 {
+  font-size: 18px;
+  color: #45423D;
+  font-weight: normal;
+}
+.carousel-caption h4 {
+  font-size: 15px;
+  color: #666;
+  font-weight: lighter;
+}
+.carousel-caption h3, .carousel-caption h4 {
+  line-height: 1.2;
+  margin: 0;
 }
 
 .carousel-control {
@@ -540,12 +561,13 @@ p.note {
 .carousel-indicators li {
   border-color: #E1C9A7;
 }
+@media screen and (max-width: 768px) {
+  .carousel-indicators {
+    bottom: 0;
+  }
+}
 
 @media screen and (max-width: 768px) {
-  .carousel-caption {
-    height: 620px;
-  }
-
   .carousel-control {
     width: 15%;
     padding-top: 40%;
