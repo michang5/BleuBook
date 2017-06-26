@@ -61,8 +61,13 @@
                 overflow: hidden;
                 display: block;
             }
+            &:hover {
+                color: $gold;
+            }
         }
-        
+        &:hover {
+            background: $rice;
+        }
     } 
     .next {
         float: right;

@@ -50,6 +50,12 @@
   overflow: hidden;
   display: block;
 }
+.event-pagination .next a:hover, .event-pagination .prev a:hover {
+  color: #AF946F;
+}
+.event-pagination .next:hover, .event-pagination .prev:hover {
+  background: #FAF8F5;
+}
 .event-pagination .next {
   float: right;
   padding-right: 24px;
