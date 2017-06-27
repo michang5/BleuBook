@@ -1,5 +1,23 @@
 @import url("https://fonts.googleapis.com/css?family=Roboto+Condensed:700");
 /* ------------ base ------------ */
+.event-pagination h2, .event-pagination h3, .event-info h2, .event-info h3 {
+  margin-bottom: 6px !important;
+}
+.event-pagination h2, .event-info h2 {
+  font-size: 18px;
+  color: #45423D;
+  font-weight: normal;
+}
+.event-pagination h3, .event-info h3 {
+  font-size: 15px;
+  color: #666;
+  font-weight: lighter;
+}
+
+.quote-block a {
+  height: 100%;
+}
+
 .event-pagination {
   padding: 20px 0;
   clear: left;
@@ -11,19 +29,6 @@
   flex: 1;
   padding: 4px;
   text-align: center;
-}
-.event-pagination .now h2, .event-pagination .now h3 {
-  margin-bottom: 6px !important;
-}
-.event-pagination .now h2 {
-  font-size: 18px;
-  color: #45423D;
-  font-weight: normal;
-}
-.event-pagination .now h3 {
-  font-size: 15px;
-  color: #666;
-  font-weight: lighter;
 }
 .event-pagination .next, .event-pagination .prev {
   width: 240px;

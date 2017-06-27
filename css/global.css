@@ -95,14 +95,6 @@ p, li {
   line-height: 1.9;
 }
 
-body.season2 p a {
-  color: #AF946F;
-}
-body.season2 p a:hover, body.season2 p a:focus {
-  color: #fff;
-  background: #AF946F;
-}
-
 a {
   color: #AF946F;
   -moz-transition: all, 0.5s, ease-in;
@@ -112,6 +104,7 @@ a {
 }
 a:hover, a:focus {
   text-decoration: none;
+  color: #AF946F;
 }
 
 .clearfix {
@@ -180,6 +173,33 @@ ul, li {
   -ms-transform: rotate(-45deg);
   -webkit-transform: rotate(-45deg);
   transform: rotate(-45deg);
+}
+
+.row-centered {
+  text-align: center;
+}
+
+.col-centered {
+  display: inline-block;
+  float: none;
+  /* reset the text-align */
+  text-align: left;
+  /* inline-block space fix */
+  margin-right: -4px;
+}
+.col-centered h4, .col-centered h5 {
+  text-align: center;
+}
+.col-centered.col-xs-3 {
+  padding-left: 30px;
+  padding-right: 30px;
+  vertical-align: top;
+}
+.col-centered.col-xs-3.host {
+  padding-right: 40px;
+}
+.col-centered.col-xs-3.participant:nth-of-type(1) {
+  padding-left: 40px;
 }
 
 .modal h4 {
@@ -281,29 +301,47 @@ p.note {
   padding-bottom: 150px;
 }
 
-#section1, #section2, #section3, #section4 {
+#section1, #section2, #section3, #section4, #section5, #section6, #section7 {
   max-width: 1400px;
   margin: 0 auto;
   padding-top: 50px;
   padding-bottom: 50px;
   border-bottom: 1px solid #AF946F;
 }
-#section1 h2, #section2 h2, #section3 h2, #section4 h2 {
+#section1 h2, #section2 h2, #section3 h2, #section4 h2, #section5 h2, #section6 h2, #section7 h2 {
   margin-top: 0;
   margin-bottom: 50px;
+  text-align: center;
+}
+#section1 .quote-block.row, #section1 .qa-block.row, #section1 .recent-events.row, #section2 .quote-block.row, #section2 .qa-block.row, #section2 .recent-events.row, #section3 .quote-block.row, #section3 .qa-block.row, #section3 .recent-events.row, #section4 .quote-block.row, #section4 .qa-block.row, #section4 .recent-events.row, #section5 .quote-block.row, #section5 .qa-block.row, #section5 .recent-events.row, #section6 .quote-block.row, #section6 .qa-block.row, #section6 .recent-events.row, #section7 .quote-block.row, #section7 .qa-block.row, #section7 .recent-events.row {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+#section1 .quote-block.row > [class*='col-'], #section1 .qa-block.row > [class*='col-'], #section1 .recent-events.row > [class*='col-'], #section2 .quote-block.row > [class*='col-'], #section2 .qa-block.row > [class*='col-'], #section2 .recent-events.row > [class*='col-'], #section3 .quote-block.row > [class*='col-'], #section3 .qa-block.row > [class*='col-'], #section3 .recent-events.row > [class*='col-'], #section4 .quote-block.row > [class*='col-'], #section4 .qa-block.row > [class*='col-'], #section4 .recent-events.row > [class*='col-'], #section5 .quote-block.row > [class*='col-'], #section5 .qa-block.row > [class*='col-'], #section5 .recent-events.row > [class*='col-'], #section6 .quote-block.row > [class*='col-'], #section6 .qa-block.row > [class*='col-'], #section6 .recent-events.row > [class*='col-'], #section7 .quote-block.row > [class*='col-'], #section7 .qa-block.row > [class*='col-'], #section7 .recent-events.row > [class*='col-'] {
+  display: flex;
+  flex-direction: column;
 }
 @media only screen and (max-width: 767px) {
-  #section1, #section2, #section3, #section4 {
-    padding-top: 25px;
-    padding-bottom: 25px;
-  }
-  #section1 h2, #section2 h2, #section3 h2, #section4 h2 {
-    margin-bottom: 25px;
-  }
-  #section1 .row, #section2 .row, #section3 .row, #section4 .row {
+  #section1 .quote-block.row, #section1 .qa-block.row, #section1 .recent-events.row, #section2 .quote-block.row, #section2 .qa-block.row, #section2 .recent-events.row, #section3 .quote-block.row, #section3 .qa-block.row, #section3 .recent-events.row, #section4 .quote-block.row, #section4 .qa-block.row, #section4 .recent-events.row, #section5 .quote-block.row, #section5 .qa-block.row, #section5 .recent-events.row, #section6 .quote-block.row, #section6 .qa-block.row, #section6 .recent-events.row, #section7 .quote-block.row, #section7 .qa-block.row, #section7 .recent-events.row {
     display: block;
   }
-  #section1 [class*='col-'], #section2 [class*='col-'], #section3 [class*='col-'], #section4 [class*='col-'] {
+}
+@media only screen and (max-width: 767px) {
+  #section1, #section2, #section3, #section4, #section5, #section6, #section7 {
+    padding-top: 25px;
+    padding-bottom: 25px;
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+  #section1 h2, #section2 h2, #section3 h2, #section4 h2, #section5 h2, #section6 h2, #section7 h2 {
+    margin-bottom: 25px;
+  }
+  #section1 > .row, #section2 > .row, #section3 > .row, #section4 > .row, #section5 > .row, #section6 > .row, #section7 > .row {
+    display: block;
+  }
+  #section1 [class*='col-'], #section2 [class*='col-'], #section3 [class*='col-'], #section4 [class*='col-'], #section5 [class*='col-'], #section6 [class*='col-'], #section7 [class*='col-'] {
     padding-left: 8px;
     padding-right: 8px;
   }
@@ -912,10 +950,10 @@ blockquote:hover:after {
 }
 @media only screen and (max-width: 480px) {
   .content .slick-prev {
-    left: -20px;
+    left: -33px;
   }
   .content .slick-next {
-    right: -20px;
+    right: -33px;
   }
   .content .slider .book-cover {
     min-height: 220px;

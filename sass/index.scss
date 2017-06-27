@@ -8,6 +8,28 @@
 
 /* ------------ base ------------ */
 
+.event-pagination, .event-info {
+	h2,h3 {
+		margin-bottom: 6px!important;
+	}
+
+	h2 {
+		font-size: 18px;
+		color: $black;
+		font-weight: normal;
+	}
+	h3 {
+		font-size: 15px;
+		color: $gray;
+		font-weight: lighter;
+	}
+}
+.quote-block {
+	a {
+		height: 100%;
+	}
+}
+	
 
 .event-pagination {
     padding: 20px 0;
@@ -19,19 +41,6 @@
         flex: 1;
         padding: 4px;
         text-align: center;
-        h2, h3 {
-            margin-bottom: 6px!important;
-        }
-        h2 {
-            font-size: 18px;
-            color: $black;
-            font-weight: normal;
-        }
-        h3 {
-            font-size: 15px;
-            color: $gray;
-            font-weight: lighter;
-        }
     }
     .next, .prev {
         width: 240px;
