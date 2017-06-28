@@ -25,6 +25,12 @@
   }
 }
 
+.inquire {
+  border-bottom: 1px solid #AF946F;
+  padding-bottom: 30px;
+  margin-bottom: 40px;
+}
+
 .tab-container {
   margin: 10px auto;
   padding: 4px 10px;
@@ -43,6 +49,10 @@
   .table th:first-of-type, .table td:first-of-type {
     width: 50%;
   }
+}
+
+.a-btn-lg.full {
+  margin: 4px 0 30px;
 }
 
 .order-list-single {

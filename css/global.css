@@ -1128,3 +1128,10 @@ blockquote:hover:after {
 form label {
   font-weight: normal;
 }
+
+.warning {
+  color: #D0011B;
+  font-weight: normal;
+  margin-top: -6px;
+  display: block;
+}

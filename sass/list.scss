@@ -28,6 +28,11 @@
 		}
 	}
 }
+.inquire {
+	border-bottom: 1px solid $gold;
+	padding-bottom: 30px;
+	margin-bottom: 40px;
+}
 .tab-container {
 	margin: 10px auto;
 	padding: 4px 10px;
@@ -58,6 +63,9 @@
 			}
 		}
 	}
+}
+.a-btn-lg.full {
+	margin: 4px 0 30px;
 }
 .order-list-single {
 	border-bottom: 1px solid $gold;
