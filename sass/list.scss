@@ -1,0 +1,69 @@
+@charset 'utf-8';
+@import 'compass';
+@import 'base/fonts';
+@import 'base/style';
+@import 'base/media';
+@import url('https://fonts.googleapis.com/css?family=Roboto+Condensed:700');
+//@import 'base/css3-mixins';
+
+/* ------------ base ------------ */
+#section1 {
+	@include respond-to (only-mobile){
+		padding-left: 15px;
+		padding-right: 15px;
+	}
+}
+.order-list {
+	line-height: 40px;
+	.col-sm-3 {
+		text-align: right;
+		a {
+			text-decoration: underline;
+		}
+	}
+	@include respond-to (only-mobile){
+		line-height: 30px;
+		.col-sm-3 {
+			text-align: left;
+		}
+	}
+}
+.tab-container {
+	margin: 10px auto;
+	padding: 4px 10px;
+}
+.table {
+	th, td {
+		&:first-of-type {
+			text-align: left;
+		}
+		&:nth-of-type(2) {
+		}
+		&:nth-last-of-type(1), &:nth-last-of-type(3) {
+			text-align: right;
+		}
+	}
+	tbody.total {
+		td {
+			&:nth-last-of-type(1) {
+				
+			}
+		}
+	}
+	@include respond-to (only-mobile){
+		th, td {
+			width: 15%;
+			&:first-of-type {
+				width: 50%;
+			}
+		}
+	}
+}
+.order-list-single {
+	border-bottom: 1px solid $gold;
+	padding-bottom: 30px;
+	margin-bottom: 40px;
+	&:nth-last-of-type(1){
+		border-bottom: none;
+	}
+}

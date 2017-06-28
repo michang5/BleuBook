@@ -75,11 +75,6 @@
   padding-right: 50px;
   width: 100%;
 }
-.list .total .amount-money {
-  color: #CA7600;
-  font-weight: bold;
-  font-size: 22px;
-}
 @media screen and (max-width: 920px) {
   .list {
     width: 100%;

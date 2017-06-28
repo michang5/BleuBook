@@ -205,7 +205,7 @@ p.note {
 .tab-container {
 	padding: 10px;
 	background: $white;
-	border-radius: 6px;
+	border-radius:0;
 	border: 1px solid #ddd;
 }
 .table-responsive {
@@ -221,6 +221,7 @@ p.note {
 	margin-bottom: 0;
 	color: $gray;
 	padding: 10px;
+	
 	tbody {
 		border: 0;
 	}
@@ -231,19 +232,10 @@ p.note {
 	tr {
 	}
 	th, td {
-		&:first-of-type {
-			text-align: left;
-//			width: 40px;
-		}
-		&:nth-of-type(2) {
-//			width: 40px;
-		}
-		&:nth-last-of-type(1), &:nth-last-of-type(2), &:nth-last-of-type(3) {
-			text-align: right;
-//			width: 80px;
-		}
+		vertical-align: middle!important;
 	}
 }
+
 .modal-content {
 	width: 90%;
 	margin: 0 auto;
@@ -253,6 +245,13 @@ p.note {
 	@include respond-to (only-device){
 		width: 100%;
 	}
+}
+.amount-money {
+//	color: #CA7600;
+	color: $gold;
+//	font-weight: lighter;
+	font-weight: normal;
+	font-size: 22px;
 }
 //btn style
 //.btn {
@@ -1217,3 +1216,37 @@ blockquote {
 form label {
 	font-weight: normal;
 }
+
+//.tab-container {
+//	padding: 10px;
+//	background: $white;
+//	border-radius: 0;
+//	border: 1px solid #ddd;
+//	font-size: 13px;
+//}
+//.table-responsive {
+//	border: 0;
+//	margin-bottom: 0;
+//}
+//.table {
+//	//	background: $white;
+//	color: $gray;
+//	font-weight: normal;
+//	text-align: center;
+//	border: 0;
+//	margin-bottom: 0;
+//	color: $gray;
+//	padding: 10px;
+//	tbody {
+//		border: 0;
+//	}
+//	th {
+//		text-align: center;
+//		font-weight: normal;
+//	}
+//	tr {}
+//	th,
+//	td {
+//		text-align: center;
+//	}
+//}
