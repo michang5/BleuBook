@@ -7,7 +7,7 @@
 //@import 'base/css3-mixins';
 
 /* ------------ base ------------ */
-#section1 {
+#section2 {
 	@include respond-to (only-mobile){
 		padding-left: 15px;
 		padding-right: 15px;
@@ -29,9 +29,15 @@
 	}
 }
 .inquire {
-	border-bottom: 1px solid $gold;
-	padding-bottom: 30px;
-	margin-bottom: 40px;
+//	border-bottom: 1px solid $gold;
+//	padding-bottom: 30px;
+//	margin-bottom: 40px;
+}
+.order-result {
+	text-align: center;
+	h4 {
+		font-size: 16px;
+	}
 }
 .tab-container {
 	margin: 10px auto;

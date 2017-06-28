@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css?family=Roboto+Condensed:700");
 /* ------------ base ------------ */
 @media only screen and (max-width: 767px) {
-  #section1 {
+  #section2 {
     padding-left: 15px;
     padding-right: 15px;
   }
@@ -25,10 +25,11 @@
   }
 }
 
-.inquire {
-  border-bottom: 1px solid #AF946F;
-  padding-bottom: 30px;
-  margin-bottom: 40px;
+.order-result {
+  text-align: center;
+}
+.order-result h4 {
+  font-size: 16px;
 }
 
 .tab-container {
