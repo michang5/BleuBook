@@ -122,10 +122,10 @@
             <!--section2 與談人-->
             <div id="section2" class="section container-fluid row-centered">
                 <h2>與談人</h2>
-                <div class="col-xs-3" v-for="author_id in events[index].speakers">
-                    <img :src="author(author_id).image" :alt="author(author_id).name + author(author_id).title" class="img-responsive">
-                    <h4 v-text="author(author_id).name"></h4>
-                    <h5 v-text="author(author_id).title"></h5>
+                <div class="col-xs-3" v-for="id in events[index].speakers">
+                    <img :src="author(id).image" :alt="author(id).name + author(id).title" class="img-responsive">
+                    <h4 v-text="author(id).name"></h4>
+                    <h5 v-text="author(id).title"></h5>
                 </div>
             </div>
             <!--section3 精采摘錄-->
@@ -145,11 +145,11 @@
                 <h2>推薦選書</h2>
                 <div class="content">
                     <div class="slider">
-                        <div v-for="book_id in events[index].books">
-                            <a data-toggle="modal" data-target="#book-single">
-                                <div class="book-cover" :style="'background-image: url(' + book(book_id).image + ')'"></div>
-                                <h4 v-text="book(book_id).name"></h4>
-                                <h5 v-text="'作者： ' + author(book(book_id).author_id).name"></h5>
+                        <div v-for="(id, i) in events[index].books">
+                            <a @click="bindex = i" data-toggle="modal" data-target="#book-single">
+                                <div class="book-cover" :style="'background-image: url(' + book(id).image + ')'"></div>
+                                <h4 v-text="book(id).name"></h4>
+                                <h5 v-text="'作者： ' + author(book(id).author_id).name"></h5>
                             </a>
                         </div>
                     </div>
@@ -180,17 +180,17 @@
 					<div class="container">
 						<div class="row">
 							<div class="col-sm-4 col-sm-offset-2 book-cover">
-								<img src="images/book_1.jpg" alt="欲望的教育：美意識創造未來 作者：原研哉" class="img-responsive">
+								<img :src="books[bindex].image" :alt="books[bindex].name + '作者：' + author(books[bindex].author_id).name" class="img-responsive">
 							</div>
 							<div class="col-sm-4">
 								<div class="book-detail">
 									<ul>
-									    <li>欲望的教育：美意識創造未來</li>
-										<li>作者：原研哉</li>
-										<li>譯者：李柏黎</li>
-										<li>出版社：雄獅美術</li></li>
-										<li>建議售價：<span class="del">420元</span></li>
-										<li>定價：<span class="discount">9</span> 折 <span class="price">378</span>元</li>
+									    <li v-text="books[bindex].name"></li>
+										<li v-text="'作者：' + author(books[bindex].author_id).name"></li>
+										<li v-if="books[bindex].translate" v-text="'譯者：' + books[bindex].translate"></li>
+										<li v-if="books[bindex].publisher" v-text="'出版社：' + books[bindex].publisher"></li></li>
+										<li>建議售價：<span class="del" v-text="books[bindex].price + '元'"></span></li>
+										<li>定價：<span class="discount" v-text="off">9</span> 折 <span class="price" v-text="books[bindex].discount">378</span>元</li>
 									</ul>
 									<div id="quantity-container">
 										<div id="quantity-title" class="inline">
@@ -210,14 +210,14 @@
 								</div>
 							</div>
 						</div>
-						<div class="row">
+						<div class="row" v-for="c in books[bindex].comments">
 							<div class="col-sm-8 col-sm-offset-2">
 								<div class="recommand-block">
 									<div class="row">
-										<div class="recommended col-sm-2 col-xs-3"><img src="images/participant_2.jpg" alt="杜祖業 GQ 雜誌總編輯" class="img-responsive"></div>
+										<div class="recommended col-sm-2 col-xs-3"><img :src="author(c.author_id).image" :alt="author(c.author_id).name + '' + author(c.author_id).title" class="img-responsive"></div>
 										<div class="recommended-content col-sm-10 col-xs-9">
-											<p class="name">杜祖業 <span class="title">GQ 雜誌總編輯</span><span class="icon_recommand"><img src="images/icon_recommand.png" alt=""></span></p>
-											<p class="recommand">如此的簡潔並非是理性探求之下所得到的成果，也不是偶然的產物。而是將「什麼都沒有」這件事給有意圖地設定為目的。藉著空無一物之器皿的建立，「空（emptiness）」的概念就得以體現，進而吸引人群注意並產生向心力，此概念便能被有效運用。</p>
+											<p class="name" v-text="author(c.author_id).name"> <span class="title" v-text="author(c.author_id).title"></span><span class="icon_recommand"><img src="images/icon_recommand.png" alt=""></span></p>
+											<p class="recommand" v-html="c.comment"></p>
 										</div>
 									</div>
 								</div>
@@ -234,6 +234,7 @@
 
 var data = {
   index: 0,
+  bindex: 0,
   events: [{
 	_id: 1,
 	date: '6/28',
@@ -297,9 +298,9 @@ var vue = new Vue({
                     return this.authors[i];
             }
         },
-        book: function (book_id) {
+        book: function (bindex) {
             for (var i in this.books) {
-                if (this.books[i]._id == book_id)
+                if (this.books[i]._id == bindex)
                     return this.books[i];
             }
         },
