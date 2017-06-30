@@ -24,6 +24,9 @@
 	<link href="fonts/font-awesome/css/font-awesome.min.css" rel="stylesheet">
 	<link href="css/slick-theme.css" rel="stylesheet">
 	<link href="css/slick.css" rel="stylesheet">
+	<script src="js/vue.js"></script>
+	<script src="js/axios.js"></script>
+	<script src="js/api.js"></script>
 	<!--google-->
 	<meta name="google-site-verification" content="-MLXb98KIXlOE_dmJ18CK9Ynil6NnPMRct9vU1ZYDpg" />
 	<link href="https://fonts.googleapis.com/css?family=Lora|Roboto:100,700,500" rel="stylesheet">
@@ -41,7 +44,8 @@
 	
 </head>
 <body id="index">
-	
+<div id="vue">
+
 	<!-- Navigation -->
 	<div id="navigation" class="container-fluid">
 		<nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
@@ -76,20 +80,12 @@
                 <div id="myCarousel" class="carousel slide" data-ride="carousel">
                 <!-- Indicators -->
                     <ol class="carousel-indicators">
-                        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                        <li data-target="#myCarousel" data-slide-to="1"></li>
-                        <li data-target="#myCarousel" data-slide-to="2"></li>
+                        <li data-target="#myCarousel" v-for="(s, i) in event.slides" :data-slide-to="i" :class="{active: i == 0}"></li>
                     </ol>    
                     <!-- Wrapper for slides -->
                     <div class="carousel-inner">
-                        <div class="item active">
-                            <img src="images/slide_image1.jpg" alt="">
-                        </div>
-                        <div class="item">
-                            <img src="images/slide_image1.jpg" alt="">
-                        </div>
-                        <div class="item">
-                            <img src="images/slide_image1.jpg" alt="">
+                        <div class="item" v-for="(s, i) in event.slides" :class="{active: i == 0}">
+                            <img :src="s" alt="">
                         </div>
                     </div>
 
@@ -125,49 +121,20 @@
             <!--section2 與談人-->
             <div id="section2" class="section container-fluid row-centered">
                 <h2>與談人</h2>
-                <div class="row">
-                	<div class="col-xs-3 col-centered">
-						<img src="images/participant_1.jpg" alt="張鐵志 文化評論家" class="img-responsive">
-						<h4>張鐵志</h4>
-						<h5>文化評論家</h5>
-					</div>
-					<div class="col-xs-3 col-centered">
-						<a href="#" target="_blank"><img src="images/participant_2.jpg" alt="杜祖業 GQ 雜誌總編輯" class="img-responsive"></a>
-						<h4>杜祖業</h4>
-						<h5>GQ 雜誌總編輯</h5>
-					</div>
-					<div class="col-xs-3 col-centered">
-						<a href="#" target="_blank"><img src="images/participant_3.jpg" alt="方序中 究方社創辦人" class="img-responsive"></a>
-						<h4>方序中</h4>
-						<h5>究方社創辦人</h5>
-					</div>
-					<div class="col-xs-3 col-centered">
-						<a href="#" target="_blank"><img src="images/participant_4.jpg" alt="梁浩軒 INCEPTION 啟藝創辦人" class="img-responsive"></a>
-						<h4>梁浩軒</h4>
-						<h5>INCEPTION 啟藝創辦人</h5>
-					</div>
+                <div class="col-xs-3" v-for="author_id in event.speakers">
+                    <img :src="author(author_id).image" :alt="author(author_id).name + author(author_id).title" class="img-responsive">
+                    <h4 v-text="author(author_id).name"></h4>
+                    <h5 v-text="author(author_id).title"></h5>
                 </div>
             </div>
             <!--section3 精采摘錄-->
             <div id="section3" class="section container-fluid">
                 <h2>精采摘錄</h2>
                 <div class="row quote-block">
-                    <div class="col-sm-4">
+                    <div class="col-sm-4" v-for="q in event.quotes">
                         <a href="#" target="_blank"><blockquote>
-                            <p class="quote">用想像力的設計說好一個故事。</p>
-                            <p class="speaker"><span>方序中</span><span>究方社創辦人</span></p>
-                            </blockquote></a>
-                    </div>
-                   <div class="col-sm-4">
-                        <a href="#" target="_blank"><blockquote>
-                            <p class="quote">時代潮流看設計的台灣。</p>
-                            <p class="speaker"><span>梁浩軒</span><span>INCEPTION 啟藝創辦人</span></p>
-                            </blockquote></a>
-                    </div>
-                    <div class="col-sm-4">
-                        <a href="#" target="_blank"><blockquote>
-                            <p class="quote">設計師必須是不滿現實的哲學家設計師</p>
-                            <p class="speaker"><span>杜祖業</span><span>GQ 雜誌總編輯</span></p>
+                            <p class="quote" v-text="q.quote"></p>
+                            <p class="speaker"><span v-text="author(q.author_id).name"></span><span v-text="author(q.author_id).title"></span></p>
                             </blockquote></a>
                     </div>
                 </div>
@@ -177,39 +144,11 @@
                 <h2>推薦選書</h2>
                 <div class="content">
                     <div class="slider">
-                        <div>
+                        <div v-for="book_id in event.books">
                             <a data-toggle="modal" data-target="#book-single">
-                                <div class="book-cover" style="background-image: url('images/book_1.jpg');"></div>
-                                <h4>欲望的教育：美意識創造未來</h4>
-                                <h5>作者： 原研哉</h5>
-                            </a>
-                        </div>
-                        <div>
-                            <a data-toggle="modal" data-target="#book-single">
-                                <div class="book-cover" style="background-image: url('images/book_2.jpg');"></div>
-                                <h4>給未來的創新經營者：從蔦屋書店到佐藤可士和的六堂設計管理課</h4>
-                                <h5>作者： 川島蓉子</h5>
-                            </a>
-                        </div>
-                        <div>
-                            <a data-toggle="modal" data-target="#book-single">
-                                <div class="book-cover" style="background-image: url('images/book_3.jpg');"></div>
-                                <h4>書設計：入行必備的權威聖經，編輯、設計、印刷全事典</h4>
-                                <h5>作者： 安德魯．哈斯蘭</h5>
-                            </a>
-                        </div>
-                        <div>
-                            <a data-toggle="modal" data-target="#book-single">
-                                <div class="book-cover" style="background-image: url('images/book_4.jpg');"></div>
-                                <h4>為社會而設計</h4>
-                                <h5>作者： 奈傑爾・懷特里 Nigel Whiteley</h5>
-                            </a>
-                        </div>
-                        <div>
-                            <a data-toggle="modal" data-target="#book-single">
-                                <div class="book-cover" style="background-image: url('images/book_2.jpg');"></div>
-                                <h4>給未來的創新經營者：從蔦屋書店到佐藤可士和的六堂設計管理課</h4>
-                                <h5>作者： 川島蓉子</h5>
+                                <div class="book-cover" :style="'background-image: url(' + book(book_id).image + ')'"></div>
+                                <h4 v-text="book(book_id).name"></h4>
+                                <h5 v-text="'作者： ' + author(book(book_id).author_id).name"></h5>
                             </a>
                         </div>
                     </div>
@@ -289,7 +228,62 @@
 		</div>
 	</div>
 	
+</div>
+<script>
 
+var data = {
+  event: {
+    slides: [
+      'images/slide_image1.jpg',
+      'images/slide_image1.jpg',
+      'images/slide_image1.jpg',
+    ],
+    speakers: [1, 2, 3, 4],
+    quotes: [
+      {author_id: 3, quote: '用想像力的設計說好一個故事。'},
+      {author_id: 4, quote: '時代潮流看設計的台灣。'},
+      {author_id: 2, quote: '設計師必須是不滿現實的哲學家。'},
+    ],
+    books: [1, 2, 3, 4],
+  },
+  books: [
+    {id: 1, name: '欲望的教育：美意識創造未來', author_id: 5, image: 'images/book_1.jpg'},
+    {id: 2, name: '給未來的創新經營者：從蔦屋書店到佐藤可士和的六堂設計管理課', author_id: 6, image: 'images/book_2.jpg'},
+    {id: 3, name: '書設計：入行必備的權威聖經，編輯、設計、印刷全事典', author_id: 7, image: 'images/book_3.jpg'},
+    {id: 4, name: '為社會而設計', author_id: 8, image: 'images/book_4.jpg'},
+  ],
+  authors: [
+    {id: 1, name: '張鐵志', title: '文化評論家', image: 'images/participant_1.jpg'},
+    {id: 2, name: '杜祖業', title: 'GQ 雜誌總編輯', image: 'images/participant_2.jpg'},
+    {id: 3, name: '方序中', title: '究方社創辦人', image: 'images/participant_3.jpg'},
+    {id: 4, name: '梁浩軒', title: 'NCEPTION 啟藝創辦人', image: 'images/participant_4.jpg'},
+    {id: 5, name: '原研哉'},
+    {id: 6, name: '川島蓉子'},
+    {id: 7, name: '安德魯．哈斯蘭'},
+    {id: 8, name: '奈傑爾・懷特里 Nigel Whiteley'},
+  ],
+};
+
+var vue = new Vue({
+    el: '#vue',
+    data: data,
+    methods: {
+        author: function (author_id) {
+            for (var i in this.authors) {
+                if (this.authors[i].id == author_id)
+                    return this.authors[i];
+            }
+        },
+        book: function (book_id) {
+            for (var i in this.books) {
+                if (this.books[i].id == book_id)
+                    return this.books[i];
+            }
+        },
+    }
+});
+
+</script>
 
 	<!--jQuery--> 
 	<script type="text/javascript" src="js/jquery-2.2.4.js"></script>
