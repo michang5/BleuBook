@@ -19,3 +19,11 @@ function get(key, value) {
 function set(key, value) {
     localStorage[key] = JSON.stringify(value);
 }
+
+function dict(arr, key = '_id') {
+    var o = {};
+    for (var i in arr) {
+        o[arr[i][key]] = arr[i];
+    }
+    return o;
+}

@@ -81,11 +81,11 @@
                 <div id="myCarousel" class="carousel slide" data-ride="carousel">
                 <!-- Indicators -->
                     <ol class="carousel-indicators">
-                        <li data-target="#myCarousel" v-for="(s, i) in events[index].slides" :data-slide-to="i" :class="{active: i == 0}"></li>
+                        <li data-target="#myCarousel" v-for="(s, i) in event.slides" :data-slide-to="i" :class="{active: i == 0}"></li>
                     </ol>    
                     <!-- Wrapper for slides -->
                     <div class="carousel-inner">
-                        <div class="item" v-for="(s, i) in events[index].slides" :class="{active: i == 0}">
+                        <div class="item" v-for="(s, i) in event.slides" :class="{active: i == 0}">
                             <img :src="s" alt="">
                         </div>
                     </div>
@@ -107,8 +107,8 @@
                         </a>
                     </div>
                     <div class="now">
-                        <h2 v-text="events[index].name"></h2>
-                        <h3 v-text="events[index].intro? '— ' + events[index].intro: ''"></h3>
+                        <h2 v-text="event.name"></h2>
+                        <h3 v-text="event.intro? '— ' + event.intro: ''"></h3>
                     </div>
                     <div class="next" v-if="next">
                         <a @click="index = (index + 1) % events.length">
@@ -122,20 +122,20 @@
             <!--section2 與談人-->
             <div id="section2" class="section container-fluid row-centered">
                 <h2>與談人</h2>
-                <div class="col-xs-3" v-for="id in events[index].speakers">
-                    <img :src="author(id).image" :alt="author(id).name + author(id).title" class="img-responsive">
-                    <h4 v-text="author(id).name"></h4>
-                    <h5 v-text="author(id).title"></h5>
+                <div class="col-xs-3" v-for="_id in event.speakers">
+                    <img :src="author[_id].image" :alt="author[_id].name + author[_id].title" class="img-responsive">
+                    <h4 v-text="author[_id].name"></h4>
+                    <h5 v-text="author[_id].title"></h5>
                 </div>
             </div>
             <!--section3 精采摘錄-->
             <div id="section3" class="section container-fluid">
                 <h2>精采摘錄</h2>
                 <div class="row quote-block">
-                    <div class="col-sm-4" v-for="q in events[index].quotes">
+                    <div class="col-sm-4" v-for="q in event.quotes">
                         <a href="#" target="_blank"><blockquote>
                             <p class="quote" v-text="q.quote"></p>
-                            <p class="speaker"><span v-text="author(q.author_id).name"></span><span v-text="author(q.author_id).title"></span></p>
+                            <p class="speaker"><span v-text="author[q.author_id].name"></span><span v-text="author[q.author_id].title"></span></p>
                             </blockquote></a>
                     </div>
                 </div>
@@ -145,11 +145,11 @@
                 <h2>推薦選書</h2>
                 <div class="content">
                     <div class="slider">
-                        <div v-for="(id, i) in events[index].books">
+                        <div v-for="(_id, i) in event.books">
                             <a @click="bindex = i" data-toggle="modal" data-target="#book-single">
-                                <div class="book-cover" :style="'background-image: url(' + book(id).image + ')'"></div>
-                                <h4 v-text="book(id).name"></h4>
-                                <h5 v-text="'作者： ' + author(book(id).author_id).name"></h5>
+                                <div class="book-cover" :style="'background-image: url(' + book[_id].image + ')'"></div>
+                                <h4 v-text="book[_id].name"></h4>
+                                <h5 v-text="'作者： ' + author[book[_id].author_id].name"></h5>
                             </a>
                         </div>
                     </div>
@@ -176,21 +176,21 @@
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<button type="button" class="close hairline" data-dismiss="modal"></button>
-				<div class="modal-body">
+				<div class="modal-body" v-if="event.books && event.books.length">
 					<div class="container">
 						<div class="row">
 							<div class="col-sm-4 col-sm-offset-2 book-cover">
-								<img :src="books[bindex].image" :alt="books[bindex].name + '作者：' + author(books[bindex].author_id).name" class="img-responsive">
+								<img :src="show.image" :alt="show.name + '作者：' + author[show.author_id].name" class="img-responsive">
 							</div>
 							<div class="col-sm-4">
 								<div class="book-detail">
 									<ul>
-									    <li v-text="books[bindex].name"></li>
-										<li v-text="'作者：' + author(books[bindex].author_id).name"></li>
-										<li v-if="books[bindex].translate" v-text="'譯者：' + books[bindex].translate"></li>
-										<li v-if="books[bindex].publisher" v-text="'出版社：' + books[bindex].publisher"></li></li>
-										<li>建議售價：<span class="del" v-text="books[bindex].price + '元'"></span></li>
-										<li>定價：<span class="discount" v-text="off">9</span> 折 <span class="price" v-text="books[bindex].discount">378</span>元</li>
+									    <li v-text="show.name"></li>
+										<li v-text="'作者：' + author[show.author_id].name"></li>
+										<li v-if="show.translate" v-text="'譯者：' + show.translate"></li>
+										<li v-if="show.publisher" v-text="'出版社：' + show.publisher"></li></li>
+										<li>建議售價：<span class="del" v-text="show.price + '元'"></span></li>
+										<li>定價：<span class="discount" v-text="off">9</span> 折 <span class="price" v-text="show.discount">378</span>元</li>
 									</ul>
 									<div id="quantity-container">
 										<div id="quantity-title" class="inline">
@@ -210,13 +210,13 @@
 								</div>
 							</div>
 						</div>
-						<div class="row" v-for="c in books[bindex].comments">
+						<div class="row" v-for="c in show.comments">
 							<div class="col-sm-8 col-sm-offset-2">
 								<div class="recommand-block">
 									<div class="row">
-										<div class="recommended col-sm-2 col-xs-3"><img :src="author(c.author_id).image" :alt="author(c.author_id).name + '' + author(c.author_id).title" class="img-responsive"></div>
+										<div class="recommended col-sm-2 col-xs-3"><img :src="author[c.author_id].image" :alt="author[c.author_id].name + '' + author[c.author_id].title" class="img-responsive"></div>
 										<div class="recommended-content col-sm-10 col-xs-9">
-											<p class="name" v-text="author(c.author_id).name"> <span class="title" v-text="author(c.author_id).title"></span><span class="icon_recommand"><img src="images/icon_recommand.png" alt=""></span></p>
+											<p class="name" v-text="author[c.author_id].name"> <span class="title" v-text="author[c.author_id].title"></span><span class="icon_recommand"><img src="images/icon_recommand.png" alt=""></span></p>
 											<p class="recommand" v-html="c.comment"></p>
 										</div>
 									</div>
@@ -233,45 +233,45 @@
 <script>
 
 var data = {
-  index: 0,
-  bindex: 0,
-  cart: get('cart', []),
-  list: get('list', []),
-  events: [{
-	_id: 1,
-	date: '6/28',
-	name: '「青鳥獨立系列」美意識',
-	intro: '台灣的設計思考談未來閱讀',
-    slides: [
-      'images/slide_image1.jpg',
-      'images/slide_image1.jpg',
-      'images/slide_image1.jpg',
-    ],
-    speakers: [1, 2, 3, 4],
-    quotes: [
-      {author_id: 3, quote: '用想像力的設計說好一個故事。'},
-      {author_id: 4, quote: '時代潮流看設計的台灣。'},
-      {author_id: 2, quote: '設計師必須是不滿現實的哲學家。'},
-    ],
-    books: [1, 2, 3, 4],
-  }],
-  books: [
-    {_id: 1, name: '欲望的教育：美意識創造未來', author_id: 5, image: 'images/book_1.jpg'},
-    {_id: 2, name: '給未來的創新經營者：從蔦屋書店到佐藤可士和的六堂設計管理課', author_id: 6, image: 'images/book_2.jpg'},
-    {_id: 3, name: '書設計：入行必備的權威聖經，編輯、設計、印刷全事典', author_id: 7, image: 'images/book_3.jpg'},
-    {_id: 4, name: '為社會而設計', author_id: 8, image: 'images/book_4.jpg'},
-  ],
-  authors: [
-    {_id: 1, name: '張鐵志', title: '文化評論家', image: 'images/participant_1.jpg'},
-    {_id: 2, name: '杜祖業', title: 'GQ 雜誌總編輯', image: 'images/participant_2.jpg'},
-    {_id: 3, name: '方序中', title: '究方社創辦人', image: 'images/participant_3.jpg'},
-    {_id: 4, name: '梁浩軒', title: 'NCEPTION 啟藝創辦人', image: 'images/participant_4.jpg'},
-    {_id: 5, name: '原研哉'},
-    {_id: 6, name: '川島蓉子'},
-    {_id: 7, name: '安德魯．哈斯蘭'},
-    {_id: 8, name: '奈傑爾・懷特里 Nigel Whiteley'},
-  ],
-  events: [1, 2, 3],
+	index: 0,
+	bindex: 0,
+	cart: get('cart', []),
+	list: get('list', []),
+	events: [{
+		_id: 1,
+		date: '6/28',
+		name: '「青鳥獨立系列」美意識',
+		intro: '台灣的設計思考談未來閱讀',
+		slides: [
+			'images/slide_image1.jpg',
+			'images/slide_image1.jpg',
+			'images/slide_image1.jpg',
+		],
+		speakers: [1, 2, 3, 4],
+		quotes: [
+			{author_id: 3, quote: '用想像力的設計說好一個故事。'},
+			{author_id: 4, quote: '時代潮流看設計的台灣。'},
+			{author_id: 2, quote: '設計師必須是不滿現實的哲學家。'},
+		],
+		books: [1, 2, 3, 4],
+	}],
+	books: [
+		{_id: 1, name: '欲望的教育：美意識創造未來', author_id: 5, image: 'images/book_1.jpg'},
+		{_id: 2, name: '給未來的創新經營者：從蔦屋書店到佐藤可士和的六堂設計管理課', author_id: 6, image: 'images/book_2.jpg'},
+		{_id: 3, name: '書設計：入行必備的權威聖經，編輯、設計、印刷全事典', author_id: 7, image: 'images/book_3.jpg'},
+		{_id: 4, name: '為社會而設計', author_id: 8, image: 'images/book_4.jpg'},
+	],
+	authors: [
+		{_id: 1, name: '張鐵志', title: '文化評論家', image: 'images/participant_1.jpg'},
+		{_id: 2, name: '杜祖業', title: 'GQ 雜誌總編輯', image: 'images/participant_2.jpg'},
+		{_id: 3, name: '方序中', title: '究方社創辦人', image: 'images/participant_3.jpg'},
+		{_id: 4, name: '梁浩軒', title: 'NCEPTION 啟藝創辦人', image: 'images/participant_4.jpg'},
+		{_id: 5, name: '原研哉'},
+		{_id: 6, name: '川島蓉子'},
+		{_id: 7, name: '安德魯．哈斯蘭'},
+		{_id: 8, name: '奈傑爾・懷特里 Nigel Whiteley'},
+	],
+	events: [1, 2, 3],
 };
 
 //data//
@@ -292,24 +292,24 @@ var vue = new Vue({
 			var e = this.events[(this.index + 1) % l];
 			return e.date + '' + e.name + (e.intro? ' - ' + e.intro: '');
         },
+        author: function () {
+			return dict(this.authors);
+        },
+        book: function () {
+			return dict(this.books);
+        },
+        event: function () {
+			return this.events[this.index];
+        },
+        show: function () {
+			return this.book[this.event.books[this.bindex]];
+        },
 	},
     methods: {
-        author: function (author_id) {
-            for (var i in this.authors) {
-                if (this.authors[i]._id == author_id)
-                    return this.authors[i];
-            }
-        },
-        book: function (bindex) {
-            for (var i in this.books) {
-                if (this.books[i]._id == bindex)
-                    return this.books[i];
-            }
-        },
 		addCart: function () {
 			var quantity = parseInt($('#quantity-input-text').html());
 			if (!quantity) return;
-			this.cart.push({book_id: this.events[this.index].books[this.bindex], quantity: quantity});
+			this.cart.push({book_id: this.show._id, quantity: quantity});
 			set('cart', this.cart);
 			alert('已加入購物車');
 		}
