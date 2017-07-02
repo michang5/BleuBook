@@ -107,6 +107,7 @@ $(function () {
 		}
 	};
 
+/*
 	if (quantityPlus) {
 		quantityPlus.addEventListener("click", function () {
 			quantityCounter++;
@@ -128,6 +129,7 @@ $(function () {
 			}
 		});
 	}
+*/
 
 	if (quantityAddCart) {
 		quantityAddCart.addEventListener('click', function () {
@@ -187,7 +189,8 @@ $(function () {
 			alert("Order Placed");
 		});
 	}
-	});
+});
+/*
 $(".carousel").swipe({
   swipe: function(event, direction, distance, duration, fingerCount, fingerData) {
 
@@ -198,6 +201,7 @@ $(".carousel").swipe({
   allowPageScroll:"vertical"
 
 });
+*/
 window.onscroll = function(){
 	var target = document.body;	
 	var top_btn = document.querySelector('#top-btn');	

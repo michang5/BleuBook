@@ -196,13 +196,13 @@
 										<div id="quantity-title" class="inline">
 											數量:
 										</div>
-										<div id="quantity-minus" class="inline"><i class="fa fa-minus-circle"></i></div>
+										<div @click="quantity? quantity--: 0" id="quantity-minus" class="inline"><i class="fa fa-minus-circle"></i></div>
 										<div id="quantity-input" class="inline">
-											<div id="quantity-input-text" class="inline">0</div>
+											<div id="quantity-input-text" class="inline" v-text="quantity"></div>
 										</div>
-										<div id="quantity-plus" class="inline"><i class="fa fa-plus-circle"></i></div>
+										<div @click="quantity ++" id="quantity-plus" class="inline"><i class="fa fa-plus-circle"></i></div>
 										<div>
-											<div @click="addCart" id="quantity-add-cart" class="add-cart-null">
+											<div @click="addCart" id="quantity-add-cart" :class="{'add-cart-null': !quantity}">
 												加入購物車
 											</div>
 										</div>
@@ -235,6 +235,7 @@
 var data = {
 	index: 0,
 	bindex: 0,
+	quantity: 1,
 	cart: get('cart', []),
 	list: get('list', []),
 	events: [{
@@ -306,9 +307,8 @@ var vue = new Vue({
 	},
     methods: {
 		addCart: function () {
-			var quantity = parseInt($('#quantity-input-text').html());
-			if (!quantity) return;
-			this.cart.push({book_id: this.show._id, quantity: quantity});
+			if (!this.quantity) return;
+			this.cart.push({book_id: this.show._id, quantity: this.quantity});
 			set('cart', this.cart);
 			alert('已加入購物車');
 		}
