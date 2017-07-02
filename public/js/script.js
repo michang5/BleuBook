@@ -73,17 +73,9 @@ $(function () {
 		return new RegExp('(\\s|^)' + className + '(\\s|$)').test(elem.className);
 	};
 
-	var quantityMinus = document.getElementById('quantity-minus') ? document.getElementById('quantity-minus') : false;
-
-	var quantityInput = document.getElementById('quantity-input-text') ? document.getElementById('quantity-input-text') : false;
-
-	var quantityPlus = document.getElementById('quantity-plus') ? document.getElementById('quantity-plus') : false;
-
-	var quantityAddCart = document.getElementById('quantity-add-cart') ? document.getElementById('quantity-add-cart') : false;
-
 	var cartIcon = document.getElementById('cart-icon') ? document.getElementById('cart-icon') : false;
+
 	var cartIconCount = document.getElementById('cart-icon-count') ? document.getElementById('cart-icon-count') : false;
-	var quantityCounter = 0;
 
 	var cartContainer = document.getElementById('cart-container') ? document.getElementById('cart-container') : false;
 
@@ -107,56 +99,6 @@ $(function () {
 		}
 	};
 
-/*
-	if (quantityPlus) {
-		quantityPlus.addEventListener("click", function () {
-			quantityCounter++;
-			console.log(quantityCounter);
-			quantityInput.innerHTML = quantityCounter;
-			if (hasClass(quantityAddCart, "add-cart-null")) {
-				removeClass(quantityAddCart, "add-cart-null");
-			}
-		});
-	}
-	if (quantityMinus) {
-		quantityMinus.addEventListener("click", function () {
-			if (quantityCounter > 0) {
-				quantityCounter--;
-				quantityInput.innerHTML = quantityCounter;
-			}
-			if (checkIfZero(quantityCounter) && !hasClass(quantityAddCart, "add-cart-null")) {
-				addClass(quantityAddCart, "add-cart-null");
-			}
-		});
-	}
-*/
-
-	if (quantityAddCart) {
-		quantityAddCart.addEventListener('click', function () {
-			if (quantityCounter > 0) {
-				if (cartSummaryItem.style.display != "block") {
-
-					cartSummaryItem.style.display = "block";
-					cartSummaryItem.style.opacity = 1;
-
-					if (cartSummaryNoItems.display != "none") {
-						Velocity(cartSummaryNoItems, "fadeOut");
-					}
-
-				}
-
-				Velocity(cartIcon, "callout.pulse", {
-					complete: function () {
-						cartIconCount.innerHTML = quantityCounter;
-						cartSummaryCountInput.value = quantityCounter;
-					}
-				});
-				checkoutButton.style.display = "block";
-			}
-
-		});
-	}
-
 	if (cartContainer) {
 		cartContainer.addEventListener('click', function () {
 			console.log(this.style.display);
@@ -175,11 +117,6 @@ $(function () {
 					Velocity(cartSummaryNoItems, "fadeIn");
 				}
 			});
-			quantityCounter = 0;
-			cartIconCount.innerHTML = quantityCounter;
-			cartSummaryCountInput.value = quantityCounter;
-			quantityInput.innerHTML = quantityCounter;
-			addClass(quantityAddCart, "add-cart-null");
 			checkoutButton.style.display = "none";
 		});
 	}

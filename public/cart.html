@@ -24,8 +24,12 @@
 	<link href="css/slick.css" rel="stylesheet">
 	<link href="css/cart.css" rel="stylesheet">
 	<link href="fonts/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+	<script src="js/vue.js"></script>
+	<script src="js/axios.js"></script>
+	<script src="js/api.js"></script>
 
 	<!--google-->
+<!--
 	<meta name="google-site-verification" content="-MLXb98KIXlOE_dmJ18CK9Ynil6NnPMRct9vU1ZYDpg" />
 	<link href="https://fonts.googleapis.com/css?family=Lora|Roboto:100,700,500" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Spectral:400,700" rel="stylesheet">
@@ -42,6 +46,7 @@
 	
 </head>
 <body id="cart">
+<div id="vue">
 	
 	<!-- Navigation -->
 	<div id="navigation" class="container-fluid">
@@ -59,11 +64,11 @@
 					<ul class="nav navbar-nav">
 						<li><a href="index.html">活動</a></li>
 						<li><a href="books.html">選書</a></li>
-						<li id="list-icon"><a href="list.html">訂書單<div id="list-icon-count" class="inline">
-		<div id="cart-icon-count-num">0</div>
+					<li id="list-icon"><a href="list.html">訂書單<div id="list-icon-count" class="inline">
+		<div id="cart-icon-count-num" v-text="list.length">0</div>
 	</div></a></li>
-						<li id="cart-icon"><a href="cart.html">購物車<div id="cart-icon-count" class="inline">
-		<div id="cart-icon-count-num">0</div>
+					<li id="cart-icon"><a href="cart.html">購物車<div id="cart-icon-count" class="inline">
+		<div id="cart-icon-count-num" v-text="cart.length">0</div>
 	</div>  </a></li>
 					</ul>
 				</div>
@@ -78,65 +83,23 @@
             <div id="section1" class="section container-fluid">
                 <div class="col-md-10 col-md-offset-1 col-sm-12">
                     <div class="row">
-                        <div class="list">
+                        <div class="list" v-for="(b, i) in cart">
                             <div class="book-cover">
-                                <img src="images/book_1.jpg" alt="欲望的教育：美意識創造未來">
+                                <img :src="book[b.book_id].image" :alt="book[b.book_id].name">
                             </div>
                             <div class="detail">
                                 <div class="book-title">
-                                    <span>欲望的教育：美意識創造未來</span>
+                                    <span v-text="book[b.book_id].name"></span>
                                 </div>
                                 <div class="amount">
                                     <div class="qty">
-                                    	<div id="quantity-minus" class="inline">
-                                            <i class="fa fa-minus-circle"></i>
-                                        </div>
-                                        <div id="quantity-input" class="inline">
-                                            <div id="quantity-input-text" class="inline">1</div>
-                                        </div>
-                                        <div id="quantity-plus" class="inline">
-                                            <i class="fa fa-plus-circle"></i>
-                                        </div>
+										<div @click="b.quantity>1 ? b.quantity-- : 1" class="quantity-minus inline"><i class="fa fa-minus-circle"></i></div>
+										<div class="quantity-input inline"><div v-text="b.quantity" class="quantity-input-text inline"></div></div>
+										<div @click="b.quantity++" class="quantity-plus inline"><i class="fa fa-plus-circle"></i></div>
                                     </div>
                                     <div class="price_del">
-                                    	<div class="book-price">
-											NT$ 234
-										</div>
-										<div class="delete">
-											<a href=""><i class="fa fa-trash-o" aria-hidden="true"></i></a>
-										</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="list">
-                            <div class="book-cover">
-                                <img src="images/book_2.jpg" alt="給未來的創新經營者：從蔦屋書店到佐藤可士和的六堂設計管理課">
-                            </div>
-                            
-                            <div class="detail">
-                                <div class="book-title">
-                                    <span>給未來的創新經營者：從蔦屋書店到佐藤可士和的六堂設計管理課</span>
-                                </div>
-                                <div class="amount">
-                                    <div class="qty">
-                                    <div id="quantity-minus" class="inline">
-                                            <i class="fa fa-minus-circle"></i>
-                                        </div>
-                                        <div id="quantity-input" class="inline">
-                                            <div id="quantity-input-text" class="inline">1</div>
-                                        </div>
-                                        <div id="quantity-plus" class="inline">
-                                            <i class="fa fa-plus-circle"></i>
-                                        </div>
-                                    </div>
-                                    <div class="price_del">
-                                    	<div class="book-price">
-											NT$ 234
-										</div>
-										<div class="delete">
-											<a href=""><i class="fa fa-trash-o" aria-hidden="true"></i></a>
-										</div>
+                                    	<div class="book-price" v-text="'NT$ ' + (book[b.book_id].discount * b.quantity)"></div>
+										<div class="delete"><a @click="delCart(i)"><i class="fa fa-trash-o" aria-hidden="true"></i></a></div>
                                     </div>
                                 </div>
                             </div>
@@ -144,11 +107,11 @@
                         <div class="list">
                             <div class="total">
                                 <span>總計：</span>
-                                <span class="amount-money">NT$ 1234</span>
+                                <span class="amount-money" v-text="'NT$ ' + total"></span>
                             </div>
                         </div>
                         <div class="a-btn-lg">
-							<a href="info.html">下一步</a>
+							<a @click="info">下一步</a>
 						</div>
                     </div>
                 </div>
@@ -165,6 +128,52 @@
 			<p><a href="#">使用條款與隱私聲明</a></p>
 		</div>
     </div>
+
+</div>
+<script>
+
+var data = {
+	cart: get('cart', []),
+	list: get('list', []),
+	books: [{"_id":1,"name":"欲望的教育：美意識創造未來","author_id":5,"image":"images/book_1.jpg","translate":"李柏黎","publisher":"雄獅美術","price":420,"discount":378,"off":9,"comment_id":2,"comment":"如此的簡潔並非是理性探求之下所得到的成果，也不是偶然的產物。而是將「什麼都沒有」這件事給有意圖地設定為目的。藉著空無一物之器皿的建立，「空（emptiness）」的概念就得以體現，進而吸引人群注意並產生向心力，此概念便能被有效運用。","comments":[{"author_id":2,"comment":"如此的簡潔並非是理性探求之下所得到的成果，也不是偶然的產物。而是將「什麼都沒有」這件事給有意圖地設定為目的。藉著空無一物之器皿的建立，「空（emptiness）」的概念就得以體現，進而吸引人群注意並產生向心力，此概念便能被有效運用。"}]},{"_id":2,"name":"給未來的創新經營者：從蔦屋書店到佐藤可士和的六堂設計管理課","author_id":6,"image":"images/book_2.jpg","price":1000,"discount":900,"off":9,"comments":[{"author_id":1,"comment":"這是測試如此的簡潔並非是理性探求之下所得到的成果，也不是偶然的產物。而是將「什麼都沒有」這件事給有意圖地設定為目的。藉著空無一物之器皿的建立，「空（emptiness）」的概念就得以體現，進而吸引人群注意並產生向心力，此概念便能被有效運用。"}]},{"_id":3,"name":"書設計：入行必備的權威聖經，編輯、設計、印刷全事典","author_id":7,"image":"images/book_3.jpg","price":500,"discount":450,"off":9,"comments":[{"author_id":3,"comment":"這還是測試如此的簡潔並非是理性探求之下所得到的成果，也不是偶然的產物。而是將「什麼都沒有」這件事給有意圖地設定為目的。藉著空無一物之器皿的建立，「空（emptiness）」的概念就得以體現，進而吸引人群注意並產生向心力，此概念便能被有效運用。"}]},{"_id":4,"name":"為社會而設計","author_id":8,"image":"images/book_4.jpg","price":400,"discount":360,"off":9,"comments":[{"author_id":4,"comment":"都是測試如此的簡潔並非是理性探求之下所得到的成果，也不是偶然的產物。而是將「什麼都沒有」這件事給有意圖地設定為目的。藉著空無一物之器皿的建立，「空（emptiness）」的概念就得以體現，進而吸引人群注意並產生向心力，此概念便能被有效運用。"}]}],
+	authors: [{"_id":1,"name":"張鐵志","title":"文化評論家","image":"images/participant_1.jpg"},{"_id":2,"name":"杜祖業123","title":"GQ 雜誌總編輯","image":"images/participant_2.jpg"},{"_id":3,"name":"方序中","title":"究方社創辦人","image":"images/participant_3.jpg"},{"_id":4,"name":"梁浩軒","title":"NCEPTION 啟藝創辦人","image":"images/participant_4.jpg"},{"_id":5,"name":"原研哉"},{"_id":6,"name":"川島蓉子"},{"_id":7,"name":"安德魯．哈斯蘭"},{"_id":8,"name":"奈傑爾・懷特里 Nigel Whiteley"}],
+};
+
+//data//
+
+var vue = new Vue({
+    el: '#vue',
+    data: data,
+    computed: {
+        author: function () {
+			return dict(this.authors);
+        },
+        book: function () {
+			return dict(this.books);
+        },
+        total: function () {
+			var sum = 0;
+			for (var i in this.cart) {
+				var b = this.cart[i];
+				sum += this.book[b.book_id].discount * b.quantity;
+			}
+			return sum;
+        },
+	},
+    methods: {
+		delCart: function (i) {
+			if (!confirm('確定刪除？')) return;
+			this.cart.splice(i, 1);
+			set('cart', this.cart);
+		},
+		info: function () {
+			set('cart', this.cart);
+			location.href = 'info.html';
+		},
+    },
+});
+
+</script>
 
 	<!--jQuery--> 
 	<script type="text/javascript" src="js/jquery-2.2.4.js"></script>

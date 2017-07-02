@@ -192,20 +192,12 @@
 										<li>建議售價：<span class="del" v-text="show.price + '元'"></span></li>
 										<li>定價：<span class="discount" v-text="off">9</span> 折 <span class="price" v-text="show.discount">378</span>元</li>
 									</ul>
-									<div id="quantity-container">
-										<div id="quantity-title" class="inline">
-											數量:
-										</div>
-										<div @click="quantity? quantity--: 0" id="quantity-minus" class="inline"><i class="fa fa-minus-circle"></i></div>
-										<div id="quantity-input" class="inline">
-											<div id="quantity-input-text" class="inline" v-text="quantity"></div>
-										</div>
-										<div @click="quantity ++" id="quantity-plus" class="inline"><i class="fa fa-plus-circle"></i></div>
-										<div>
-											<div @click="addCart" id="quantity-add-cart" :class="{'add-cart-null': !quantity}">
-												加入購物車
-											</div>
-										</div>
+									<div class="quantity-container">
+										<div class="quantity-title inline">數量:</div>
+										<div @click="quantity>1 ? quantity-- : 1" class="quantity-minus inline"><i class="fa fa-minus-circle"></i></div>
+										<div class="quantity-input inline"><div v-text="quantity" class="quantity-input-text inline"></div></div>
+										<div @click="quantity++" class="quantity-plus inline"><i class="fa fa-plus-circle"></i></div>
+										<div @click="addCart" class="quantity-add-cart">加入購物車</div>
 									</div>
 								</div>
 							</div>
@@ -256,22 +248,8 @@ var data = {
 		],
 		books: [1, 2, 3, 4],
 	}],
-	books: [
-		{_id: 1, name: '欲望的教育：美意識創造未來', author_id: 5, image: 'images/book_1.jpg'},
-		{_id: 2, name: '給未來的創新經營者：從蔦屋書店到佐藤可士和的六堂設計管理課', author_id: 6, image: 'images/book_2.jpg'},
-		{_id: 3, name: '書設計：入行必備的權威聖經，編輯、設計、印刷全事典', author_id: 7, image: 'images/book_3.jpg'},
-		{_id: 4, name: '為社會而設計', author_id: 8, image: 'images/book_4.jpg'},
-	],
-	authors: [
-		{_id: 1, name: '張鐵志', title: '文化評論家', image: 'images/participant_1.jpg'},
-		{_id: 2, name: '杜祖業', title: 'GQ 雜誌總編輯', image: 'images/participant_2.jpg'},
-		{_id: 3, name: '方序中', title: '究方社創辦人', image: 'images/participant_3.jpg'},
-		{_id: 4, name: '梁浩軒', title: 'NCEPTION 啟藝創辦人', image: 'images/participant_4.jpg'},
-		{_id: 5, name: '原研哉'},
-		{_id: 6, name: '川島蓉子'},
-		{_id: 7, name: '安德魯．哈斯蘭'},
-		{_id: 8, name: '奈傑爾・懷特里 Nigel Whiteley'},
-	],
+	books: [{"_id":1,"name":"欲望的教育：美意識創造未來","author_id":5,"image":"images/book_1.jpg","translate":"李柏黎","publisher":"雄獅美術","price":420,"discount":378,"off":9,"comment_id":2,"comment":"如此的簡潔並非是理性探求之下所得到的成果，也不是偶然的產物。而是將「什麼都沒有」這件事給有意圖地設定為目的。藉著空無一物之器皿的建立，「空（emptiness）」的概念就得以體現，進而吸引人群注意並產生向心力，此概念便能被有效運用。","comments":[{"author_id":2,"comment":"如此的簡潔並非是理性探求之下所得到的成果，也不是偶然的產物。而是將「什麼都沒有」這件事給有意圖地設定為目的。藉著空無一物之器皿的建立，「空（emptiness）」的概念就得以體現，進而吸引人群注意並產生向心力，此概念便能被有效運用。"}]},{"_id":2,"name":"給未來的創新經營者：從蔦屋書店到佐藤可士和的六堂設計管理課","author_id":6,"image":"images/book_2.jpg","price":1000,"discount":900,"off":9,"comments":[{"author_id":1,"comment":"這是測試如此的簡潔並非是理性探求之下所得到的成果，也不是偶然的產物。而是將「什麼都沒有」這件事給有意圖地設定為目的。藉著空無一物之器皿的建立，「空（emptiness）」的概念就得以體現，進而吸引人群注意並產生向心力，此概念便能被有效運用。"}]},{"_id":3,"name":"書設計：入行必備的權威聖經，編輯、設計、印刷全事典","author_id":7,"image":"images/book_3.jpg","price":500,"discount":450,"off":9,"comments":[{"author_id":3,"comment":"這還是測試如此的簡潔並非是理性探求之下所得到的成果，也不是偶然的產物。而是將「什麼都沒有」這件事給有意圖地設定為目的。藉著空無一物之器皿的建立，「空（emptiness）」的概念就得以體現，進而吸引人群注意並產生向心力，此概念便能被有效運用。"}]},{"_id":4,"name":"為社會而設計","author_id":8,"image":"images/book_4.jpg","price":400,"discount":360,"off":9,"comments":[{"author_id":4,"comment":"都是測試如此的簡潔並非是理性探求之下所得到的成果，也不是偶然的產物。而是將「什麼都沒有」這件事給有意圖地設定為目的。藉著空無一物之器皿的建立，「空（emptiness）」的概念就得以體現，進而吸引人群注意並產生向心力，此概念便能被有效運用。"}]}],
+	authors: [{"_id":1,"name":"張鐵志","title":"文化評論家","image":"images/participant_1.jpg"},{"_id":2,"name":"杜祖業123","title":"GQ 雜誌總編輯","image":"images/participant_2.jpg"},{"_id":3,"name":"方序中","title":"究方社創辦人","image":"images/participant_3.jpg"},{"_id":4,"name":"梁浩軒","title":"NCEPTION 啟藝創辦人","image":"images/participant_4.jpg"},{"_id":5,"name":"原研哉"},{"_id":6,"name":"川島蓉子"},{"_id":7,"name":"安德魯．哈斯蘭"},{"_id":8,"name":"奈傑爾・懷特里 Nigel Whiteley"}],
 };
 
 //data//
@@ -307,12 +285,11 @@ var vue = new Vue({
 	},
     methods: {
 		addCart: function () {
-			if (!this.quantity) return;
 			this.cart.push({book_id: this.show._id, quantity: this.quantity});
 			set('cart', this.cart);
 			alert('已加入購物車');
-		}
-    }
+		},
+    },
 });
 
 </script>

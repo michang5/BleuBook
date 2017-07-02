@@ -996,16 +996,16 @@ blockquote:hover:after {
   display: inline-block;
 }
 
-#quantity-container {
+.quantity-container {
   margin: 20px 0;
 }
 
-#quantity-title {
+.quantity-title {
   color: #AF946F;
 }
 
-#quantity-plus,
-#quantity-minus {
+.quantity-plus,
+.quantity-minus {
   cursor: pointer;
   color: #AF946F;
   font-size: 2rem;
@@ -1013,7 +1013,7 @@ blockquote:hover:after {
   margin: 0 15px;
 }
 
-#quantity-input {
+.quantity-input {
   width: 36px;
   height: 36px;
   line-height: 34px;
@@ -1022,13 +1022,13 @@ blockquote:hover:after {
   text-align: center;
 }
 
-#quantity-input-text {
+.quantity-input-text {
   vertical-align: middle;
   font-size: 1.5rem;
   color: #AF946F;
 }
 
-#quantity-add-cart {
+.quantity-add-cart {
   background-color: #AF946F;
   cursor: pointer;
   padding: 10px 0;
@@ -1040,7 +1040,7 @@ blockquote:hover:after {
   line-height: 36px;
 }
 
-#quantity-add-cart.add-cart-null {
+.quantity-add-cart.add-cart-null {
   background-color: #FAF8F5;
   color: #AF946F;
   border: 1px solid #AF946F;
