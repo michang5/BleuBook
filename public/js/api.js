@@ -9,5 +9,13 @@ function api(url, data, succeed, failed) {
         alert(error);
         return false;
     });
+}
 
+function get(key, value) {
+    if (!localStorage[key]) localStorage[key] = JSON.stringify(value);
+    return JSON.parse(localStorage[key]);
+}
+
+function set(key, value) {
+    localStorage[key] = JSON.stringify(value);
 }
