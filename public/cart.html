@@ -85,11 +85,11 @@
                     <div class="row">
                         <div class="list" v-for="(b, i) in cart">
                             <div class="book-cover">
-                                <img :src="book[b.book_id].image" :alt="book[b.book_id].name">
+                                <img :src="book[b._id].image" :alt="book[b._id].name">
                             </div>
                             <div class="detail">
                                 <div class="book-title">
-                                    <span v-text="book[b.book_id].name"></span>
+                                    <span v-text="book[b._id].name"></span>
                                 </div>
                                 <div class="amount">
                                     <div class="qty">
@@ -98,7 +98,7 @@
 										<div @click="b.quantity++" class="quantity-plus inline"><i class="fa fa-plus-circle"></i></div>
                                     </div>
                                     <div class="price_del">
-                                    	<div class="book-price" v-text="'NT$ ' + (book[b.book_id].discount * b.quantity)"></div>
+                                    	<div class="book-price" v-text="'NT$ ' + (book[b._id].discount * b.quantity)"></div>
 										<div class="delete"><a @click="delCart(i)"><i class="fa fa-trash-o" aria-hidden="true"></i></a></div>
                                     </div>
                                 </div>
@@ -155,7 +155,7 @@ var vue = new Vue({
 			var sum = 0;
 			for (var i in this.cart) {
 				var b = this.cart[i];
-				sum += this.book[b.book_id].discount * b.quantity;
+				sum += this.book[b._id].discount * b.quantity;
 			}
 			return sum;
         },

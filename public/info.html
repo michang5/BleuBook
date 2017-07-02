@@ -24,8 +24,12 @@
 	<link href="css/slick.css" rel="stylesheet">
 	<link href="css/info.css" rel="stylesheet">
 	<link href="fonts/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+	<script src="js/vue.js"></script>
+	<script src="js/axios.js"></script>
+	<script src="js/api.js"></script>
 
 	<!--google-->
+<!--
 	<meta name="google-site-verification" content="-MLXb98KIXlOE_dmJ18CK9Ynil6NnPMRct9vU1ZYDpg" />
 	<link href="https://fonts.googleapis.com/css?family=Lora|Roboto:100,700,500" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Spectral:400,700" rel="stylesheet">
@@ -42,6 +46,7 @@
 	
 </head>
 <body id="info">
+<div id="vue">
 	
 	<!-- Navigation -->
 	<div id="navigation" class="container-fluid">
@@ -63,7 +68,7 @@
 		<div id="cart-icon-count-num">0</div>
 	</div></a></li>
 						<li id="cart-icon"><a href="cart.html">購物車<div id="cart-icon-count" class="inline">
-		<div id="cart-icon-count-num">0</div>
+		<div id="cart-icon-count-num" v-text="cart.length">0</div>
 	</div>  </a></li>
 					</ul>
 				</div>
@@ -80,12 +85,12 @@
 					<h3 class="text-center gold">請留下個人資料</h3>
 					<form>
 						<div class="form-group">
-							<input type="text" class="form-control" id="name" placeholder="請填寫您的姓名">
-							<input type="text" class="form-control" id="tel" placeholder="請填寫您的手機">
+							<input v-model="name" class="form-control" placeholder="請填寫您的姓名">
+							<input v-model.number="tel" class="form-control" placeholder="請填寫您的手機">
 						</div>
 						<p class="small text-center">青鳥書店將儘快致電或簡訊通知來電取書時間</p>
 						<div class="a-btn-lg full">
-							<a href="#">確認訂書</a>
+							<a @click="order">確認訂書</a>
 						</div>
 					</form>
 				</div>
@@ -104,6 +109,35 @@
     </div>
     
 
+</div>
+<script>
+
+var data = {
+	name: '',
+	tel: '',
+	cart: get('cart', []),
+	list: get('list', []),
+};
+
+//data//
+
+var vue = new Vue({
+    el: '#vue',
+    data: data,
+    methods: {
+		order: function () {
+			var o = {name: this.name, tel: this.tel, date: new Date(), books: this.cart};
+			this.list.push(o);
+			set('list', this.list);
+			this.cart = [];
+			set('cart', this.cart);
+			alert('訂書成功！');
+			location.href = 'index.html';
+		},
+    },
+});
+
+</script>
 
 	<!--jQuery--> 
 	<script type="text/javascript" src="js/jquery-2.2.4.js"></script>

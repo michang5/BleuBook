@@ -138,7 +138,6 @@ $(".carousel").swipe({
   allowPageScroll:"vertical"
 
 });
-*/
 window.onscroll = function(){
 	var target = document.body;	
 	var top_btn = document.querySelector('#top-btn');	
@@ -152,3 +151,4 @@ window.onscroll = function(){
 		top_btn.removeAttribute('class');
 	}
 }
+*/

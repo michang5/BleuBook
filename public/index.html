@@ -190,7 +190,7 @@
 										<li v-if="show.translate" v-text="'譯者：' + show.translate"></li>
 										<li v-if="show.publisher" v-text="'出版社：' + show.publisher"></li></li>
 										<li>建議售價：<span class="del" v-text="show.price + '元'"></span></li>
-										<li>定價：<span class="discount" v-text="off">9</span> 折 <span class="price" v-text="show.discount">378</span>元</li>
+										<li>定價：<span class="discount" v-text="show.off"></span> 折 <span class="price" v-text="show.discount"></span>元</li>
 									</ul>
 									<div class="quantity-container">
 										<div class="quantity-title inline">數量:</div>
@@ -285,7 +285,7 @@ var vue = new Vue({
 	},
     methods: {
 		addCart: function () {
-			this.cart.push({book_id: this.show._id, quantity: this.quantity});
+			this.cart.push({_id: this.show._id, quantity: this.quantity});
 			set('cart', this.cart);
 			alert('已加入購物車');
 		},
