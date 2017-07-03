@@ -63,10 +63,10 @@
 					<li><a href="index.html">活動</a></li>
 					<li><a href="books.html">選書</a></li>
 					<li id="list-icon"><a href="list.html">訂書單<div id="list-icon-count" class="inline">
-		<div id="cart-icon-count-num" v-text="list.length">0</div>
+		<div id="cart-icon-count-num" v-text="list.length"></div>
 	</div></a></li>
 					<li id="cart-icon"><a href="cart.html">購物車<div id="cart-icon-count" class="inline">
-		<div id="cart-icon-count-num" v-text="cart.length">0</div>
+		<div id="cart-icon-count-num" v-text="cart.length"></div>
 	</div></a></li>
 				</ul>
 			</div>
@@ -248,8 +248,8 @@ var data = {
 		],
 		books: [1, 2, 3, 4],
 	}],
-	books: [{"_id":1,"name":"欲望的教育：美意識創造未來","author_id":5,"image":"images/book_1.jpg","translate":"李柏黎","publisher":"雄獅美術","price":420,"discount":378,"off":9,"comment_id":2,"comment":"如此的簡潔並非是理性探求之下所得到的成果，也不是偶然的產物。而是將「什麼都沒有」這件事給有意圖地設定為目的。藉著空無一物之器皿的建立，「空（emptiness）」的概念就得以體現，進而吸引人群注意並產生向心力，此概念便能被有效運用。","comments":[{"author_id":2,"comment":"如此的簡潔並非是理性探求之下所得到的成果，也不是偶然的產物。而是將「什麼都沒有」這件事給有意圖地設定為目的。藉著空無一物之器皿的建立，「空（emptiness）」的概念就得以體現，進而吸引人群注意並產生向心力，此概念便能被有效運用。"}]},{"_id":2,"name":"給未來的創新經營者：從蔦屋書店到佐藤可士和的六堂設計管理課","author_id":6,"image":"images/book_2.jpg","price":1000,"discount":900,"off":9,"comments":[{"author_id":1,"comment":"這是測試如此的簡潔並非是理性探求之下所得到的成果，也不是偶然的產物。而是將「什麼都沒有」這件事給有意圖地設定為目的。藉著空無一物之器皿的建立，「空（emptiness）」的概念就得以體現，進而吸引人群注意並產生向心力，此概念便能被有效運用。"}]},{"_id":3,"name":"書設計：入行必備的權威聖經，編輯、設計、印刷全事典","author_id":7,"image":"images/book_3.jpg","price":500,"discount":450,"off":9,"comments":[{"author_id":3,"comment":"這還是測試如此的簡潔並非是理性探求之下所得到的成果，也不是偶然的產物。而是將「什麼都沒有」這件事給有意圖地設定為目的。藉著空無一物之器皿的建立，「空（emptiness）」的概念就得以體現，進而吸引人群注意並產生向心力，此概念便能被有效運用。"}]},{"_id":4,"name":"為社會而設計","author_id":8,"image":"images/book_4.jpg","price":400,"discount":360,"off":9,"comments":[{"author_id":4,"comment":"都是測試如此的簡潔並非是理性探求之下所得到的成果，也不是偶然的產物。而是將「什麼都沒有」這件事給有意圖地設定為目的。藉著空無一物之器皿的建立，「空（emptiness）」的概念就得以體現，進而吸引人群注意並產生向心力，此概念便能被有效運用。"}]}],
-	authors: [{"_id":1,"name":"張鐵志","title":"文化評論家","image":"images/participant_1.jpg"},{"_id":2,"name":"杜祖業123","title":"GQ 雜誌總編輯","image":"images/participant_2.jpg"},{"_id":3,"name":"方序中","title":"究方社創辦人","image":"images/participant_3.jpg"},{"_id":4,"name":"梁浩軒","title":"NCEPTION 啟藝創辦人","image":"images/participant_4.jpg"},{"_id":5,"name":"原研哉"},{"_id":6,"name":"川島蓉子"},{"_id":7,"name":"安德魯．哈斯蘭"},{"_id":8,"name":"奈傑爾・懷特里 Nigel Whiteley"}],
+	book: {"1":{"_id":1,"name":"欲望的教育：美意識創造未來","author_id":5,"image":"images/book_1.jpg","translate":"李柏黎","publisher":"雄獅美術","price":420,"discount":378,"off":9,"comment_id":2,"comment":"如此的簡潔並非是理性探求之下所得到的成果，也不是偶然的產物。而是將「什麼都沒有」這件事給有意圖地設定為目的。藉著空無一物之器皿的建立，「空（emptiness）」的概念就得以體現，進而吸引人群注意並產生向心力，此概念便能被有效運用。","comments":[{"author_id":2,"comment":"如此的簡潔並非是理性探求之下所得到的成果，也不是偶然的產物。而是將「什麼都沒有」這件事給有意圖地設定為目的。藉著空無一物之器皿的建立，「空（emptiness）」的概念就得以體現，進而吸引人群注意並產生向心力，此概念便能被有效運用。"}]},"2":{"_id":2,"name":"給未來的創新經營者：從蔦屋書店到佐藤可士和的六堂設計管理課","author_id":6,"image":"images/book_2.jpg","price":1000,"discount":900,"off":9,"comments":[{"author_id":1,"comment":"這是測試如此的簡潔並非是理性探求之下所得到的成果，也不是偶然的產物。而是將「什麼都沒有」這件事給有意圖地設定為目的。藉著空無一物之器皿的建立，「空（emptiness）」的概念就得以體現，進而吸引人群注意並產生向心力，此概念便能被有效運用。"}]},"3":{"_id":3,"name":"書設計：入行必備的權威聖經，編輯、設計、印刷全事典","author_id":7,"image":"images/book_3.jpg","price":500,"discount":450,"off":9,"comments":[{"author_id":3,"comment":"這還是測試如此的簡潔並非是理性探求之下所得到的成果，也不是偶然的產物。而是將「什麼都沒有」這件事給有意圖地設定為目的。藉著空無一物之器皿的建立，「空（emptiness）」的概念就得以體現，進而吸引人群注意並產生向心力，此概念便能被有效運用。"}]},"4":{"_id":4,"name":"為社會而設計","author_id":8,"image":"images/book_4.jpg","price":400,"discount":360,"off":9,"comments":[{"author_id":4,"comment":"都是測試如此的簡潔並非是理性探求之下所得到的成果，也不是偶然的產物。而是將「什麼都沒有」這件事給有意圖地設定為目的。藉著空無一物之器皿的建立，「空（emptiness）」的概念就得以體現，進而吸引人群注意並產生向心力，此概念便能被有效運用。"}]}},
+	author: {"1":{"_id":1,"name":"張鐵志","title":"文化評論家","image":"images/participant_1.jpg"},"2":{"_id":2,"name":"杜祖業123","title":"GQ 雜誌總編輯","image":"images/participant_2.jpg"},"3":{"_id":3,"name":"方序中","title":"究方社創辦人","image":"images/participant_3.jpg"},"4":{"_id":4,"name":"梁浩軒","title":"NCEPTION 啟藝創辦人","image":"images/participant_4.jpg"},"5":{"_id":5,"name":"原研哉"},"6":{"_id":6,"name":"川島蓉子"},"7":{"_id":7,"name":"安德魯．哈斯蘭"},"8":{"_id":8,"name":"奈傑爾・懷特里 Nigel Whiteley"}},
 };
 
 //data//
@@ -269,12 +269,6 @@ var vue = new Vue({
 			if (l < 2 || l == 2 && this.index == 1) return;
 			var e = this.events[(this.index + 1) % l];
 			return e.date + '' + e.name + (e.intro? ' - ' + e.intro: '');
-        },
-        author: function () {
-			return dict(this.authors);
-        },
-        book: function () {
-			return dict(this.books);
         },
         event: function () {
 			return this.events[this.index];

@@ -65,10 +65,10 @@
 						<li><a href="index.html">活動</a></li>
 						<li><a href="books.html">選書</a></li>
 						<li id="list-icon"><a href="list.html">訂書單<div id="list-icon-count" class="inline">
-		<div id="cart-icon-count-num">0</div>
+		<div id="cart-icon-count-num" v-text="list.length"></div>
 	</div></a></li>
 						<li id="cart-icon"><a href="cart.html">購物車<div id="cart-icon-count" class="inline">
-		<div id="cart-icon-count-num" v-text="cart.length">0</div>
+		<div id="cart-icon-count-num" v-text="cart.length"></div>
 	</div>  </a></li>
 					</ul>
 				</div>
@@ -86,7 +86,7 @@
 					<form>
 						<div class="form-group">
 							<input v-model="name" class="form-control" placeholder="請填寫您的姓名">
-							<input v-model.number="tel" class="form-control" placeholder="請填寫您的手機">
+							<input v-model="tel" class="form-control" placeholder="請填寫您的手機">
 						</div>
 						<p class="small text-center">青鳥書店將儘快致電或簡訊通知來電取書時間</p>
 						<div class="a-btn-lg full">
@@ -126,13 +126,16 @@ var vue = new Vue({
     data: data,
     methods: {
 		order: function () {
-			var o = {name: this.name, tel: this.tel, date: new Date(), books: this.cart};
-			this.list.push(o);
-			set('list', this.list);
-			this.cart = [];
-			set('cart', this.cart);
-			alert('訂書成功！');
-			location.href = 'index.html';
+			if (!vue.name) return alert('請輸入姓名！');
+			if (!vue.tel) return alert('請輸入電話！');
+			api('order', {name: vue.name, tel: vue.tel, cart: vue.cart}, function (rs) {
+				vue.list.push({});
+				set('list', vue.list);
+				vue.cart = [];
+				set('cart', vue.cart);
+				alert('訂書成功！');
+				location.href = 'index.html';
+			});
 		},
     },
 });

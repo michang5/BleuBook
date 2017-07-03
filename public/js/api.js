@@ -1,6 +1,6 @@
 function api(url, data, succeed, failed) {
     axios.post(url, data).then(function (result) {
-        if (result.data.code == 0) return succeed? succeed(result): true;
+        if (result.data.code == 0) return succeed? succeed(result.data.data): true;
         if (failed) return failed(result);
         alert(result.data.message);
         return false;
