@@ -23,6 +23,15 @@ api.get('/index.html', (req, res) => {
   res.render({events, book, author}, 'public/index.html');
 });
 
+api.get('/event.html', (req, res) => {
+  var event = Mongo.get('event', req.query.event_id);
+  //var prev = Mongo.get('event', req.query.prev_event_id);
+  //var next = Mongo.get('event', req.query.next_event_id);
+  var book = dict(Mongo('book'));
+  var author = dict(Mongo('author'));
+  res.render({event, book, author}, 'public/event.html');
+});
+
 api.get('/cart.html', (req, res) => {
   var book = dict(Mongo('book'));
   var author = dict(Mongo('author'));

@@ -22,8 +22,6 @@ function set(key, value) {
 
 function dict(arr, key = '_id') {
     var o = {};
-    for (var i in arr) {
-        o[arr[i][key]] = arr[i];
-    }
+    for (var i in arr) o[arr[i][key]] = arr[i];
     return o;
 }
