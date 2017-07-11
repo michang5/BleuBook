@@ -143,6 +143,49 @@
 		line-height: 1.6;
 	}
 }
+.carousel-inner > .item {
+	margin: 0 auto;
+	max-width: 1400px;
+	max-height: 788px;
+	background-size: cover;
+	background-position: center center;
+	@media screen and (max-width: 320px) {
+		height: 180px;
+//		border: 1px solid green;
+	}
+	@media screen and (min-width: 321px) {
+		height: 230px;
+//		border: 1px solid green;
+	}
+	@media screen and (min-width: 480px) {
+		height: 270px;
+//		border: 1px solid green;
+	}
+	@media screen and (min-width: 640px) {
+		height: 360px;
+//		border: 1px solid pink;
+	}
+	@media screen and (min-width: 768px) {
+		height: 432px;
+//		border: 1px solid green;
+	}
+	@media screen and (min-width: 992px) {
+		height: 558px;
+//		border: 1px solid red;
+	}
+	@media screen and (min-width: 1024px) {
+		height: 576px;
+//		border: 1px solid green;
+	}
+	@include respond-to (xlg-screen){
+		height: 675px;
+//		border: 1px solid blue;
+	}
+	@media screen and (min-width: 1366px) {
+		height: 788px;
+//		border: 1px solid red;
+	}
+}
 //.book-cover-list {
 //	.book-cover {
 //		height: 100%;

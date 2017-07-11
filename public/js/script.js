@@ -126,7 +126,12 @@ $(function () {
 			alert("Order Placed");
 		});
 	}
+	
+	$(".carousel-indicators li, .carousel-control").click(function () {
+		$("#video iframe").attr("src", $("#video iframe").attr("src"));
+	});
 });
+
 /*
 $(".carousel").swipe({
   swipe: function(event, direction, distance, duration, fingerCount, fingerData) {

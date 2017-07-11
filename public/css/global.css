@@ -559,6 +559,8 @@ p.note {
 }
 .footer .footer-content p {
   font-size: 13px;
+  margin-top: 14px;
+  color: #8C6631;
 }
 
 .carousel-caption {
@@ -594,6 +596,7 @@ p.note {
 
 .carousel-control.left, .carousel-control.right {
   background: none;
+  height: 60%;
 }
 
 .section-slider .carousel-inner > .item {
@@ -619,9 +622,61 @@ p.note {
 @media screen and (max-width: 768px) {
   .carousel-control {
     width: 15%;
-    padding-top: 40%;
   }
 }
+.carousel-inner > .item {
+  margin: 0 auto;
+  max-width: 1400px;
+  max-height: 788px;
+  background-size: cover;
+  background-position: center center;
+}
+@media screen and (max-width: 320px) {
+  .carousel-inner > .item {
+    height: 180px;
+  }
+}
+@media screen and (min-width: 321px) {
+  .carousel-inner > .item {
+    height: 230px;
+  }
+}
+@media screen and (min-width: 480px) {
+  .carousel-inner > .item {
+    height: 270px;
+  }
+}
+@media screen and (min-width: 640px) {
+  .carousel-inner > .item {
+    height: 360px;
+  }
+}
+@media screen and (min-width: 768px) {
+  .carousel-inner > .item {
+    height: 432px;
+  }
+}
+@media screen and (min-width: 992px) {
+  .carousel-inner > .item {
+    height: 558px;
+  }
+}
+@media screen and (min-width: 1024px) {
+  .carousel-inner > .item {
+    height: 576px;
+  }
+}
+@media only screen and (min-width: 1200px) {
+  .carousel-inner > .item {
+    height: 675px;
+  }
+}
+@media screen and (min-width: 1366px) {
+  .carousel-inner > .item {
+    height: 788px;
+  }
+}
+
 .arrow {
   width: 60px;
   height: 60px;
@@ -996,16 +1051,16 @@ blockquote:hover:after {
   display: inline-block;
 }
 
-.quantity-container {
+#quantity-container {
   margin: 20px 0;
 }
 
-.quantity-title {
+#quantity-title {
   color: #AF946F;
 }
 
-.quantity-plus,
-.quantity-minus {
+#quantity-plus,
+#quantity-minus {
   cursor: pointer;
   color: #AF946F;
   font-size: 2rem;
@@ -1013,7 +1068,7 @@ blockquote:hover:after {
   margin: 0 15px;
 }
 
-.quantity-input {
+#quantity-input {
   width: 36px;
   height: 36px;
   line-height: 34px;
@@ -1022,13 +1077,13 @@ blockquote:hover:after {
   text-align: center;
 }
 
-.quantity-input-text {
+#quantity-input-text {
   vertical-align: middle;
   font-size: 1.5rem;
   color: #AF946F;
 }
 
-.quantity-add-cart {
+#quantity-add-cart {
   background-color: #AF946F;
   cursor: pointer;
   padding: 10px 0;
@@ -1040,7 +1095,7 @@ blockquote:hover:after {
   line-height: 36px;
 }
 
-.quantity-add-cart.add-cart-null {
+#quantity-add-cart.add-cart-null {
   background-color: #FAF8F5;
   color: #AF946F;
   border: 1px solid #AF946F;

@@ -123,3 +123,56 @@
 #section2 h4, #section3 h4, #section4 h4 {
   line-height: 1.6;
 }
+
+.carousel-inner > .item {
+  margin: 0 auto;
+  max-width: 1400px;
+  max-height: 788px;
+  background-size: cover;
+  background-position: center center;
+}
+@media screen and (max-width: 320px) {
+  .carousel-inner > .item {
+    height: 180px;
+  }
+}
+@media screen and (min-width: 321px) {
+  .carousel-inner > .item {
+    height: 230px;
+  }
+}
+@media screen and (min-width: 480px) {
+  .carousel-inner > .item {
+    height: 270px;
+  }
+}
+@media screen and (min-width: 640px) {
+  .carousel-inner > .item {
+    height: 360px;
+  }
+}
+@media screen and (min-width: 768px) {
+  .carousel-inner > .item {
+    height: 432px;
+  }
+}
+@media screen and (min-width: 992px) {
+  .carousel-inner > .item {
+    height: 558px;
+  }
+}
+@media screen and (min-width: 1024px) {
+  .carousel-inner > .item {
+    height: 576px;
+  }
+}
+@media only screen and (min-width: 1200px) {
+  .carousel-inner > .item {
+    height: 675px;
+  }
+}
+@media screen and (min-width: 1366px) {
+  .carousel-inner > .item {
+    height: 788px;
+  }
+}

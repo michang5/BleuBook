@@ -48,7 +48,6 @@
   width: 60px;
   line-height: 36px;
   text-align: right;
-  white-space: nowrap;
 }
 .list .price_del {
   float: right;
