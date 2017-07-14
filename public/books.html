@@ -98,7 +98,7 @@
 				<h2 class="text-center">青鳥選書</h2>
 				<div class="book-list-row">
 					<div class="row book-cover-list">
-						<div v-for= class="col-sm-2 col-xs-3">
+						<div v-for="_id in selection" class="col-sm-2 col-xs-3">
 							<a data-toggle="modal" data-target="#book-single">
 								<div class="book-cover" style="background-image: url('images/book_1.jpg');"></div>
 								<h4>欲望的教育：美意識創造未來</h4>
@@ -141,7 +141,6 @@
 								<h5>作者： 川島蓉子</h5>
 							</a>
 						</div>
-						<div class="clearfix visible-sm visible-md visible-lg"></div>
 						<div class="col-sm-2 col-xs-3">
 							<a data-toggle="modal" data-target="#book-single">
 								<div class="book-cover" style="background-image: url('images/book_3.jpg');"></div>

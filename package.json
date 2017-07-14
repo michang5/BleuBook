@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "pm2 start www --watch --merge-logs"
+    "start": "pm2 start bleu --watch --merge-logs"
   },
   "dependencies": {
     "asyncawait": "~1.0.1",
