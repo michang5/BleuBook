@@ -78,16 +78,29 @@
 	    <div class="content-wraper">   
             <!--section1 Hero banner-->
             <div id="section1" class="section container-fluid">
-                <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="false">
                 <!-- Indicators -->
                     <ol class="carousel-indicators">
                         <li data-target="#myCarousel" v-for="(s, i) in event.slides" :data-slide-to="i" :class="{active: i == 0}"></li>
                     </ol>    
                     <!-- Wrapper for slides -->
                     <div class="carousel-inner">
+                    	<div class="item active">
+                    		<div class="embed-responsive embed-responsive-16by9" id="video">
+								<iframe class="embed-responsive-item" src="https://www.youtube.com/embed/Jip3hvZ7YZI" frameborder="0" allowfullscreen><div class="video_mask"></div></iframe>
+							</div>
+						</div>
+						<div class="item" style="background-image: url('images/slide1_img2.jpg')">
+							
+						</div>
+						<div class="item" style="background-image: url('images/slide1_img3.jpg')">
+							
+						</div>
+<!--
                         <div class="item" v-for="(s, i) in event.slides" :class="{active: i == 0}">
                             <img :src="s" alt="">
                         </div>
+-->
                     </div>
 
                     <!-- Controls -->
@@ -162,12 +175,13 @@
 	</div>
 	<!--footer-->
 	<div class="footer container-fluid">
-		<div class="footer-content">
+		<div class="footer-content">	
 			<ul>
 				<li><span><img src="images/BleuBook_logo_s.png" alt=""></span>© bleu & book 青鳥書店</li>
 				<li><a href=""><img src="images/icon_fb.png" alt=""></a></li>
 			</ul>
-			<p><a href="#">使用條款與隱私聲明</a></p>
+			<p class="info">地址：100台北市中山區八德路一段1號｜電話：02 2341 8865</p>
+<!--			<p><a href="#">使用條款與隱私聲明</a></p>-->
 		</div>
     </div>
     
