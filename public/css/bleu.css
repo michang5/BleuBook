@@ -21,7 +21,7 @@ html,body{
     position: absolute;
     min-height: 100%; 
     width: 100%; 
-    transition: transform 0.5s linear;
+    transition: transform 1s linear;
     background-color:white;
     transform-origin: center center;
 }
@@ -34,7 +34,7 @@ html,body{
 }
 
 .cube.index0 .page2 {
-    transform: translateZ(-1000px); 
+    transform: translateZ(-10000px); 
 }
 
 .cube.index0 .page3 {
@@ -54,11 +54,11 @@ html,body{
 }
 
 .cube.index1 .page3 {
-    transform: translateZ(-1000px); 
+    transform: translateZ(-10000px); 
 }
 
 .cube.index2 .page0 {
-    transform: translateZ(-1000px);
+    transform: translateZ(-10000px);
 }
 
 .cube.index2 .page1 {
@@ -78,7 +78,7 @@ html,body{
 }
 
 .cube.index3 .page1 {
-    transform: translateZ(-1000px); 
+    transform: translateZ(-10000px); 
 }
 
 .cube.index3 .page2 {
