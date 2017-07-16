@@ -1,0 +1,43 @@
+html,body{
+    margin: 0;
+    height: 100%;
+    width: 100%;
+}
+
+#vue {
+    perspective: 2000px;
+    height: 100%; 
+    width: 100%; 
+    overflow: auto;
+}
+
+.cube {
+    position: relative;
+    height: 100%; 
+    width: 100%; 
+    transform-style: preserve-3d;
+}
+.face {
+    position: absolute;
+    min-height: 100%; 
+    width: 100%; 
+    transition: transform 1s linear;
+}
+.cube .page0 {
+    transform:  rotateY(-90deg) translateX(-50%) rotateY(0deg) translateX(50%) rotateY(90deg);
+    transform-origin: center center;
+    background-color:white;
+}
+
+.cube .page1 {
+    transform:  rotateY(-90deg) translateX(-50%) rotateY(-90deg) translateX(50%) rotateY(90deg); 
+    background-color:lightgray;
+}
+
+.cube.hover .page0 {
+    transform:  rotateY(-90deg) translateX(-50%) rotateY(90deg) translateX(50%) rotateY(90deg);
+}
+
+.cube.hover .page1 {
+    transform:  rotateY(-90deg) translateX(-50%) rotateY(0deg) translateX(50%) rotateY(90deg); 
+}
