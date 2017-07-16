@@ -30,7 +30,7 @@ html,body{
 }
 
 .cube.index0 .page1 {
-    transform: rotateY(-90deg) translateX(-50%) rotateY(-90deg) translateX(50%) rotateY(90deg); 
+    transform: rotateY(-90deg) translateX(-50%) rotateY(90deg) translateX(50%) rotateY(90deg); 
 }
 
 .cube.index0 .page2 {
@@ -38,11 +38,11 @@ html,body{
 }
 
 .cube.index0 .page3 {
-    transform: rotateY(-90deg) translateX(-50%) rotateY(90deg) translateX(50%) rotateY(90deg); 
+    transform: rotateY(-90deg) translateX(-50%) rotateY(-90deg) translateX(50%) rotateY(90deg); 
 }
 
 .cube.index1 .page0 {
-    transform: rotateY(-90deg) translateX(-50%) rotateY(90deg) translateX(50%) rotateY(90deg);
+    transform: rotateY(-90deg) translateX(-50%) rotateY(-90deg) translateX(50%) rotateY(90deg);
 }
 
 .cube.index1 .page1 {
@@ -50,7 +50,7 @@ html,body{
 }
 
 .cube.index1 .page2 {
-    transform: rotateY(-90deg) translateX(-50%) rotateY(-90deg) translateX(50%) rotateY(90deg); 
+    transform: rotateY(-90deg) translateX(-50%) rotateY(90deg) translateX(50%) rotateY(90deg); 
 }
 
 .cube.index1 .page3 {
@@ -62,7 +62,7 @@ html,body{
 }
 
 .cube.index2 .page1 {
-    transform: rotateY(-90deg) translateX(-50%) rotateY(90deg) translateX(50%) rotateY(90deg); 
+    transform: rotateY(-90deg) translateX(-50%) rotateY(-90deg) translateX(50%) rotateY(90deg); 
 }
 
 .cube.index2 .page2 {
@@ -70,11 +70,11 @@ html,body{
 }
 
 .cube.index2 .page3 {
-    transform: rotateY(-90deg) translateX(-50%) rotateY(-90deg) translateX(50%) rotateY(90deg); 
+    transform: rotateY(-90deg) translateX(-50%) rotateY(90deg) translateX(50%) rotateY(90deg); 
 }
 
 .cube.index3 .page0 {
-    transform: rotateY(-90deg) translateX(-50%) rotateY(-90deg) translateX(50%) rotateY(90deg);
+    transform: rotateY(-90deg) translateX(-50%) rotateY(90deg) translateX(50%) rotateY(90deg);
 }
 
 .cube.index3 .page1 {
@@ -82,7 +82,7 @@ html,body{
 }
 
 .cube.index3 .page2 {
-    transform: rotateY(-90deg) translateX(-50%) rotateY(90deg) translateX(50%) rotateY(90deg); 
+    transform: rotateY(-90deg) translateX(-50%) rotateY(-90deg) translateX(50%) rotateY(90deg); 
 }
 
 .cube.index3 .page3 {
