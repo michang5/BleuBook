@@ -279,14 +279,11 @@ var vue = new Vue({
     methods: {
         prev: function (i) {
 			var l = this.events.length;
-			//if (l < 2 || l == 2 && this.index == 0) return;
 			var e = this.events[(i + l - 1) % l];
-			console.log(e.date + '' + e.name + (e.intro? ' - ' + e.intro: ''));
 			return e.date + '' + e.name + (e.intro? ' - ' + e.intro: '');
         },
         next: function (i) {
 			var l = this.events.length;
-			//if (l < 2 || l == 2 && this.index == 1) return;
 			var e = this.events[(i + 1) % l];
 			return e.date + '' + e.name + (e.intro? ' - ' + e.intro: '');
         },

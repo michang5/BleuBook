@@ -1,6 +1,7 @@
 // Create app
 var api = require('../api')('/');
 var Mongo = require('../utils/Mongo');
+var Post = require('../utils/Post');
 
 function dict(arr, key = '_id') {
   var o = {};
@@ -11,6 +12,10 @@ function dict(arr, key = '_id') {
 // Include models
 
 // BleuBook 前台
+
+api.get('/t', (req, res) => {
+  res.ok(Post.ws('http://104.199.147.199/fribooker/queryOrders.aspx', ''));
+});
 
 api.get('/', (req, res) => {
   res.redirect('index.html');
@@ -53,8 +58,41 @@ api.post('/order', (req, res) => {
   res.ok(Mongo.add('order', order));
 });
 
+api.get('/admin_author', (req, res) => {
+  res.render({authors: Mongo('author', {}, {}, {_id: 1})}, 'public/admin_author.html');
+});
+
+api.get('/admin_author_edit', (req, res) => {
+  var _id = parseInt(req.query._id);
+  var author = Mongo.one('author', {_id});
+  res.render(author, 'public/admin_author_edit.html');
+});
+
+//Kaede test
 api.post('/query', (req, res) => {
   res.ok(Mongo('order', {tel: req.body.tel}, {}, {_id: -1}));
+});
+
+//Example
+api.get('/admin_trader2', (req, res) => {
+  res.render({traders: Mongo('trader2', {}, {_id: 0}, {id: 1})}, 'public/admin_trader2.html');
+});
+
+api.get('/admin_shop', (req, res) => {
+  res.render({shop: Mongo.one('shop', {id: 0}, {_id: 0})}, 'public/admin_shop.html');
+});
+
+api.post('/admin_shop_upload', (req, res) => {
+  var file = req.files.file;
+  var src = randomstring.generate(6) + file.name.match(/(\.[^.]+)$/)[1];
+  if (/^video/.test(file.type))
+    Exec(config.ffmpeg + ' -i ' + file.path + ' -ss 00:00:01.000 -vframes 1 ' + config.images + '/' + src + '.png');
+  FS.rename(file.path, config.images + '/' + src);
+  res.ok({src, type: file.type, name: file.name, intro: ''});
+});
+
+api.post('/admin_shop_save', (req, res) => {
+  res.ok(Mongo.update('shop', {id: req.body.id}, req.body));
 });
 
 module.exports = api;
