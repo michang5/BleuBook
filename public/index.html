@@ -28,7 +28,6 @@
 	<script src="js/axios.js"></script>
 	<script src="js/api.js"></script>
 	<!--google-->
-<!--
 	<meta name="google-site-verification" content="-MLXb98KIXlOE_dmJ18CK9Ynil6NnPMRct9vU1ZYDpg" />
 	<link href="https://fonts.googleapis.com/css?family=Lora|Roboto:100,700,500" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Spectral:100, 400,700" rel="stylesheet">
@@ -85,17 +84,12 @@
                     </ol>    
                     <!-- Wrapper for slides -->
                     <div class="carousel-inner">
-                    	<div class="item active">
-                    		<div class="embed-responsive embed-responsive-16by9" id="video">
-								<iframe class="embed-responsive-item" src="https://www.youtube.com/embed/Jip3hvZ7YZI" frameborder="0" allowfullscreen><div class="video_mask"></div></iframe>
-							</div>
-						</div>
-						<div class="item" style="background-image: url('images/slide1_img2.jpg')">
-							
-						</div>
-						<div class="item" style="background-image: url('images/slide1_img3.jpg')">
-							
-						</div>
+                        <div class="item" :class="{'active': i == 0}" v-if="s.type === 'video'" v-for="(s, i) in event.slides">
+                            <div class="embed-responsive embed-responsive-16by9" id="video">
+                                <iframe class="embed-responsive-item" :src="s.url" frameborder="0" allowfullscreen><div class="video_mask"></div></iframe>
+                            </div>
+                        </div>
+                        <div class="item" :class="{'active': i == 0}" v-if="s.type === 'picture'" v-for="(s, i) in event.slides" :style="'background-image: url(' + s.url + ')'"></div>
 <!--
                         <div class="item" v-for="(s, i) in event.slides" :class="{active: i == 0}">
                             <img :src="s" alt="">
@@ -135,10 +129,10 @@
             <!--section2 與談人-->
             <div id="section2" class="section container-fluid row-centered">
                 <h2>與談人</h2>
-                <div class="col-xs-3" v-for="_id in event.speakers">
-                    <img :src="author[_id].image" :alt="author[_id].name + author[_id].title" class="img-responsive">
-                    <h4 v-text="author[_id].name"></h4>
-                    <h5 v-text="author[_id].title"></h5>
+                <div class="col-xs-3" v-for="q in event.speakers">
+                    <img :src="q.image==''?author[q.author_id].image:q.image" :alt="author[q.author_id].name + author[q.author_id].title" class="img-responsive">
+                    <h4 v-text="author[q.author_id].name"></h4>
+                    <h5 v-text="author[q.author_id].title"></h5>
                 </div>
             </div>
             <!--section3 精采摘錄-->
@@ -208,10 +202,10 @@
 									</ul>
 									<div class="quantity-container">
 										<div class="quantity-title inline">數量:</div>
-										<div @click="quantity>1 ? quantity-- : 1" class="quantity-minus inline"><i class="fa fa-minus-circle"></i></div>
-										<div class="quantity-input inline"><div v-text="quantity" class="quantity-input-text inline"></div></div>
-										<div @click="quantity++" class="quantity-plus inline"><i class="fa fa-plus-circle"></i></div>
-										<div @click="addCart" class="quantity-add-cart">加入購物車</div>
+										<div @click="quantity>1 ? quantity-- : 1" id="quantity-minus" class="inline"><i class="fa fa-minus-circle"></i></div>
+										<div id="quantity-input" class="inline"><div v-text="quantity" class="quantity-input-text inline"></div></div>
+										<div @click="quantity++" id="quantity-plus" class="inline"><i class="fa fa-plus-circle"></i></div>
+										<div @click="addCart" id="quantity-add-cart">加入購物車</div>
 									</div>
 								</div>
 							</div>
@@ -244,7 +238,7 @@ var data = {
 	quantity: 1,
 	cart: get('cart', []),
 	list: get('list', []),
-	events: [{"_id":1,"slides":["images/slide_image1.jpg","images/event_2.jpg","images/event_1.jpg"],"speakers":[1,2,3,4],"quotes":[{"author_id":3,"quote":"用想像力的設計說好一個故事。"},{"author_id":4,"quote":"時代潮流看設計的台灣。"},{"author_id":2,"quote":"設計師必須是不滿現實的哲學家。"}],"books":[1,2,3,4],"name":"「青鳥獨立系列」美意識","intro":"台灣的設計思考談未來閱讀","date":"6/28"},{"_id":3,"slides":["images/event_1.jpg","images/slide_image1.jpg","images/event_2.jpg"],"speakers":[4,3,2,1],"quotes":[{"author_id":4,"quote":"時代潮流看設計的台灣。"},{"author_id":2,"quote":"設計師必須是不滿現實的哲學家。"},{"author_id":3,"quote":"用想像力的設計說好一個故事。"}],"books":[4,3,2,1],"name":"色之力","intro":"「美好生活的色彩提案」","date":"6/30"},{"_id":2,"slides":["images/event_2.jpg","images/event_1.jpg","images/slide_image1.jpg"],"speakers":[2,4,1,3],"quotes":[{"author_id":2,"quote":"設計師必須是不滿現實的哲學家。"},{"author_id":3,"quote":"用想像力的設計說好一個故事。"},{"author_id":4,"quote":"時代潮流看設計的台灣。"}],"books":[2,4,1,3],"name":"《100種東京》新書分享暨聊天會","intro":"","date":"6/27"}],
+	events: [{"_id":1,"slides":[{"type":"video","url":"https://www.youtube.com/embed/Jip3hvZ7YZI"},{"type":"picture","url":"images/slide1_img2.jpg"},{"type":"picture","url":"images/slide1_img3.jpg"}],"speakers":[{"author_id":1,"image":"images/participant_1.jpg"},{"author_id":2,"image":"images/participant_2.jpg"},{"author_id":3,"image":"images/participant_3.jpg"},{"author_id":4,"image":"images/participant_4.jpg"}],"quotes":[{"author_id":3,"quote":"用想像力的設計說好一個故事。"},{"author_id":4,"quote":"時代潮流看設計的台灣。"},{"author_id":2,"quote":"設計師必須是不滿現實的哲學家。"}],"books":[1,2,3,4],"name":"「青鳥獨立系列」美意識","intro":"台灣的設計思考談未來閱讀","date":"6/28"},{"_id":3,"slides":[{"type":"video","url":"https://www.youtube.com/embed/Jip3hvZ7YZI"},{"type":"picture","url":"images/slide1_img2.jpg"},{"type":"picture","url":"images/slide1_img3.jpg"}],"speakers":[{"author_id":4,"image":"images/participant_4.jpg"},{"author_id":3,"image":"images/participant_3.jpg"},{"author_id":2,"image":"images/participant_2.jpg"},{"author_id":1,"image":"images/participant_1.jpg"}],"quotes":[{"author_id":4,"quote":"時代潮流看設計的台灣。"},{"author_id":2,"quote":"設計師必須是不滿現實的哲學家。"},{"author_id":3,"quote":"用想像力的設計說好一個故事。"}],"books":[4,3,2,1],"name":"色之力","intro":"「美好生活的色彩提案」","date":"6/30"},{"_id":2,"slides":[{"type":"video","url":"https://www.youtube.com/embed/Jip3hvZ7YZI"},{"type":"picture","url":"images/slide1_img2.jpg"},{"type":"picture","url":"images/slide1_img3.jpg"}],"speakers":[{"author_id":2,"image":"images/participant_2.jpg"},{"author_id":4,"image":"images/participant_4.jpg"},{"author_id":1,"image":"images/participant_1.jpg"},{"author_id":3,"image":"images/participant_3.jpg"}],"quotes":[{"author_id":2,"quote":"設計師必須是不滿現實的哲學家。"},{"author_id":3,"quote":"用想像力的設計說好一個故事。"},{"author_id":4,"quote":"時代潮流看設計的台灣。"}],"books":[2,4,1,3],"name":"《100種東京》新書分享暨聊天會","intro":"","date":"6/27"}],
 	book: {"1":{"_id":1,"name":"欲望的教育：美意識創造未來","author_id":5,"image":"images/book_1.jpg","translate":"李柏黎","publisher":"雄獅美術","price":420,"discount":378,"off":9,"comment_id":2,"comment":"如此的簡潔並非是理性探求之下所得到的成果，也不是偶然的產物。而是將「什麼都沒有」這件事給有意圖地設定為目的。藉著空無一物之器皿的建立，「空（emptiness）」的概念就得以體現，進而吸引人群注意並產生向心力，此概念便能被有效運用。","comments":[{"author_id":2,"comment":"如此的簡潔並非是理性探求之下所得到的成果，也不是偶然的產物。而是將「什麼都沒有」這件事給有意圖地設定為目的。藉著空無一物之器皿的建立，「空（emptiness）」的概念就得以體現，進而吸引人群注意並產生向心力，此概念便能被有效運用。"}]},"2":{"_id":2,"name":"給未來的創新經營者：從蔦屋書店到佐藤可士和的六堂設計管理課","author_id":6,"image":"images/book_2.jpg","price":1000,"discount":900,"off":9,"comments":[{"author_id":1,"comment":"這是測試如此的簡潔並非是理性探求之下所得到的成果，也不是偶然的產物。而是將「什麼都沒有」這件事給有意圖地設定為目的。藉著空無一物之器皿的建立，「空（emptiness）」的概念就得以體現，進而吸引人群注意並產生向心力，此概念便能被有效運用。"}]},"3":{"_id":3,"name":"書設計：入行必備的權威聖經，編輯、設計、印刷全事典","author_id":7,"image":"images/book_3.jpg","price":500,"discount":450,"off":9,"comments":[{"author_id":3,"comment":"這還是測試如此的簡潔並非是理性探求之下所得到的成果，也不是偶然的產物。而是將「什麼都沒有」這件事給有意圖地設定為目的。藉著空無一物之器皿的建立，「空（emptiness）」的概念就得以體現，進而吸引人群注意並產生向心力，此概念便能被有效運用。"}]},"4":{"_id":4,"name":"為社會而設計","author_id":8,"image":"images/book_4.jpg","price":400,"discount":360,"off":9,"comments":[{"author_id":4,"comment":"都是測試如此的簡潔並非是理性探求之下所得到的成果，也不是偶然的產物。而是將「什麼都沒有」這件事給有意圖地設定為目的。藉著空無一物之器皿的建立，「空（emptiness）」的概念就得以體現，進而吸引人群注意並產生向心力，此概念便能被有效運用。"}]}},
 	author: {"1":{"_id":1,"name":"張鐵志","title":"文化評論家","image":"images/participant_1.jpg"},"2":{"_id":2,"name":"杜祖業123","title":"GQ 雜誌總編輯","image":"images/participant_2.jpg"},"3":{"_id":3,"name":"方序中","title":"究方社創辦人","image":"images/participant_3.jpg"},"4":{"_id":4,"name":"梁浩軒","title":"NCEPTION 啟藝創辦人","image":"images/participant_4.jpg"},"5":{"_id":5,"name":"原研哉"},"6":{"_id":6,"name":"川島蓉子"},"7":{"_id":7,"name":"安德魯．哈斯蘭"},"8":{"_id":8,"name":"奈傑爾・懷特里 Nigel Whiteley"}},
 };

@@ -5,35 +5,6 @@ var await = require('asyncawait/await');
 var url = 'https://oa.taitung.gov.tw/portal_server_org.php?wsdl';
 var key = 'a18610ed4f252f7377ae8cf9a28d6fcf92b75a7785e7503116fffd76a5d814d5';
 
-/*
-MySQL.query('SELECT * FROM user', function (rs) {
-  if (rs.length > 0) {
-    MySQL.query('SELECT * FROM user', function (rs) {
-      if (rs.length > 0) {
-        
-      }
-    });
-  }
-  else {
-
-  }
-});
-MySQL.query('SELECT * FROM user')
-.then(function (rs) {
-  return MySQL.query('SELECT * FROM user');
-})
-.then(function (rs) {
-  return MySQL.query('SELECT * FROM user');
-})
-.then(function (rs) {
-})
-.then(function (rs) {
-})
-.catch(function (err){
-
-})
-*/
-
 var OA = {};
 
 OA.getCompany = () => {
