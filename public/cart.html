@@ -92,9 +92,9 @@
                                 </div>
                                 <div class="amount">
                                     <div class="qty">
-										<div @click="b.quantity>1 ? b.quantity-- : 1" class="quantity-minus inline"><i class="fa fa-minus-circle"></i></div>
-										<div class="quantity-input inline"><div v-text="b.quantity" class="quantity-input-text inline"></div></div>
-										<div @click="b.quantity++" class="quantity-plus inline"><i class="fa fa-plus-circle"></i></div>
+										<div @click="b.quantity>1 ? b.quantity-- : 1" id="quantity-minus" class="inline"><i class="fa fa-minus-circle"></i></div>
+										<div id="quantity-input" class="inline"><div v-text="b.quantity" class="quantity-input-text inline"></div></div>
+										<div @click="b.quantity++" id="quantity-plus" class="inline"><i class="fa fa-plus-circle"></i></div>
                                     </div>
                                     <div class="price_del">
                                     	<div class="book-price" v-text="'NT$ ' + ((book[b._id].discount? book[b._id].discount: book[b._id].price) * b.quantity)"></div>
