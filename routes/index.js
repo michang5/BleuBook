@@ -1,7 +1,12 @@
 // Create app
 var api = require('../api')('/');
+var config = require('../config');
 var Mongo = require('../utils/Mongo');
 var Post = require('../utils/Post');
+var FS = require('../utils/FS');
+var Exec = require('../utils/Exec');
+var moment = require('moment');
+var randomstring = require('randomstring');
 
 function dict(arr, key = '_id') {
   var o = {};
@@ -86,6 +91,26 @@ api.post('/admin_shop_save', (req, res) => {
 });
 
 // admin pannel
+
+api.get('/admin_event', (req, res) => {
+  res.render({events: Mongo('event', {}, {}, {_id: 1})}, 'public/admin_event.html');
+});
+
+api.get('/admin_event_edit', (req, res) => {
+  var _id = parseInt(req.query._id);
+  var event = Mongo.one('event', {_id});
+  var book = dict(Mongo('book'));
+  res.render({event, book}, 'public/admin_event_edit.html');
+});
+
+api.post('/admin_event_slide_upload', (req, res) => {
+  var file = req.files.file;
+  var src = moment(new Date()).add(8, 'hours').format("YMD-HHmmss-") + randomstring.generate(6) + file.name.match(/(\.[^.]+)$/)[1];
+  if (/^video/.test(file.type))
+    Exec(config.ffmpeg + ' -i ' + file.path + ' -ss 00:00:01.000 -vframes 1 ' + config.images + '/' + src + '.png');
+  FS.rename(file.path, config.images + '/' + src);
+  res.ok({src, type: file.type, name: file.name, intro: ''});
+});
 
 api.get('/admin_author', (req, res) => {
   res.render({authors: Mongo('author', {}, {}, {_id: 1})}, 'public/admin_author.html');

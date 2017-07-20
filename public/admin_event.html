@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<link href="css/element-ui.css" rel="stylesheet">
+	<link href="css/global.css" rel="stylesheet">
+	<link href="css/admin.css" rel="stylesheet">
+	<script src="js/vue.js"></script>
+	<script src="js/element-ui.js"></script>
+</head>
+<body class="season2">
+<div id="vue">
+
+<el-row :gutter="0">
+	<el-col v-for="a in events" :lg="2" :md="3" :sm="4" :xs="8">
+		<div @click="edit(a._id)" class="list" style="text-align: center">
+			<span v-text="a.name"></span>
+		</div>
+	</el-col>
+</el-row>
+
+</div>
+
+<script>
+
+var data = {
+  events: [],
+};
+
+//data//
+
+var vue = new Vue({el: '#vue', data: data, methods: {
+  edit: function (_id) {
+    location.href = "admin_event_edit?_id=" + _id;
+  }
+}});
+
+</script>
+
+</body>
+</html>

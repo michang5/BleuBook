@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<link href="css/global.css" rel="stylesheet">
+	<link href="css/element-ui.css" rel="stylesheet">
+	<link href="css/admin.css" rel="stylesheet">
+	<script src="js/vue.js"></script>
+	<script src="js/element-ui.js"></script>
+	<script src="js/axios.js"></script>
+	<script src="js/api.js"></script>
+</head>
+<body class="season2">
+
+<div id="vue">
+
+<el-button @click="save" type="primary" icon="upload" class="save">儲存</el-button>
+
+<el-tabs v-model="tab" type="card">
+
+<el-tab-pane label="活動" name="info">
+	活動名稱：<br>
+	<el-input v-model="event.name"></el-input>
+	活動介紹：<br>
+	<el-input v-model="event.intro"></el-input>
+	活動日期：<br>
+	<el-input v-model="event.date"></el-input>
+	簡介：<br>
+	<el-input v-model="shop.intro" type="textarea" autosize placeholder="請輸入簡介"></el-input>
+	<div v-html="shop.intro" class="block"></div>
+	推薦選書：
+	<div v-for="(_id, i) in event.books" class="list">
+		<el-button @click="removeEventBook(i)" class="delete" icon="delete"></el-button>
+		ISBN：<span v-text="book[_id].ISBN"></span><br>
+		書名：<span v-text="book[_id].name"></span><br>
+		修改：
+		<el-select v-model="event.books[i]" placeholder="請選擇" style="width:95%;">
+			<el-option v-for="item in book" :key="item._id" :label="item.ISBN + ' ' + item.name" :value="item._id"> </el-option>
+		</el-select>
+	</div>
+	<el-button @click="addEventBook" icon="plus">新增</el-button>
+</el-tab-pane>
+
+<el-tab-pane label="影音" name="media">
+	<div v-for="(m, i) in shop.media" class="list">
+		<el-button @click="removeMedia(i)" class="delete" icon="delete"></el-button>
+		<img v-if="/^image/.test(m.type)" :src="m.src" class="media">
+		<video v-else-if="/^video/.test(m.type)" :src="m.src" :poster="m.src + '.png'" class="media" title="點一下顯示影片" controls></video>
+		<a v-else :href="m.src" v-text="m.name"></a>
+		<br>
+		<el-input v-model="m.desc" type="textarea" autosize placeholder="請輸入說明"></el-input>
+	</div>
+	<el-upload action="admin_event_slide_upload" :before-upload="upload" :on-progress="progress" :on-success="addMedia" :show-file-list="false" v-loading.fullscreen.lock="lock" :element-loading-text="percent">
+		<el-button type="primary" icon="upload2">上傳</el-button>
+	</el-upload>
+</el-tab-pane>
+
+<el-tab-pane label="Slides" name="event">
+	<div v-for="(e, i) in event.slides" class="list">
+		<el-button @click="removeEvent(i)" class="delete" icon="delete"></el-button>
+		視覺類型：<br>
+		<el-select v-model="e.type" placeholder="請選擇">
+			<el-option v-for="item in event_slide_type" :key="item.value" :label="item.name" :value="item.value"> </el-option>
+		</el-select>
+		<img v-if="e.type === 'picture'" :src="e.url" class="media" style="width:420px">
+		<el-upload v-if="e.type === 'picture'" action="admin_event_slide_upload" :before-upload="upload" :on-progress="progress" :on-success="addEventSlideMedia" :show-file-list="false" v-loading.fullscreen.lock="lock" :element-loading-text="percent">
+			<el-button type="primary" icon="upload2">上傳</el-button>
+		</el-upload>
+		<iframe v-else-if="(e.type === 'video' && e.url)" width="420" height="315" :src="e.url"></iframe>
+		<a v-else :href="e.url" v-text="e.url"></a>
+		<br>
+		<el-input v-if="e.type === 'video'" v-model="e.url" placeholder="https://www.youtube.com/embed/"></el-input>
+	</div>
+	<el-button @click="addEventSlideVideo" icon="plus">新增影片</el-button>
+	<el-button @click="addEventSlidePicture" icon="plus">新增圖片</el-button>
+</el-tab-pane>
+
+<el-tab-pane label="推薦選書" name="order">
+	<div v-for="(_id, i) in event.books" class="list">
+		<el-button @click="removeEventBook(i)" class="delete" icon="delete"></el-button>
+		ISBN：<span v-text="book[_id].ISBN"></span><br>
+		書名：<span v-text="book[_id].name"></span><br>
+		修改：
+		<el-select v-model="event.books[i]" placeholder="請選擇" style="width:95%;">
+			<el-option v-for="item in book" :key="item._id" :label="item.ISBN + ' ' + item.name" :value="item._id"> </el-option>
+		</el-select>
+	</div>
+	<el-button @click="addEventBook" icon="plus">新增</el-button>
+</el-tab-pane>
+
+</el-tabs>
+
+</div>
+
+<script>
+
+var data = {
+	tab: 'info',
+	lock: false,
+	percent: '',
+	tags: ['餐廳', '咖啡', '旅館', '親子', '客家', '原民', '手作', '文化', '特色'],
+	days: ['週日', '週一', '週二', '週三', '週四', '週五', '週六'],
+	shop: {
+		id: 0,
+		name: '',
+		tag: [],
+		day: [],
+		start: null,
+		end: null,
+		boss: '',
+		phone: '',
+		address: '',
+		intro: '',
+		media: [],
+		event: [],
+	},
+	event_slide_type: [{name:'圖片', value:'picture'}, {name:'影片', value:'video'}],
+	book: [],
+	event: {
+		"_id": 4,
+		"slides": [
+			{
+				"type": "video",
+				"url": "https://www.youtube.com/embed/N7ROmvjuCeI"
+			},
+			{
+				"type": "picture",
+				"url": "images/一百種東京4.jpeg"
+			}
+		],
+		"speakers": [
+			{
+				"author_id": 9,
+				"image": ""
+			},
+			{
+				"author_id": 10,
+				"image": ""
+			},
+			{
+				"author_id": 11,
+				"image": ""
+			}
+		],
+		"quotes": [
+			{
+				"author_id": 2,
+				"quote": "設計師必須是不滿現實的哲學家。"
+			},
+			{
+				"author_id": 3,
+				"quote": "用想像力的設計說好一個故事。"
+			},
+			{
+				"author_id": 4,
+				"quote": "時代潮流看設計的台灣。"
+			}
+		],
+		"books": [
+			2,
+			4,
+			1,
+			3
+		],
+		"name": "設計力與經濟力─「從災難看Honest誠實之道，如何從設計走出營運思考？」",
+		"intro": "",
+		"date": "5/4"
+	},
+};
+
+//data//
+
+var vue = new Vue({el: '#vue', data: data, methods: {
+	upload: function () {
+		vue.percent = '';
+		vue.lock = true;
+	},
+	progress: function (e) {
+		vue.percent = parseInt(e.percent * 10) / 10 + '%';
+	},
+	addMedia: function (result) {
+		vue.lock = false;
+		if (result.code != 0) return alert(result.message);
+		vue.shop.media.push(result.data);
+	},
+	removeMedia: function (i) {
+		if (confirm('確認刪除?')) vue.shop.media.splice(i, 1);
+	},
+	addEvent: function () {
+		vue.event.slides.push({type: null, url: null});
+	},
+	removeEvent: function (i) {
+		if (confirm('確認刪除?')) vue.event.slides.splice(i, 1);
+	},
+	addEventBook: function () {
+		vue.event.books.push(vue.event.books[0]);
+	},
+	removeEventBook: function (i) {
+		if (confirm('確認刪除?')) vue.event.books.splice(i, 1);
+	},
+	addEventSlideVideo: function () {
+		vue.event.slides.push({type: 'video', url: null});
+	},
+	addEventSlidePicture: function () {
+		vue.event.slides.push({type: 'picture', url: null});
+	},
+	addEventSlideMedia: function (result) {
+		vue.lock = false;
+		if (result.code != 0) return alert(result.message);
+		vue.event.slides.push({type: null, url: null});
+		vue.shop.media.push(result.data);
+	},
+	removeEventSlideMedia: function (i) {
+		if (confirm('確認刪除?')) vue.event.slides.splice(i, 1);
+	},
+	save: function () {
+		api('admin_event_save', vue.shop, function () { alert('儲存成功！'); });
+	},
+}});
+
+</script>
+
+</body>
+</html>
