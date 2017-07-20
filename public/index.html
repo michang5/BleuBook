@@ -61,10 +61,8 @@
 				<ul class="nav navbar-nav">
 					<li><a href="index.html">活動</a></li>
 					<li><a href="books.html">選書</a></li>
-					<li id="list-icon"><a href="list.html">訂書單<div id="list-icon-count" class="inline">
-		<div id="cart-icon-count-num" v-text="list.length"></div>
-	</div></a></li>
-					<li id="cart-icon"><a href="cart.html">購物車<div id="cart-icon-count" class="inline">
+					<li id="list-icon"><a href="list.html">訂書單</a></li>
+					<li id="cart-icon"><a href="cart.html">購物車<div id="cart-icon-count" class="inline" v-show="cart.length">
 		<div id="cart-icon-count-num" v-text="cart.length"></div>
 	</div></a></li>
 				</ul>
@@ -178,7 +176,7 @@
 <!--			<p><a href="#">使用條款與隱私聲明</a></p>-->
 		</div>
     </div>
-    
+
     
     <div class="modal fade" id="book-single" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
@@ -196,7 +194,7 @@
 									    <li v-text="show.name"></li>
 										<li v-text="'作者：' + author[show.author_id].name"></li>
 										<li v-if="show.translate" v-text="'譯者：' + show.translate"></li>
-										<li v-if="show.publisher" v-text="'出版社：' + show.publisher"></li></li>
+										<li v-if="show.publisher" v-text="'出版社：' + show.publisher"></li>
 										<li>建議售價：<span class="del" v-text="show.price + '元'"></span></li>
 										<li>定價：<span class="discount" v-text="show.off"></span> 折 <span class="price" v-text="show.discount"></span>元</li>
 									</ul>

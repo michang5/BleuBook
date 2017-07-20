@@ -281,7 +281,7 @@ p.note {
 .container-fluid {
 }
 .wrapper {
-	padding-top: 120px;
+	padding-top: 98px;
     padding-bottom: 20px;
     min-height: 100%;
 	@include respond-to (only-mobile){
@@ -296,7 +296,7 @@ p.note {
     overflow: hidden;
     padding-bottom: 150px;
 }
-#section1, #section2, #section3, #section4, #section5 , #section6, #section7 {
+#section1, #section2, #section3, #section4, #section5 , #section6, #section7, #section8 {
     max-width: 1400px;
 	margin: 0 auto;
 	padding-top: 50px;
@@ -413,13 +413,14 @@ p.note {
 	z-index: 999;
 	width:100%;
 	text-align: center;
+//    border-bottom: 1px solid $light-gray;
 	.navbar-header {
-		padding: 12px 0;
+		padding: 12px 0 11px;
 		float: none;
 		background: white;
 		position: relative;
         height: auto;
-//		border-bottom: 1px solid $gold;
+		border-bottom: 1px solid $light-gray;
         @include respond-to (only-mobile){
             height: 56px;
             border-bottom: 1px solid $light-gray;
@@ -430,14 +431,14 @@ p.note {
         margin: 0;
 		text-align: center;
         img {
-			width: 143px;
+			width: 110px;
         }
 	}
 	#main-nav {
 		z-index: 999;
 		background: white;
 		margin-top: 0px;
-		border-bottom: 1px solid $gold;
+		border-bottom: 1px solid $light-gray;
 	}
 	.navbar {
 		border: none;
@@ -466,13 +467,12 @@ p.note {
 			float: none;
 			vertical-align: middle;
 			@include inline-block;
-			font-size: 16px;
 			letter-spacing: .05em;
 			a {
-				font-size: 16px;
+				font-size: 13px;
 				@include transition(all ,.5s, ease-in-out);
 				color: $black;
-				padding: 18px 40px;
+				padding: 10px 40px;
 				font-weight: 300;
 				&:hover, &:focus {
 					color: $gold;
@@ -526,9 +526,9 @@ p.note {
 	right: 0;
 }
 // Config
-$hamburger__height: 30px;
-$hamburger__width: 30px;
-$hamburger__layer__height: 2px;
+$hamburger__height: 22px;
+$hamburger__width: 22px;
+$hamburger__layer__height: 1px;
 $hamburger__colour: $black;
 
 // Structure
@@ -549,7 +549,7 @@ $hamburger__colour: $black;
 	display: block;
 	width: $hamburger__width;
 	height: $hamburger__layer__height;
-	margin-top: $hamburger__layer__height * 4;
+	margin-top: $hamburger__layer__height * 6;
 	background: $hamburger__colour;
 	-webkit-transition: all 0.4s ease-in-out;
 	transition: all 0.4s ease-in-out;
@@ -569,7 +569,7 @@ $hamburger__colour: $black;
 		top: 0;
 	}
 	&::after {
-		top: $hamburger__layer__height * 8;
+		top: $hamburger__layer__height * 12;
 	}
 }
 
@@ -1204,6 +1204,7 @@ blockquote {
 	margin-left: 4px;
 	margin-top: -2px;
 	z-index: 10;
+//    display: none;
 }
 #checkout-button {
 	background-color: #5bc4bf;

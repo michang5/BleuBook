@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<link href="css/global.css" rel="stylesheet">
+	<link href="css/element-ui.css" rel="stylesheet">
+	<link href="css/semantic.css" rel="stylesheet">
+	<link href="css/admin.css" rel="stylesheet">
+	<script src="js/vue.js"></script>
+	<script src="js/element-ui.js"></script>
+	<script src="js/jquery.min.js"></script>
+	<script src="js/semantic.js"></script>
+	<script src="js/axios.js"></script>
+	<script src="js/api.js"></script>
+	<script src="js/kinput.js"></script>
+	<script src="js/kselect.js"></script>
+</head>
+<body class="season2">
+<div id="vue">
+	文字框測試：<kinput :value.sync="value"></kinput><br>
+	下拉式選單測試：<kselect :selected.sync="selected" :datalist="datalist"></kselect><br>
+	一百個預設值測試：
+	<table>
+		<tr v-for="(s, i) in selecteds"><td v-text="'資料：' + s"></td><td><kselect :selected.sync="selecteds[i]" :datalist="datalist"></kselect></td></tr>
+	</table>
+</div>
+<script>
+
+//動態產生一萬個選項
+var datalist = [];
+for (var i = 1; i <= 10000; i ++)
+	datalist.push({value: '' + i, label: 'abc' + i + 'thisisatest' + i});
+
+//動態產生一百個下拉式選單
+var selecteds = [];
+for (var i = 1; i <= 10; i ++)
+	selecteds.push('' + i);
+
+//產生Vue物件
+var vue = new Vue({
+	el: '#vue',
+	data: {
+		value: '這是測試',
+		selected: '',
+		selecteds: selecteds,
+		datalist: datalist,
+	},
+});
+
+</script>
+
+</body>
+</html>
