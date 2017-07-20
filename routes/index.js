@@ -58,16 +58,6 @@ api.post('/order', (req, res) => {
   res.ok(Mongo.add('order', order));
 });
 
-api.get('/admin_author', (req, res) => {
-  res.render({authors: Mongo('author', {}, {}, {_id: 1})}, 'public/admin_author.html');
-});
-
-api.get('/admin_author_edit', (req, res) => {
-  var _id = parseInt(req.query._id);
-  var author = Mongo.one('author', {_id});
-  res.render(author, 'public/admin_author_edit.html');
-});
-
 //Kaede test
 api.post('/query', (req, res) => {
   res.ok(Mongo('order', {tel: req.body.tel}, {}, {_id: -1}));
@@ -93,6 +83,18 @@ api.post('/admin_shop_upload', (req, res) => {
 
 api.post('/admin_shop_save', (req, res) => {
   res.ok(Mongo.update('shop', {id: req.body.id}, req.body));
+});
+
+// admin pannel
+
+api.get('/admin_author', (req, res) => {
+  res.render({authors: Mongo('author', {}, {}, {_id: 1})}, 'public/admin_author.html');
+});
+
+api.get('/admin_author_edit', (req, res) => {
+  var _id = parseInt(req.query._id);
+  var author = Mongo.one('author', {_id});
+  res.render(author, 'public/admin_author_edit.html');
 });
 
 module.exports = api;

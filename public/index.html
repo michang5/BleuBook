@@ -202,10 +202,10 @@
 									</ul>
 									<div class="quantity-container">
 										<div class="quantity-title inline">數量:</div>
-										<div @click="quantity>1 ? quantity-- : 1" class="quantity-minus inline"><i class="fa fa-minus-circle"></i></div>
-										<div class="quantity-input inline"><div v-text="quantity" class="quantity-input-text inline"></div></div>
-										<div @click="quantity++" class="quantity-plus inline"><i class="fa fa-plus-circle"></i></div>
-										<div @click="addCart" class="quantity-add-cart">加入購物車</div>
+										<div @click="quantity>1 ? quantity-- : 1" id="quantity-minus" class="inline"><i class="fa fa-minus-circle"></i></div>
+										<div id="quantity-input" class="inline"><div v-text="quantity" class="quantity-input-text inline"></div></div>
+										<div @click="quantity++" id="quantity-plus" class="inline"><i class="fa fa-plus-circle"></i></div>
+										<div @click="addCart" id="quantity-add-cart">加入購物車</div>
 									</div>
 								</div>
 							</div>
