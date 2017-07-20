@@ -1119,7 +1119,6 @@ blockquote:hover:after {
   margin-left: 4px;
   margin-top: -2px;
   z-index: 10;
-  display: none;
 }
 
 #checkout-button {
