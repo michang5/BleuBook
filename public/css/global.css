@@ -288,7 +288,7 @@ p.note {
 }
 
 .wrapper {
-  padding-top: 120px;
+  padding-top: 98px;
   padding-bottom: 20px;
   min-height: 100%;
 }
@@ -362,11 +362,12 @@ p.note {
   text-align: center;
 }
 #navigation .navbar-header {
-  padding: 12px 0;
+  padding: 12px 0 11px;
   float: none;
   background: white;
   position: relative;
   height: auto;
+  border-bottom: 1px solid #ddd;
 }
 @media only screen and (max-width: 767px) {
   #navigation .navbar-header {
@@ -379,13 +380,13 @@ p.note {
   text-align: center;
 }
 #navigation .logo img {
-  width: 143px;
+  width: 110px;
 }
 #navigation #main-nav {
   z-index: 999;
   background: white;
   margin-top: 0px;
-  border-bottom: 1px solid #AF946F;
+  border-bottom: 1px solid #ddd;
 }
 #navigation .navbar {
   border: none;
@@ -417,17 +418,16 @@ p.note {
   display: inline-block;
   *display: inline;
   zoom: 1;
-  font-size: 16px;
   letter-spacing: .05em;
 }
 #navigation .navbar-nav li a {
-  font-size: 16px;
+  font-size: 13px;
   -moz-transition: all, 0.5s, ease-in-out;
   -o-transition: all, 0.5s, ease-in-out;
   -webkit-transition: all, 0.5s, ease-in-out;
   transition: all, 0.5s, ease-in-out;
   color: #45423D;
-  padding: 18px 40px;
+  padding: 10px 40px;
   font-weight: 300;
 }
 #navigation .navbar-nav li a:hover, #navigation .navbar-nav li a:focus {
@@ -480,8 +480,8 @@ p.note {
 .hamburger {
   display: block;
   position: absolute;
-  width: 30px;
-  height: 30px;
+  width: 22px;
+  height: 22px;
   z-index: 2;
   top: 20px;
   right: 20px;
@@ -494,9 +494,9 @@ p.note {
 
 .hamburger__inner {
   display: block;
-  width: 30px;
-  height: 2px;
-  margin-top: 8px;
+  width: 22px;
+  height: 1px;
+  margin-top: 6px;
   background: #45423D;
   -webkit-transition: all 0.4s ease-in-out;
   transition: all 0.4s ease-in-out;
@@ -506,8 +506,8 @@ p.note {
   position: absolute;
   content: "";
   z-index: -1;
-  width: 30px;
-  height: 2px;
+  width: 22px;
+  height: 1px;
   background: #45423D;
   -webkit-transition: all 0.4s ease-in-out;
   transition: all 0.4s ease-in-out;
@@ -516,14 +516,14 @@ p.note {
   top: 0;
 }
 .hamburger__inner::after {
-  top: 16px;
+  top: 12px;
 }
 
 .hamburger--open .hamburger__inner {
   background: none;
 }
 .hamburger--open .hamburger__inner::before, .hamburger--open .hamburger__inner::after {
-  top: 6px;
+  top: 3px;
 }
 .hamburger--open .hamburger__inner::before {
   -webkit-transform: rotate(-45deg);
@@ -1119,6 +1119,7 @@ blockquote:hover:after {
   margin-left: 4px;
   margin-top: -2px;
   z-index: 10;
+  display: none;
 }
 
 #checkout-button {

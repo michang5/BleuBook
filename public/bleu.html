@@ -19,12 +19,12 @@
 	
 	<!--css-->
 	<link href="css/bootstrap.css" rel="stylesheet">
-	<link href="css/global.css" rel="stylesheet">
-	<link href="css/index.css" rel="stylesheet">
 	<link href="css/bleu.css" rel="stylesheet">
 	<link href="fonts/font-awesome/css/font-awesome.min.css" rel="stylesheet">
 	<link href="css/slick-theme.css" rel="stylesheet">
 	<link href="css/slick.css" rel="stylesheet">
+    <link href="css/global.css" rel="stylesheet">
+	<link href="css/index.css" rel="stylesheet">
 	<script src="js/vue.js"></script>
 	<script src="js/axios.js"></script>
 	<script src="js/api.js"></script>
@@ -51,7 +51,7 @@
 	<div id="navigation" class="container-fluid">
 		<nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
 			<div class="navbar-header">
-				<h2 class="logo"><a href="#top"><img src="images/BleuBook_logo.png" alt="青鳥書店 Bleu Book" title="青鳥書店 Bleu Book"></a></h2>
+				<h2 class="logo"><a href="#top"><img src="images/BleuBook_logo_sm.png" alt="青鳥書店 Bleu Book" title="青鳥書店 Bleu Book"></a></h2>
 				<div class="header__menu">
 					<a id="header__button" class="hamburger" href="#" data-toggle="collapse" data-target="#main-nav">
 						<div class="hamburger__inner"></div>
@@ -62,9 +62,7 @@
 				<ul class="nav navbar-nav">
 					<li><a href="index.html">活動</a></li>
 					<li><a href="books.html">選書</a></li>
-					<li id="list-icon"><a href="list.html">訂書單<div id="list-icon-count" class="inline">
-		<div id="cart-icon-count-num" v-text="list.length"></div>
-	</div></a></li>
+					<li id="list-icon"><a href="list.html">訂書單</a></li>
 					<li id="cart-icon"><a href="cart.html">購物車<div id="cart-icon-count" class="inline">
 		<div id="cart-icon-count-num" v-text="cart.length"></div>
 	</div></a></li>
@@ -82,12 +80,11 @@
 				<div class="content-wraper">   
 					<!--section1 Hero banner-->
 					<div id="section1" class="section container-fluid">
+<!--
 						<div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="false">
-						<!-- Indicators -->
 							<ol class="carousel-indicators">
 								<li data-target="#myCarousel" v-for="(s, i) in event.slides" :data-slide-to="i" :class="{active: i == 0}"></li>
 							</ol>    
-							<!-- Wrapper for slides -->
 							<div class="carousel-inner">
 								<div class="item active">
 									<div class="embed-responsive embed-responsive-16by9" id="video">
@@ -100,14 +97,7 @@
 								<div class="item" style="background-image: url('images/slide1_img3.jpg')">
 									
 								</div>
-		<!--
-								<div class="item" v-for="(s, i) in event.slides" :class="{active: i == 0}">
-									<img :src="s" alt="">
-								</div>
-		-->
 							</div>
-
-							<!-- Controls -->
 							<a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
 								<div class="arrow"><span class="arrow-left"></span></div>
 							</a>
@@ -115,6 +105,19 @@
 								<div class="arrow" style="float: right;"><i class="arrow-right"></i></div>
 							</a>
 						</div>
+-->
+                        <div class='slide-container'>
+                            <div class='single-item'>
+                                <div>
+                                    <div class="embed-responsive embed-responsive-16by9" id="video">
+										<iframe class="embed-responsive-item" src="https://www.youtube.com/embed/Jip3hvZ7YZI" frameborder="0" allowfullscreen><div class="video_mask"></div></iframe>
+									</div>
+                                </div>
+                                <div>
+                                    <div class="item" style="background-image: url('images/slide1_img2.jpg')"></div>
+                                </div>
+                            </div>
+                        </div>
 						<div class="event-pagination">
 							<div class="prev">
 								<a @click="index = (index + events.length - 1) % events.length">

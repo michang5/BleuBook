@@ -10,6 +10,10 @@ $(function () {
 			return false;
 		}
 	});
+    $(".single-item").slick({
+        dots: true
+    });
+
 	$('.slider').slick({
 		infinite: false,
 		speed: 300,
@@ -127,7 +131,7 @@ $(function () {
 		});
 	}
 	
-	$(".carousel-indicators li, .carousel-control").click(function () {
+	$(".slick-dots li, .slick-arrow").click(function () {
 		$("#video iframe").attr("src", $("#video iframe").attr("src"));
 	});
 });

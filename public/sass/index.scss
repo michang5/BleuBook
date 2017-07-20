@@ -186,6 +186,52 @@
 //		border: 1px solid red;
 	}
 }
+.slide-container {
+        margin: 0 auto;
+        max-width: 1200px;
+//        max-height: 788px;
+//    overflow: hidden;
+        .item {
+            background-size: cover;
+            background-position: center center;
+            @media screen and (max-width: 320px) {
+                height: 180px;
+        //		border: 1px solid green;
+            }
+            @media screen and (min-width: 321px) {
+                height: 230px;
+        //		border: 1px solid green;
+            }
+            @media screen and (min-width: 480px) {
+                height: 270px;
+        //		border: 1px solid green;
+            }
+            @media screen and (min-width: 640px) {
+                height: 360px;
+        //		border: 1px solid pink;
+            }
+            @media screen and (min-width: 768px) {
+                height: 432px;
+        //		border: 1px solid green;
+            }
+            @media screen and (min-width: 992px) {
+                height: 558px;
+        //		border: 1px solid red;
+            }
+            @media screen and (min-width: 1024px) {
+                height: 570px;
+        //		border: 1px solid green;
+            }
+            @include respond-to (xlg-screen){
+                height: 675px;
+        //		border: 1px solid blue;
+            }
+            @media screen and (min-width: 1366px) {
+                height: 788px;
+        //		border: 1px solid red;
+            }
+        }
+}
 //.book-cover-list {
 //	.book-cover {
 //		height: 100%;
@@ -201,3 +247,55 @@
 //		width: 100%;
 //	}
 //}
+
+.slide-container {
+  margin: 0 auto;
+//  padding: 40px;
+//  width: 80%;
+  color: #333;
+//  background: #419be0;
+}
+.slick-slider {
+    margin-bottom: 0;
+}
+.slick-slide {
+  text-align: center;
+  color: #419be0;
+}
+.slick-prev, .slick-next {
+    &:before {
+        font-family: FontAwesome;
+        font-size: 36px;
+        color: $gold;
+    }
+}
+.slick-prev {
+    &:before {
+        content: "\f104";
+    }
+}
+.slick-next {
+    &:before {
+        content: "\f105";
+    }
+}
+.slick-dots {
+    bottom: 20px;
+    
+}
+.slick-dots li {
+    width: 10px;
+    button:before {
+        font-family: FontAwesome;
+        content: "\f10c";
+        text-shadow: 0 0 3px $gold, 0 0 10px rgba($gold,.6);
+        color: $light-gold;
+        opacity: .9;
+    }
+    &.slick-active button:before {
+        color:$light-gold;
+        content: "\f111";
+        font-size: 12px;
+        text-shadow: 0 0 3px $gold, 0 0 10px rgba($gold,.6);
+    }
+}
