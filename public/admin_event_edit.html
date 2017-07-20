@@ -29,6 +29,32 @@
 	簡介：<br>
 	<el-input v-model="shop.intro" type="textarea" autosize placeholder="請輸入簡介"></el-input>
 	<div v-html="shop.intro" class="block"></div>
+	<br><br>
+	與談人：
+	<div v-for="(s, i) in event.speakers" class="list">
+		<el-button @click="removeEventSpeaker(i)" class="delete" icon="delete"></el-button>
+		名字：<span v-text="author[s.author_id].name"></span><br>
+		抬頭：<span v-text="author[s.author_id].title"></span><br>
+		<img v-if="s.image" :src="s.image | author[s.author_id].image" class="media" style="width:420px">
+		<el-select v-model="event.speakers[i].author_id" placeholder="請選擇" style="width:95%;">
+			<el-option v-for="a in author" :key="a._id" :label="a.name" :value="a._id"> </el-option>
+		</el-select>
+	</div>
+	<el-button @click="addEventSpeaker" icon="plus">新增</el-button>
+	<br><br>
+	精采摘錄：
+	<div v-for="(s, i) in event.quotes" class="list">
+		<el-button @click="removeEventQuote(i)" class="delete" icon="delete"></el-button>
+		名字：<span v-text="author[s.author_id].name"></span><br>
+		抬頭：<span v-text="author[s.author_id].title"></span><br>
+		摘錄：<el-input v-model="s.quote"></el-input>
+		<img v-if="s.image" :src="s.image | author[s.author_id].image" class="media" style="width:420px">
+		<el-select v-model="event.quotes[i].author_id" placeholder="請選擇" style="width:95%;">
+			<el-option v-for="a in author" :key="a._id" :label="a.name" :value="a._id"> </el-option>
+		</el-select>
+	</div>
+	<el-button @click="addEventSpeaker" icon="plus">新增</el-button>
+	<br><br>
 	推薦選書：
 	<div v-for="(_id, i) in event.books" class="list">
 		<el-button @click="removeEventBook(i)" class="delete" icon="delete"></el-button>
@@ -42,18 +68,30 @@
 	<el-button @click="addEventBook" icon="plus">新增</el-button>
 </el-tab-pane>
 
-<el-tab-pane label="影音" name="media">
-	<div v-for="(m, i) in shop.media" class="list">
-		<el-button @click="removeMedia(i)" class="delete" icon="delete"></el-button>
-		<img v-if="/^image/.test(m.type)" :src="m.src" class="media">
-		<video v-else-if="/^video/.test(m.type)" :src="m.src" :poster="m.src + '.png'" class="media" title="點一下顯示影片" controls></video>
-		<a v-else :href="m.src" v-text="m.name"></a>
-		<br>
-		<el-input v-model="m.desc" type="textarea" autosize placeholder="請輸入說明"></el-input>
+<el-tab-pane label="選書" name="order">
+	推薦選書：
+	<div v-for="(_id, i) in event.books" class="list">
+		<el-button @click="removeEventBook(i)" class="delete" icon="delete"></el-button>
+		ISBN：<span v-text="book[_id].ISBN"></span><br>
+		書名：<span v-text="book[_id].name"></span><br>
+		修改：
+		<el-select v-model="event.books[i]" placeholder="請選擇" style="width:95%;">
+			<el-option v-for="item in book" :key="item._id" :label="item.ISBN + ' ' + item.name" :value="item._id"> </el-option>
+		</el-select>
 	</div>
-	<el-upload action="admin_event_slide_upload" :before-upload="upload" :on-progress="progress" :on-success="addMedia" :show-file-list="false" v-loading.fullscreen.lock="lock" :element-loading-text="percent">
-		<el-button type="primary" icon="upload2">上傳</el-button>
-	</el-upload>
+	<el-button @click="addEventBook" icon="plus">新增</el-button>
+	<br><br>
+	青鳥選書：
+	<div v-for="(_id, i) in event.books" class="list">
+		<el-button @click="removeEventBook(i)" class="delete" icon="delete"></el-button>
+		ISBN：<span v-text="book[_id].ISBN"></span><br>
+		書名：<span v-text="book[_id].name"></span><br>
+		修改：
+		<el-select v-model="event.books[i]" placeholder="請選擇" style="width:95%;">
+			<el-option v-for="item in book" :key="item._id" :label="item.ISBN + ' ' + item.name" :value="item._id"> </el-option>
+		</el-select>
+	</div>
+	<el-button @click="addEventBook" icon="plus">新增</el-button>
 </el-tab-pane>
 
 <el-tab-pane label="Slides" name="event">
@@ -76,17 +114,18 @@
 	<el-button @click="addEventSlidePicture" icon="plus">新增圖片</el-button>
 </el-tab-pane>
 
-<el-tab-pane label="推薦選書" name="order">
-	<div v-for="(_id, i) in event.books" class="list">
-		<el-button @click="removeEventBook(i)" class="delete" icon="delete"></el-button>
-		ISBN：<span v-text="book[_id].ISBN"></span><br>
-		書名：<span v-text="book[_id].name"></span><br>
-		修改：
-		<el-select v-model="event.books[i]" placeholder="請選擇" style="width:95%;">
-			<el-option v-for="item in book" :key="item._id" :label="item.ISBN + ' ' + item.name" :value="item._id"> </el-option>
-		</el-select>
+<el-tab-pane label="影音" name="media">
+	<div v-for="(m, i) in shop.media" class="list">
+		<el-button @click="removeMedia(i)" class="delete" icon="delete"></el-button>
+		<img v-if="/^image/.test(m.type)" :src="m.src" class="media">
+		<video v-else-if="/^video/.test(m.type)" :src="m.src" :poster="m.src + '.png'" class="media" title="點一下顯示影片" controls></video>
+		<a v-else :href="m.src" v-text="m.name"></a>
+		<br>
+		<el-input v-model="m.desc" type="textarea" autosize placeholder="請輸入說明"></el-input>
 	</div>
-	<el-button @click="addEventBook" icon="plus">新增</el-button>
+	<el-upload action="admin_event_slide_upload" :before-upload="upload" :on-progress="progress" :on-success="addMedia" :show-file-list="false" v-loading.fullscreen.lock="lock" :element-loading-text="percent">
+		<el-button type="primary" icon="upload2">上傳</el-button>
+	</el-upload>
 </el-tab-pane>
 
 </el-tabs>
@@ -213,6 +252,12 @@ var vue = new Vue({el: '#vue', data: data, methods: {
 	},
 	removeEventSlideMedia: function (i) {
 		if (confirm('確認刪除?')) vue.event.slides.splice(i, 1);
+	},
+	addEventSpeaker: function () {
+		vue.event.speakers.push(vue.event.speakers[0]);
+	},
+	removeEventSpeaker: function (i) {
+		if (confirm('確認刪除?')) vue.event.speakers.splice(i, 1);
 	},
 	save: function () {
 		api('admin_event_save', vue.shop, function () { alert('儲存成功！'); });

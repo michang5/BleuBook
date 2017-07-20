@@ -100,7 +100,8 @@ api.get('/admin_event_edit', (req, res) => {
   var _id = parseInt(req.query._id);
   var event = Mongo.one('event', {_id});
   var book = dict(Mongo('book'));
-  res.render({event, book}, 'public/admin_event_edit.html');
+  var author = dict(Mongo('author'));
+  res.render({event, book, author}, 'public/admin_event_edit.html');
 });
 
 api.post('/admin_event_slide_upload', (req, res) => {
