@@ -311,3 +311,18 @@
     border-bottom: 0;
   }
 }
+
+#section8 figure {
+  width: 90%;
+  margin: 0 auto;
+  text-align: center;
+}
+#section8 figure img {
+  margin: 0 auto;
+  height: 200px;
+  max-height: 200px;
+}
+#section8 figuration {
+  padding: 20px 0;
+  display: block;
+}
