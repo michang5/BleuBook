@@ -54,7 +54,7 @@
 			<div class="navbar-header">
 				<h2 class="logo"><a href="index.html"><img src="images/BleuBook_logo_sm.png" alt="青鳥書店 Bleu Book" title="青鳥書店 Bleu Book"></a></h2>
 				<div class="header__menu">
-					<a id="header__button" class="hamburger" href="#"  data-toggle="collapse" data-target="#main-nav">
+					<a id="header__button" class="hamburger" href="#" data-toggle="collapse" data-target="#main-nav">
 						<div class="hamburger__inner"></div>
 					</a>  
 				</div>
@@ -75,31 +75,21 @@
 	
 	<div class="wrapper">
 		<div class="content-wraper">
-			<!--section1 Hero banner-->
-			<div id="section1" class="section container-fluid">
-				<div id="myCarousel" class="carousel slide" data-ride="carousel">
-					<!-- Indicators -->
-					<ol class="carousel-indicators">
-                        <li data-target="#myCarousel" v-for="(s, i) in event.slides" :data-slide-to="i" :class="{active: i == 0}"></li>
-					</ol>
-					<!-- Wrapper for slides -->
+                    <!--section1 Hero banner-->
+                    <div id="section1" class="section container-fluid">
+                        <div id="myCarousel" class="carousel slide" data-ride="carousel"><!--data-interval="false"-->
+                        <!-- Indicators -->
+                            <ol class="carousel-indicators">
+                                <li data-target="#myCarousel" v-for="(s, i) in event.slides" :data-slide-to="i" :class="{active: i == 0}"></li>
+                            </ol>
+                            <!-- Wrapper for slides -->
                     <div class="carousel-inner">
-                    	<div class="item active">
-                    		<div class="embed-responsive embed-responsive-16by9" id="video">
-								<iframe class="embed-responsive-item" src="https://www.youtube.com/embed/Jip3hvZ7YZI" frameborder="0" allowfullscreen><div class="video_mask"></div></iframe>
-							</div>
-						</div>
-						<div class="item" style="background-image: url('images/slide1_img2.jpg')">
-							
-						</div>
-						<div class="item" style="background-image: url('images/slide1_img3.jpg')">
-							
-						</div>
-<!--
-                        <div class="item" v-for="(s, i) in event.slides" :class="{active: i == 0}">
-                            <img :src="s" alt="">
+                        <div class="item" :class="{'active': i == 0}" v-if="s.type === 'video'" v-for="(s, i) in event.slides">
+                            <div class="embed-responsive embed-responsive-16by9" id="video">
+                                <iframe class="embed-responsive-item" :src="s.url" frameborder="0" allowfullscreen><div class="video_mask"></div></iframe>
+                            </div>
                         </div>
--->
+                        <div class="item" :class="{'active': i == 0}" v-if="s.type === 'picture'" v-for="(s, i) in event.slides" :style="'background-image: url(' + s.url + ')'"></div>
                     </div>
 
 					<!-- Controls -->
@@ -152,47 +142,27 @@
 					</div>
 					<div class="col-sm-6 event-participant">
 						<h2>與會人</h2>
-						<div class="participant row">
+						<div class="participant row" v-for="s in filteredSpeaker1">
 							<div class="col-sm-6 col-xs-12">
 								<div class="col-md-5 col-sm-12 col-xs-4">
-									<img src="images/participant_1.jpg" alt="張鐵志 文化評論家" class="img-responsive">
+									<img :src="s.image == '' ? author[s.author_id].image : s.image" :alt="author[s.author_id].name + author[s.author_id].title" class="img-responsive">
 								</div>
 								<div class="col-md-7 col-sm-12 col-xs-8">
 									<h3>主持人</h3>
-									<h4>張鐵志</h4>
-									<h5>文化評論家</h5>
+									<h4>{{ author[s.author_id].name }}</h4>
+									<h5>{{ author[s.author_id].title }}</h5>
 								</div>
 							</div>
 						</div>
 						<div class="participant row">
-							<div class="col-sm-6 col-xs-4">
+							<div class="col-sm-6 col-xs-4" v-for="s in filteredSpeaker2">
 								<div class="col-md-5 col-sm-12">
-									<a href="#" target="_blank"><img src="images/participant_2.jpg" alt="杜祖業 GQ 雜誌總編輯" class="img-responsive"></a>
+									<a href="#" target="_blank"><img :src="s.image == '' ? author[s.author_id].image : s.image" :alt="author[s.author_id].name + author[s.author_id].title" class="img-responsive"></a>
 								</div>
 								<div class="col-md-7 col-sm-12">
 									<h3>與談人</h3>
-									<h4>杜祖業</h4>
-									<h5>GQ 雜誌總編輯</h5>
-								</div>
-							</div>
-							<div class="col-sm-6 col-xs-4">
-								<div class="col-md-5 col-sm-12">
-									<a href="#" target="_blank"><img src="images/participant_3.jpg" alt="方序中 究方社創辦人" class="img-responsive"></a>
-								</div>
-								<div class="col-md-7 col-sm-12">
-									<h3>與談人</h3>
-									<h4>方序中</h4>
-									<h5>究方社創辦人</h5>
-								</div>
-							</div>
-							<div class="col-sm-6 col-xs-4">
-								<div class="col-md-5 col-sm-12">
-									<a href="#" target="_blank"><img src="images/participant_4.jpg" alt="梁浩軒 INCEPTION 啟藝創辦人" class="img-responsive"></a>
-								</div>
-								<div class="col-md-7 col-sm-12">
-									<h3>與談人</h3>
-									<h4>梁浩軒</h4>
-									<h5>INCEPTION 啟藝創辦人</h5>
+									<h4>{{ author[s.author_id].name }}</h4>
+									<h5>{{ author[s.author_id].title }}</h5>
 								</div>
 							</div>
 						</div>
@@ -301,19 +271,19 @@
                         <figure>
                            
                             <img src="https://cdn-news.readmoo.com/wp-content/uploads/2017/06/170603_honest_design-1140x600.jpg" alt="" class="img-responsive">
-                            <figuration><a href="#" target="_blank">【評書青鳥】從幫災區做椅子的工作坊，變成世界知名的「誠實設計」品牌</a></figuration>
+                            <figcaption><a href="#" target="_blank">【評書青鳥】從幫災區做椅子的工作坊，變成世界知名的「誠實設計」品牌</a></figcaption>
                         </figure>
                     </div>
                     <div class="col-sm-4">
                         <figure>
                             <img src="https://buzzorange.com/wp-content/uploads/2017/05/%E6%97%A5%E6%9C%AC%E4%BA%BA-260x300.jpg" alt="" class="img-responsive">
-                            <figuration><a href="#" target="_blank">行為「靦腆」卻又對性觀念無比前衛——外表循規蹈矩的日本人原來心裡是這麼想的</a></figuration>
+                            <figcaption><a href="#" target="_blank">行為「靦腆」卻又對性觀念無比前衛——外表循規蹈矩的日本人原來心裡是這麼想的</a></figcaption>
                         </figure>
                     </div>
                     <div class="col-sm-4">
                         <figure>
                             <img src="https://buzzorange.com/wp-content/uploads/2017/06/2017-06-11_224814.png" alt="" class="img-responsive">
-                            <figuration><a href="#" target="_blank">《樂來越愛你》128 分鐘的啟示：夢想、現實以及愛情路，真的注定是要互斥的嗎？</a></figuration>
+                            <figcaption><a href="#" target="_blank">《樂來越愛你》128 分鐘的啟示：夢想、現實以及愛情路，真的注定是要互斥的嗎？</a></figcaption>
                         </figure>
                     </div>
                 </div> 
@@ -346,8 +316,8 @@
                 <h2>推薦選書</h2>
                 <div class="content">
                     <div class="slider">
-                        <div v-for="_id in event.books">
-                            <a data-toggle="modal" data-target="#book-single">
+                        <div v-for="(_id, i) in event.books">
+                            <a @click="bindex = i" data-toggle="modal" data-target="#book-single">
                                 <div class="book-cover" :style="'background-image: url(' + book[_id].image + ')'"></div>
                                 <h4 v-text="book[_id].name"></h4>
                                 <h5 v-text="'作者： ' + author[book[_id].author_id].name"></h5>
@@ -413,48 +383,40 @@
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<button type="button" class="close hairline" data-dismiss="modal"></button>
-				<div class="modal-body">
+				<div class="modal-body" v-if="event.books && event.books.length">
 					<div class="container">
 						<div class="row">
 							<div class="col-sm-4 col-sm-offset-2 book-cover">
-								<img src="images/book_1.jpg" alt="欲望的教育：美意識創造未來 作者：原研哉" class="img-responsive">
+								<img :src="show.image" :alt="show.name + '作者：' + author[show.author_id].name" class="img-responsive">
 							</div>
 							<div class="col-sm-4">
 								<div class="book-detail">
 									<ul>
-									    <li>欲望的教育：美意識創造未來</li>
-										<li>作者：原研哉</li>
-										<li>譯者：李柏黎</li>
-										<li>出版社：雄獅美術</li></li>
-										<li>建議售價：<span class="del">420元</span></li>
-										<li>定價：<span class="discount">9</span> 折 <span class="price">378</span>元</li>
+									    <li v-text="show.name"></li>
+										<li v-text="'作者：' + author[show.author_id].name"></li>
+										<li v-if="show.translate" v-text="'譯者：' + show.translate"></li>
+										<li v-if="show.publisher" v-text="'出版社：' + show.publisher"></li>
+										<li>建議售價：<span class="del" v-text="show.price + '元'"></span></li>
+										<li>定價：<span class="discount" v-text="show.off"></span> 折 <span class="price" v-text="show.discount"></span>元</li>
 									</ul>
-									<div id="quantity-container">
-										<div id="quantity-title" class="inline">
-											數量:
-										</div>
-										<div id="quantity-minus" class="inline"><i class="fa fa-minus-circle"></i></div>
-										<div id="quantity-input" class="inline">
-											<div id="quantity-input-text" class="inline">0</div>
-										</div>
-										<div id="quantity-plus" class="inline"><i class="fa fa-plus-circle"></i></div>
-										<div>
-											<div id="quantity-add-cart" class="add-cart-null">
-												加入購物車
-											</div>
-										</div>
+									<div class="quantity-container">
+										<div class="quantity-title inline">數量:</div>
+										<div @click="quantity>1 ? quantity-- : 1" id="quantity-minus" class="inline"><i class="fa fa-minus-circle"></i></div>
+										<div id="quantity-input" class="inline"><div v-text="quantity" class="quantity-input-text inline"></div></div>
+										<div @click="quantity++" id="quantity-plus" class="inline"><i class="fa fa-plus-circle"></i></div>
+										<div @click="addCart" id="quantity-add-cart">加入購物車</div>
 									</div>
 								</div>
 							</div>
 						</div>
-						<div class="row">
+						<div class="row" v-for="c in show.comments">
 							<div class="col-sm-8 col-sm-offset-2">
 								<div class="recommand-block">
 									<div class="row">
-										<div class="recommended col-sm-2 col-xs-3"><img src="images/participant_2.jpg" alt="杜祖業 GQ 雜誌總編輯" class="img-responsive"></div>
+										<div class="recommended col-sm-2 col-xs-3"><img :src="author[c.author_id].image" :alt="author[c.author_id].name + '' + author[c.author_id].title" class="img-responsive"></div>
 										<div class="recommended-content col-sm-10 col-xs-9">
-											<p class="name">杜祖業 <span class="title">GQ 雜誌總編輯</span><span class="icon_recommand"><img src="images/icon_recommand.png" alt=""></span></p>
-											<p class="recommand">如此的簡潔並非是理性探求之下所得到的成果，也不是偶然的產物。而是將「什麼都沒有」這件事給有意圖地設定為目的。藉著空無一物之器皿的建立，「空（emptiness）」的概念就得以體現，進而吸引人群注意並產生向心力，此概念便能被有效運用。</p>
+											<p class="name" v-text="author[c.author_id].name"> <span class="title" v-text="author[c.author_id].title"></span><span class="icon_recommand"><img src="images/icon_recommand.png" alt=""></span></p>
+											<p class="recommand" v-html="c.comment"></p>
 										</div>
 									</div>
 								</div>
@@ -470,9 +432,36 @@
 <script>
 
 var data = {
+	bindex: 0,
+	quantity: 1,
 	cart: get('cart', []),
 	list: get('list', []),
 	event: {
+		"_id": 1,
+		"slides": [
+			{"type":"picture","url":"images/slide_image1.jpg"},
+			{"type":"picture","url":"images/event_2.jpg"},
+			{"type":"picture","url":"images/event_1.jpg"}
+		],
+		"speakers": [
+			{"role" : "主持人","author_id": 2,"image": ""},
+			{"role" : "與會人","author_id": 4,"image": ""},
+			{"role" : "與會人","author_id": 1,"image": ""},
+			{"role" : "與會人","author_id": 3,"image": ""}],
+		"quotes":[
+			{"author_id":2,"quote":"設計師必須是不滿現實的哲學家。"},
+			{"author_id":3,"quote":"用想像力的設計說好一個故事。"},
+			{"author_id":4,"quote":"時代潮流看設計的台灣。"}
+		],
+		"news": [
+			{"image":"","title":"","source":"","link":""}
+		],
+		"books": [2, 4, 1, 3],
+		"name": "《100種東京》新書分享暨聊天會",
+		"intro": "",
+		"date": "6/27",
+		"detail": "<a herf = \"123\">6/27 test</a>"},
+	event2: {
 		_id: 1,
 		date: '6/28',
 		name: '「青鳥獨立系列」美意識',
@@ -494,11 +483,35 @@ var data = {
 	author: {"1":{"_id":1,"name":"張鐵志","title":"文化評論家","image":"images/participant_1.jpg"},"2":{"_id":2,"name":"杜祖業123","title":"GQ 雜誌總編輯","image":"images/participant_2.jpg"},"3":{"_id":3,"name":"方序中","title":"究方社創辦人","image":"images/participant_3.jpg"},"4":{"_id":4,"name":"梁浩軒","title":"NCEPTION 啟藝創辦人","image":"images/participant_4.jpg"},"5":{"_id":5,"name":"原研哉"},"6":{"_id":6,"name":"川島蓉子"},"7":{"_id":7,"name":"安德魯．哈斯蘭"},"8":{"_id":8,"name":"奈傑爾・懷特里 Nigel Whiteley"}},
 };
 
-//data//
+/* //data// */
 
 var vue = new Vue({
     el: '#vue',
     data: data,
+    computed: {
+        show: function () {
+		return this.book[this.event.books[this.bindex]];
+        },
+	filteredSpeaker1: function () {
+		var self = this;
+		return self.event.speakers.filter(function (speaker) {
+			return speaker.role.indexOf('主持人') !== -1;
+		})
+	},
+	filteredSpeaker2: function () {
+		var self = this;
+		return self.event.speakers.filter(function (speaker) {
+			return speaker.role.indexOf('與會人') !== -1;
+		})
+	},
+    },
+    methods: {
+                addCart: function () {
+                        this.cart.push({_id: this.show._id, quantity: this.quantity});
+                        set('cart', this.cart);
+                        alert('已加入購物車');
+                },
+    },
 });
 
 </script>
