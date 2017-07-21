@@ -34,12 +34,14 @@ api.get('/index.html', (req, res) => {
 });
 
 api.get('/event.html', (req, res) => {
+  var events = Mongo('event');
   var event = Mongo.get('event', req.query.event_id);
   //var prev = Mongo.get('event', req.query.prev_event_id);
   //var next = Mongo.get('event', req.query.next_event_id);
   var book = dict(Mongo('book'));
   var author = dict(Mongo('author'));
-  res.render({event, book, author}, 'public/event.html');
+  var index = (Number(req.query.event_id) + Object.keys(events).length - 1) % Object.keys(events).length;
+  res.render({index, events, event, book, author}, 'public/event.html');
 });
 
 api.get('/cart.html', (req, res) => {
