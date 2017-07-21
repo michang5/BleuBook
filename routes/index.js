@@ -44,6 +44,15 @@ api.get('/event.html', (req, res) => {
   res.render({index, events, event, book, author}, 'public/event.html');
 });
 
+api.get('/books.html', (req, res) => {
+  var book = dict(Mongo('book'));
+  var author = dict(Mongo('author'));
+  var chooseBook = Mongo('chooseBook')[0];
+  var rec_book = chooseBook.rec_book;
+  var bleu_book = chooseBook.bleu_book;
+  res.render({book, author, rec_book, bleu_book}, 'public/books.html');
+});
+
 api.get('/cart.html', (req, res) => {
   var book = dict(Mongo('book'));
   var author = dict(Mongo('author'));

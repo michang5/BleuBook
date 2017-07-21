@@ -81,7 +81,7 @@
 				<h2 class="text-center">推薦選書</h2>
 				<div class="content">
 					<div class="slider">
-						<div v-for="_id in recommand">
+						<div v-for="_id in rec_book">
 							<a data-toggle="modal" data-target="#book-single">
 								<div class="book-cover" :style="'background-image: url(' + book[_id].image + ')'"></div>
 								<h4 v-text="book[_id].name"></h4>
@@ -95,65 +95,16 @@
 				<h2 class="text-center">青鳥選書</h2>
 				<div class="book-list-row">
 					<div class="row book-cover-list">
-						<div v-for="_id in selection" class="col-sm-2 col-xs-3">
+						<div v-for="_id in bleu_book" class="col-sm-2 col-xs-3">
 							<a data-toggle="modal" data-target="#book-single">
-								<div class="book-cover" style="background-image: url('images/book_1.jpg');"></div>
-								<h4>欲望的教育：美意識創造未來</h4>
-								<h5>作者： 原研哉</h5>
-							</a>
-						</div>
-						<div class="col-sm-2 col-xs-3">
-							<a data-toggle="modal" data-target="#book-single">
-								<div class="book-cover" style="background-image: url('images/book_2.jpg');"></div>
-								<h4>給未來的創新經營者：從蔦屋書店到佐藤可士和的六堂設計管理課</h4>
-								<h5>作者： 川島蓉子</h5>
-							</a>
-						</div>
-						<div class="col-sm-2 col-xs-3">
-							<a data-toggle="modal" data-target="#book-single">
-								<div class="book-cover" style="background-image: url('images/book_3.jpg');"></div>
-								<h4>書設計：入行必備的權威聖經，編輯、設計、印刷全事典</h4>
-								<h5>作者： 安德魯．哈斯蘭</h5>
-							</a>
-						</div>
-						<div class="col-sm-2 col-xs-3">
-							<a data-toggle="modal" data-target="#book-single">
-								<div class="book-cover" style="background-image: url('images/book_4.jpg');"></div>
-								<h4>為社會而設計</h4>
-								<h5>作者： 奈傑爾・懷特里 Nigel Whiteley</h5>
-							</a>
-						</div>
-						<div class="clearfix visible-xs"></div>
-						<div class="col-sm-2 col-xs-3">
-							<a data-toggle="modal" data-target="#book-single">
-								<div class="book-cover" style="background-image: url('images/book_1.jpg');"></div>
-								<h4>欲望的教育：美意識創造未來</h4>
-								<h5>作者： 原研哉</h5>
-							</a>
-						</div>
-						<div class="col-sm-2 col-xs-3">
-							<a data-toggle="modal" data-target="#book-single">
-								<div class="book-cover" style="background-image: url('images/book_2.jpg');"></div>
-								<h4>給未來的創新經營者：從蔦屋書店到佐藤可士和的六堂設計管理課</h4>
-								<h5>作者： 川島蓉子</h5>
-							</a>
-						</div>
-						<div class="col-sm-2 col-xs-3">
-							<a data-toggle="modal" data-target="#book-single">
-								<div class="book-cover" style="background-image: url('images/book_3.jpg');"></div>
-								<h4>書設計：入行必備的權威聖經，編輯、設計、印刷全事典</h4>
-								<h5>作者： 安德魯．哈斯蘭</h5>
-							</a>
-						</div>
-						<div class="col-sm-2 col-xs-3">
-							<a data-toggle="modal" data-target="#book-single">
-								<div class="book-cover" style="background-image: url('images/book_4.jpg');"></div>
-								<h4>為社會而設計</h4>
-								<h5>作者： 奈傑爾・懷特里 Nigel Whiteley</h5>
+								<div class="book-cover" :style="'background-image: url(' + book[_id].image + ')'"></div>
+								<h4 v-text="book[_id].name"></h4>
+								<h5 v-text="'作者： ' + author[book[_id].author_id].name"></h5>
 							</a>
 						</div>
 					</div>
 				</div>
+<!--
 				<div class="pagination-container">
 					<ul class="pagination">
 					   <li><a href="#">Prev</a></li>
@@ -165,6 +116,7 @@
 					   <li><a href="#">Next</a></li>
 					</ul>
 				</div>
+-->
 			</div>
 		</div>
 	</div>
@@ -244,7 +196,8 @@
 var data = {
 	cart: get('cart', []),
 	list: get('list', []),
-	recommand: [1, 2, 3, 4],
+	rec_book: [1,2,3,4],
+	bleu_book: [1,2,3,4],
 	book: {"1":{"_id":1,"name":"欲望的教育：美意識創造未來","author_id":5,"image":"images/book_1.jpg","translate":"李柏黎","publisher":"雄獅美術","price":420,"discount":378,"off":9,"comment_id":2,"comment":"如此的簡潔並非是理性探求之下所得到的成果，也不是偶然的產物。而是將「什麼都沒有」這件事給有意圖地設定為目的。藉著空無一物之器皿的建立，「空（emptiness）」的概念就得以體現，進而吸引人群注意並產生向心力，此概念便能被有效運用。","comments":[{"author_id":2,"comment":"如此的簡潔並非是理性探求之下所得到的成果，也不是偶然的產物。而是將「什麼都沒有」這件事給有意圖地設定為目的。藉著空無一物之器皿的建立，「空（emptiness）」的概念就得以體現，進而吸引人群注意並產生向心力，此概念便能被有效運用。"}]},"2":{"_id":2,"name":"給未來的創新經營者：從蔦屋書店到佐藤可士和的六堂設計管理課","author_id":6,"image":"images/book_2.jpg","price":1000,"discount":900,"off":9,"comments":[{"author_id":1,"comment":"這是測試如此的簡潔並非是理性探求之下所得到的成果，也不是偶然的產物。而是將「什麼都沒有」這件事給有意圖地設定為目的。藉著空無一物之器皿的建立，「空（emptiness）」的概念就得以體現，進而吸引人群注意並產生向心力，此概念便能被有效運用。"}]},"3":{"_id":3,"name":"書設計：入行必備的權威聖經，編輯、設計、印刷全事典","author_id":7,"image":"images/book_3.jpg","price":500,"discount":450,"off":9,"comments":[{"author_id":3,"comment":"這還是測試如此的簡潔並非是理性探求之下所得到的成果，也不是偶然的產物。而是將「什麼都沒有」這件事給有意圖地設定為目的。藉著空無一物之器皿的建立，「空（emptiness）」的概念就得以體現，進而吸引人群注意並產生向心力，此概念便能被有效運用。"}]},"4":{"_id":4,"name":"為社會而設計","author_id":8,"image":"images/book_4.jpg","price":400,"discount":360,"off":9,"comments":[{"author_id":4,"comment":"都是測試如此的簡潔並非是理性探求之下所得到的成果，也不是偶然的產物。而是將「什麼都沒有」這件事給有意圖地設定為目的。藉著空無一物之器皿的建立，「空（emptiness）」的概念就得以體現，進而吸引人群注意並產生向心力，此概念便能被有效運用。"}]}},
 	author: {"1":{"_id":1,"name":"張鐵志","title":"文化評論家","image":"images/participant_1.jpg"},"2":{"_id":2,"name":"杜祖業123","title":"GQ 雜誌總編輯","image":"images/participant_2.jpg"},"3":{"_id":3,"name":"方序中","title":"究方社創辦人","image":"images/participant_3.jpg"},"4":{"_id":4,"name":"梁浩軒","title":"NCEPTION 啟藝創辦人","image":"images/participant_4.jpg"},"5":{"_id":5,"name":"原研哉"},"6":{"_id":6,"name":"川島蓉子"},"7":{"_id":7,"name":"安德魯．哈斯蘭"},"8":{"_id":8,"name":"奈傑爾・懷特里 Nigel Whiteley"}},
 };
