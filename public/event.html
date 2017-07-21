@@ -304,33 +304,29 @@
             <div id="section7" class="section container-fluid">
                 <div class="row recent-events">
                 	<div class="col-sm-6">
-                		<div class="event-list">
+                		<div class="event-list" v-if="prev">
                 			<h2>上一場活動</h2>
-                			<img src="images/event_1.jpg" alt="色之力－「美好生活的色彩提案」" class="img-responsive">
-                			<h3>色之力－「美好生活的色彩提案」</h3>
-                			<h4>6/28 19:30 - 21:00</h4>
+                			<img :src="prev.slides[0].url" :alt="prev.computedText" class="img-responsive">
+                			<h3 v-text="prev.computedText"></h3>
+                			<h4>{{ prev.date }} {{ prev.time }}</h4>
                 			<div class="recent-event-single">
-                				<div class="photo">
-                					<img src="images/participant_1.jpg" alt="">
-                					<h6>方序中</h6>
+                				<div class="photo" v-for="s in prev.speakers">
+                					<img :src="s.image == '' ? author[s.author_id].image : s.image" alt="">
+                					<h6 v-text="s.name"></h6>
                 				</div>
                 			</div>
                 		</div>
 					</div>
 					<div class="col-sm-6">
-                		<div class="event-list">
+                		<div class="event-list" v=if="next">
                 			<h2>下一場活動</h2>
-                			<img src="images/event_2.jpg" alt="聽覺之色 —「最後失去的感覺：李明璁從聲音談共感聯覺」" class="img-responsive">
-                			<h3>聽覺之色 —「最後失去的感覺：李明璁從聲音談共感聯覺」</h3>
-                			<h4>6/30 19:30 - 21:00</h4>
+                			<img :src="next.slides[0].url" :alt="next.computedText" class="img-responsive">
+                			<h3 v-text="next.computedText"></h3>
+                			<h4>{{ next.date }} {{ next.time }}</h4>
                 			<div class="recent-event-single">
-                				<div class="photo">
-                					<img src="images/participant_1.jpg" alt="">
-                					<h6>張鐵志</h6>
-                				</div>
-                				<div class="photo">
-                					<img src="images/participant_2.jpg" alt="">
-                					<h6>杜祖業</h6>
+                				<div class="photo" v-for="s in next.speakers">
+                					<img :src="s.image == '' ? author[s.author_id].image : s.image" alt="">
+                					<h6 v-text="s.name"></h6>
                 				</div>
                 			</div>
                 		</div>
@@ -635,13 +631,15 @@ var vue = new Vue({
 			var l = this.events.length;
 			if (l < 2 || l == 2 && this.index == 0) return;
 			var e = this.events[(this.index + l - 1) % l];
-			return e.date + ' ' + e.name + (e.intro? ' - ' + e.intro: '');
+			e.computedText = e.name + (e.intro? ' - ' + e.intro: '');
+			return e;
         },
         next: function () {
 			var l = this.events.length;
 			if (l < 2 || l == 2 && this.index == 1) return;
 			var e = this.events[(this.index + 1) % l];
-			return e.date + ' ' + e.name + (e.intro? ' - ' + e.intro: '');
+			e.computedText = e.name + (e.intro? ' - ' + e.intro: '');
+			return e;
         },
         show: function () {
 		return this.book[this.event.books[this.bindex]];
