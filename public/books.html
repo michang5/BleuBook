@@ -81,8 +81,8 @@
 				<h2 class="text-center">推薦選書</h2>
 				<div class="content">
 					<div class="slider">
-						<div v-for="_id in rec_book">
-							<a data-toggle="modal" data-target="#book-single">
+						<div v-for="(_id, i) in rec_book">
+							<a @click="bindex = i, btype='rec_book'" data-toggle="modal" data-target="#book-single">
 								<div class="book-cover" :style="'background-image: url(' + book[_id].image + ')'"></div>
 								<h4 v-text="book[_id].name"></h4>
 								<h5 v-text="'作者： ' + author[book[_id].author_id].name"></h5>
@@ -95,8 +95,8 @@
 				<h2 class="text-center">青鳥選書</h2>
 				<div class="book-list-row">
 					<div class="row book-cover-list">
-						<div v-for="_id in bleu_book" class="col-sm-2 col-xs-3">
-							<a data-toggle="modal" data-target="#book-single">
+						<div v-for="(_id, i) in bleu_book" class="col-sm-2 col-xs-3">
+							<a @click="bindex = i, btype='bleu_book'" data-toggle="modal" data-target="#book-single">
 								<div class="book-cover" :style="'background-image: url(' + book[_id].image + ')'"></div>
 								<h4 v-text="book[_id].name"></h4>
 								<h5 v-text="'作者： ' + author[book[_id].author_id].name"></h5>
@@ -141,43 +141,36 @@
 					<div class="container">
 						<div class="row">
 							<div class="col-sm-4 col-sm-offset-2 book-cover">
-								<img src="images/book_1.jpg" alt="欲望的教育：美意識創造未來 作者：原研哉" class="img-responsive">
+								<img :src="show.image" :alt="show.name + '作者：' + author[show.author_id].name" class="img-responsive">
 							</div>
 							<div class="col-sm-4">
 								<div class="book-detail">
 									<ul>
-										<li>作者：原研哉</li>
-										<li>譯者：李柏黎</li>
-										<li>出版社：雄獅美術</li></li>
-										<li>建議售價：<span class="del">420元</span></li>
-										<li>定價：<span class="discount">9</span> 折 <span class="price">378</span>元</li>
+									    <li v-text="show.name"></li>
+										<li v-text="'作者：' + author[show.author_id].name"></li>
+										<li v-if="show.translate" v-text="'譯者：' + show.translate"></li>
+										<li v-if="show.publisher" v-text="'出版社：' + show.publisher"></li>
+										<li>建議售價：<span class="del" v-text="show.price + '元'"></span></li>
+										<li>定價：<span class="discount" v-text="show.off"></span> 折 <span class="price" v-text="show.discount"></span>元</li>
 									</ul>
-									<div id="quantity-container">
-										<div id="quantity-title" class="inline">
-											數量:
-										</div>
-										<div id="quantity-minus" class="inline"><i class="fa fa-minus-circle"></i></div>
-										<div id="quantity-input" class="inline">
-											<div id="quantity-input-text" class="inline">0</div>
-										</div>
-										<div id="quantity-plus" class="inline"><i class="fa fa-plus-circle"></i></div>
-										<div>
-											<div id="quantity-add-cart" class="add-cart-null">
-												加入購物車
-											</div>
-										</div>
+									<div class="quantity-container">
+										<div class="quantity-title inline">數量:</div>
+										<div @click="quantity>1 ? quantity-- : 1" id="quantity-minus" class="inline"><i class="fa fa-minus-circle"></i></div>
+										<div id="quantity-input" class="inline"><div v-text="quantity" class="quantity-input-text inline"></div></div>
+										<div @click="quantity++" id="quantity-plus" class="inline"><i class="fa fa-plus-circle"></i></div>
+										<div @click="addCart" id="quantity-add-cart">加入購物車</div>
 									</div>
 								</div>
 							</div>
 						</div>
-						<div class="row">
+						<div class="row" v-for="c in show.comments">
 							<div class="col-sm-8 col-sm-offset-2">
 								<div class="recommand-block">
 									<div class="row">
-										<div class="recommended col-sm-2 col-xs-3"><img src="images/participant_2.jpg" alt="杜祖業 GQ 雜誌總編輯" class="img-responsive"></div>
+										<div class="recommended col-sm-2 col-xs-3"><img :src="author[c.author_id].image" :alt="author[c.author_id].name + '' + author[c.author_id].title" class="img-responsive"></div>
 										<div class="recommended-content col-sm-10 col-xs-9">
-											<p class="name">杜祖業 <span class="title">GQ 雜誌總編輯</span><span class="icon_recommand"><img src="images/icon_recommand.png" alt=""></span></p>
-											<p class="recommand">如此的簡潔並非是理性探求之下所得到的成果，也不是偶然的產物。而是將「什麼都沒有」這件事給有意圖地設定為目的。藉著空無一物之器皿的建立，「空（emptiness）」的概念就得以體現，進而吸引人群注意並產生向心力，此概念便能被有效運用。</p>
+											<p class="name" v-text="author[c.author_id].name"> <span class="title" v-text="author[c.author_id].title"></span><span class="icon_recommand"><img src="images/icon_recommand.png" alt=""></span></p>
+											<p class="recommand" v-html="c.comment"></p>
 										</div>
 									</div>
 								</div>
@@ -194,6 +187,9 @@
 <script>
 
 var data = {
+	btype: 'rec_book',
+	bindex: 0,
+	quantity: 1,
 	cart: get('cart', []),
 	list: get('list', []),
 	rec_book: [1,2,3,4],
@@ -217,8 +213,20 @@ var vue = new Vue({
 			}
 			return sum;
         },
-	},
+        show: function () {
+		if (this.btype == 'rec_book')
+			return this.book[this.rec_book[this.bindex]];
+		if (this.btype == 'bleu_book')
+			return this.book[this.bleu_book[this.bindex]];
+        },
+    },
     methods: {
+		addCart: function () {
+			this.cart.push({_id: this.show._id, quantity: this.quantity});
+			set('cart', this.cart);
+			this.quantity = 1;
+			alert('已加入購物車');
+		},
 		del: function (i) {
 			if (!confirm('確定刪除？')) return;
 			this.cart.splice(i, 1);
