@@ -138,7 +138,7 @@
                 <h2>精采摘錄</h2>
                 <div class="row quote-block">
                     <div class="col-sm-4" v-for="q in event.quotes">
-                        <a href="#" target="_blank"><blockquote>
+                        <a target="_blank"><blockquote>
                             <p class="quote" v-text="q.quote"></p>
                             <p class="speaker"><span v-text="author[q.author_id].name"></span><span v-text="author[q.author_id].title"></span></p>
                             </blockquote></a>
@@ -251,13 +251,13 @@ var vue = new Vue({
 			var l = this.events.length;
 			if (l < 2 || l == 2 && this.index == 0) return;
 			var e = this.events[(this.index + l - 1) % l];
-			return e.date + '' + e.name + (e.intro? ' - ' + e.intro: '');
+			return e.date + ' ' + e.name + (e.intro? ' - ' + e.intro: '');
         },
         next: function () {
 			var l = this.events.length;
 			if (l < 2 || l == 2 && this.index == 1) return;
 			var e = this.events[(this.index + 1) % l];
-			return e.date + '' + e.name + (e.intro? ' - ' + e.intro: '');
+			return e.date + ' ' + e.name + (e.intro? ' - ' + e.intro: '');
         },
         event: function () {
 			return this.events[this.index];
