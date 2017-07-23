@@ -85,7 +85,7 @@
 							<a @click="bindex = i, btype='rec_book'" data-toggle="modal" data-target="#book-single">
 								<div class="book-cover" :style="'background-image: url(' + book[_id].image + ')'"></div>
 								<h4 v-text="book[_id].name"></h4>
-								<h5 v-text="'作者： ' + book[_id].api_name"></h5>
+								<h5 v-text="'作者： ' + book[_id].api_author"></h5>
 							</a>
 						</div>
 					</div>
@@ -99,7 +99,7 @@
 							<a @click="bindex = i, btype='bleu_book'" data-toggle="modal" data-target="#book-single">
 								<div class="book-cover" :style="'background-image: url(' + book[_id].image + ')'"></div>
 								<h4 v-text="book[_id].name"></h4>
-								<h5 v-text="'作者： ' + book[_id].api_name"></h5>
+								<h5 v-text="'作者： ' + book[_id].api_author"></h5>
 							</a>
 						</div>
 					</div>
@@ -141,17 +141,17 @@
 					<div class="container">
 						<div class="row">
 							<div class="col-sm-4 col-sm-offset-2 book-cover">
-								<img :src="show.image" :alt="show.name + '作者：' + show.api_name" class="img-responsive">
+								<img :src="show.image" :alt="show.name + '作者：' + show.api_author" class="img-responsive">
 							</div>
 							<div class="col-sm-4">
 								<div class="book-detail">
 									<ul>
 									    <li v-text="show.name"></li>
-										<li v-text="'作者：' + show.api_name"></li>
+										<li v-text="'作者：' + show.api_author"></li>
 										<li v-if="show.translate" v-text="'譯者：' + show.translate"></li>
 										<li v-if="show.publisher" v-text="'出版社：' + show.publisher"></li>
-										<li>建議售價：<span class="del" v-text="show.price + '元'"></span></li>
-										<li>定價：<span class="discount" v-text="show.off"></span> 折 <span class="price" v-text="show.discount"></span>元</li>
+										<li>建議售價：<span :class="{del: show.offShow}" v-text="show.price + '元'"></span></li>
+										<li>定價：<span class="discount" v-text="show.off" v-show="show.offShow"></span><span v-show="show.offShow"> 折 </span><span class="price" v-text="show.discount"></span>元</li>
 									</ul>
 									<div class="quantity-container">
 										<div class="quantity-title inline">數量:</div>
@@ -214,10 +214,14 @@ var vue = new Vue({
 			return sum;
         },
         show: function () {
+		var b;
 		if (this.btype == 'rec_book')
-			return this.book[this.rec_book[this.bindex]];
+			b = this.book[this.rec_book[this.bindex]];
 		if (this.btype == 'bleu_book')
-			return this.book[this.bleu_book[this.bindex]];
+			b = this.book[this.bleu_book[this.bindex]];
+		b.offShow = (b.off == 10) ? 0 : b.off | 0.1;
+		b.discount = b.price * b.off / 10 + 0.5 | 0;
+		return b;
         },
     },
     methods: {
