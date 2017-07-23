@@ -294,7 +294,7 @@
                             <a @click="bindex = i" data-toggle="modal" data-target="#book-single">
                                 <div class="book-cover" :style="'background-image: url(' + book[_id].image + ')'"></div>
                                 <h4 v-text="book[_id].name"></h4>
-                                <h5 v-text="'作者： ' + author[book[_id].author_id].name"></h5>
+                                <h5 v-text="'作者： ' + book[_id].api_name"></h5>
                             </a>
                         </div>
                     </div>
@@ -357,13 +357,13 @@
 					<div class="container">
 						<div class="row">
 							<div class="col-sm-4 col-sm-offset-2 book-cover">
-								<img :src="show.image" :alt="show.name + '作者：' + author[show.author_id].name" class="img-responsive">
+								<img :src="show.image" :alt="show.name + '作者：' + show.api_author" class="img-responsive">
 							</div>
 							<div class="col-sm-4">
 								<div class="book-detail">
 									<ul>
 									    <li v-text="show.name"></li>
-										<li v-text="'作者：' + author[show.author_id].name"></li>
+										<li v-text="'作者：' + show.api_author"></li>
 										<li v-if="show.translate" v-text="'譯者：' + show.translate"></li>
 										<li v-if="show.publisher" v-text="'出版社：' + show.publisher"></li>
 										<li>建議售價：<span class="del" v-text="show.price + '元'"></span></li>
@@ -621,7 +621,7 @@ var data = {
 	author: {"1":{"_id":1,"name":"張鐵志","title":"文化評論家","image":"images/participant_1.jpg"},"2":{"_id":2,"name":"杜祖業123","title":"GQ 雜誌總編輯","image":"images/participant_2.jpg"},"3":{"_id":3,"name":"方序中","title":"究方社創辦人","image":"images/participant_3.jpg"},"4":{"_id":4,"name":"梁浩軒","title":"NCEPTION 啟藝創辦人","image":"images/participant_4.jpg"},"5":{"_id":5,"name":"原研哉"},"6":{"_id":6,"name":"川島蓉子"},"7":{"_id":7,"name":"安德魯．哈斯蘭"},"8":{"_id":8,"name":"奈傑爾・懷特里 Nigel Whiteley"}},
 };
 
-/* //data// */
+//data//
 
 var vue = new Vue({
     el: '#vue',
