@@ -294,7 +294,7 @@
                             <a @click="bindex = i" data-toggle="modal" data-target="#book-single">
                                 <div class="book-cover" :style="'background-image: url(' + book[_id].image + ')'"></div>
                                 <h4 v-text="book[_id].name"></h4>
-                                <h5 v-text="'作者： ' + book[_id].api_name"></h5>
+                                <h5 v-text="'作者： ' + book[_id].api_author"></h5>
                             </a>
                         </div>
                     </div>
