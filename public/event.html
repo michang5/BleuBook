@@ -366,8 +366,8 @@
 										<li v-text="'作者：' + show.api_author"></li>
 										<li v-if="show.translate" v-text="'譯者：' + show.translate"></li>
 										<li v-if="show.publisher" v-text="'出版社：' + show.publisher"></li>
-										<li>建議售價：<span class="del" v-text="show.price + '元'"></span></li>
-										<li>定價：<span class="discount" v-text="show.off"></span> 折 <span class="price" v-text="show.discount"></span>元</li>
+										<li>建議售價：<span :class="{del: show.offShow}" v-text="show.price + '元'"></span></li>
+										<li>定價：<span class="discount" v-text="show.off" v-show="show.offShow"></span><span v-show="show.offShow"> 折 </span><span class="price" v-text="show.discount"></span>元</li>
 									</ul>
 									<div class="quantity-container">
 										<div class="quantity-title inline">數量:</div>
@@ -642,7 +642,10 @@ var vue = new Vue({
 			return e;
         },
         show: function () {
-		return this.book[this.event.books[this.bindex]];
+			var b = this.book[this.event.books[this.bindex]];
+			b.offShow = (b.off == 10) ? 0 : b.off | 0.1;
+			b.discount = b.price * b.off / 10 + 0.5 | 0;
+			return b;
         },
 	dateMonth: function () {
 		return this.event.date.split('/')[0] | '';
