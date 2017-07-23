@@ -53,6 +53,14 @@ api.get('/', (req, res) => {
   res.redirect('index.html');
 });
 
+api.get('/bleu.html', (req, res) => {
+  var events = Mongo('event');
+  var book = dict(Mongo('book'));
+  var author = dict(Mongo('author'));
+  events = events.slice(0, 4); // for demo
+  res.render({events, book, author}, 'public/bleu.html');
+});
+
 api.get('/index.html', (req, res) => {
   var events = Mongo('event');
   var book = dict(Mongo('book'));

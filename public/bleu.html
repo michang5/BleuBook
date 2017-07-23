@@ -22,14 +22,13 @@
 	<link href="fonts/font-awesome/css/font-awesome.min.css" rel="stylesheet">
 	<link href="css/slick-theme.css" rel="stylesheet">
 	<link href="css/slick.css" rel="stylesheet">
-    <link href="css/global.css" rel="stylesheet">
+	<link href="css/global.css" rel="stylesheet">
 	<link href="css/index.css" rel="stylesheet">
 	<link href="css/bleu.css" rel="stylesheet">
 	<script src="js/vue.js"></script>
 	<script src="js/axios.js"></script>
 	<script src="js/api.js"></script>
 	<!--google-->
-<!--
 	<meta name="google-site-verification" content="-MLXb98KIXlOE_dmJ18CK9Ynil6NnPMRct9vU1ZYDpg" />
 	<link href="https://fonts.googleapis.com/css?family=Lora|Roboto:100,700,500" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Spectral:100, 400,700" rel="stylesheet">
@@ -42,9 +41,10 @@
 		<script type="text/javascript" src="js/respond.min.js"></script>
 	<![endif]-->
 	<!--GA-->
+	<div id="fb-root"></div>
 	
 </head>
-<body>
+<body id="index">
 <div id="vue">
 
 	<!-- Navigation -->
@@ -63,7 +63,7 @@
 					<li><a href="index.html">活動</a></li>
 					<li><a href="books.html">選書</a></li>
 					<li id="list-icon"><a href="list.html">訂書單</a></li>
-					<li id="cart-icon"><a href="cart.html">購物車<div id="cart-icon-count" class="inline">
+					<li id="cart-icon"><a href="cart.html">購物車<div id="cart-icon-count" class="inline" v-show="cart.length">
 		<div id="cart-icon-count-num" v-text="cart.length"></div>
 	</div></a></li>
 				</ul>
@@ -80,41 +80,15 @@
 				<div class="content-wraper">   
 					<!--section1 Hero banner-->
 					<div id="section1" class="section container-fluid">
-<!--
-						<div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="false">
-							<ol class="carousel-indicators">
-								<li data-target="#myCarousel" v-for="(s, i) in event.slides" :data-slide-to="i" :class="{active: i == 0}"></li>
-							</ol>    
-							<div class="carousel-inner">
-								<div class="item active">
-									<div class="embed-responsive embed-responsive-16by9" id="video">
-										<iframe class="embed-responsive-item" src="https://www.youtube.com/embed/Jip3hvZ7YZI" frameborder="0" allowfullscreen><div class="video_mask"></div></iframe>
-									</div>
-								</div>
-								<div class="item" style="background-image: url('images/slide1_img2.jpg')">
-									
-								</div>
-								<div class="item" style="background-image: url('images/slide1_img3.jpg')">
-									
-								</div>
-							</div>
-							<a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-								<div class="arrow"><span class="arrow-left"></span></div>
-							</a>
-							<a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-								<div class="arrow" style="float: right;"><i class="arrow-right"></i></div>
-							</a>
-						</div>
--->
                         <div class='slide-container'>
                             <div class='single-item'>
-                                <div>
+                                <div v-if="s.type === 'video'" v-for="(s, i) in event.slides">
                                     <div class="embed-responsive embed-responsive-16by9" id="video">
-										<iframe class="embed-responsive-item" src="https://www.youtube.com/embed/Jip3hvZ7YZI" frameborder="0" allowfullscreen><div class="video_mask"></div></iframe>
-									</div>
+					<iframe class="embed-responsive-item" :src="s.url" frameborder="0" allowfullscreen><div class="video_mask"></div></iframe>
+				    </div>
                                 </div>
-                                <div>
-                                    <div class="item" style="background-image: url('images/slide1_img2.jpg')"></div>
+                                <div v-if="s.type === 'picture'" v-for="(s, i) in event.slides">
+                                    <div class="item" :style="'background-image: url(' + s.url + ')'"></div>
                                 </div>
                             </div>
                         </div>
@@ -142,10 +116,10 @@
 					<!--section2 與談人-->
 					<div id="section2" class="section container-fluid row-centered">
 						<h2>與會人</h2>
-						<div class="col-xs-3" v-for="_id in event.speakers">
-							<img :src="author[_id].image" :alt="author[_id].name + author[_id].title" class="img-responsive">
-							<h4 v-text="author[_id].name"></h4>
-							<h5 v-text="author[_id].title"></h5>
+						<div class="col-xs-3" v-for="q in event.speakers">
+							<img :src="q.image==''?author[q.author_id].image:q.image" :alt="author[q.author_id].name + author[q.author_id].title" class="img-responsive">
+							<h4 v-text="author[q.author_id].name"></h4>
+							<h5 v-text="author[q.author_id].title"></h5>
 						</div>
 					</div>
 					<!--section3 精采摘錄-->
@@ -153,7 +127,7 @@
 						<h2>精采摘錄</h2>
 						<div class="row quote-block">
 							<div class="col-sm-4" v-for="q in event.quotes">
-								<a href="#" target="_blank"><blockquote>
+								<a target="_blank"><blockquote>
 									<p class="quote" v-text="q.quote"></p>
 									<p class="speaker"><span v-text="author[q.author_id].name"></span><span v-text="author[q.author_id].title"></span></p>
 									</blockquote></a>
@@ -166,10 +140,11 @@
 						<div class="content">
 							<div class="slider">
 								<div v-for="(_id, i) in event.books">
-									<a @click="show = book[_id]" data-toggle="modal" data-target="#book-single">
+									<!-- <a @click="show = book[_id]" data-toggle="modal" data-target="#book-single"> -->
+									<a @click="bid = _id" data-toggle="modal" data-target="#book-single">
 										<div class="book-cover" :style="'background-image: url(' + book[_id].image + ')'"></div>
 										<h4 v-text="book[_id].name"></h4>
-										<h5 v-text="'作者： ' + author[book[_id].author_id].name"></h5>
+										<h5 v-text="'作者： ' + book[_id].api_author"></h5>
 									</a>
 								</div>
 							</div>
@@ -196,32 +171,32 @@
 	</div>
 </div>
 
-	<div class="modal fade" id="book-single" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal fade" id="book-single" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<button type="button" class="close hairline" data-dismiss="modal"></button>
-				<div class="modal-body" v-if="show">
+				<div class="modal-body" v-if="event.books && event.books.length">
 					<div class="container">
 						<div class="row">
 							<div class="col-sm-4 col-sm-offset-2 book-cover">
-								<img :src="show.image" :alt="show.name + '作者：' + author[show.author_id].name" class="img-responsive">
+								<img :src="show.image" :alt="show.name + '作者：' + show.api_author" class="img-responsive">
 							</div>
 							<div class="col-sm-4">
 								<div class="book-detail">
 									<ul>
 									    <li v-text="show.name"></li>
-										<li v-text="'作者：' + author[show.author_id].name"></li>
+										<li v-text="'作者：' + show.api_author"></li>
 										<li v-if="show.translate" v-text="'譯者：' + show.translate"></li>
 										<li v-if="show.publisher" v-text="'出版社：' + show.publisher"></li>
-										<li>建議售價：<span class="del" v-text="show.price + '元'"></span></li>
-										<li>定價：<span class="discount" v-text="show.off"></span> 折 <span class="price" v-text="show.discount"></span>元</li>
+										<li>建議售價：<span :class="{del: show.offShow}" v-text="show.price + '元'"></span></li>
+										<li>定價：<span class="discount" v-text="show.off * 10 % 10 == 0 ? show.off: show.off * 10" v-show="show.offShow"></span><span v-show="show.offShow"> 折 </span><span class="price" v-text="show.discount"></span>元</li>
 									</ul>
 									<div class="quantity-container">
 										<div class="quantity-title inline">數量:</div>
-										<div @click="quantity>1 ? quantity-- : 1" class="quantity-minus inline"><i class="fa fa-minus-circle"></i></div>
-										<div class="quantity-input inline"><div v-text="quantity" class="quantity-input-text inline"></div></div>
-										<div @click="quantity++" class="quantity-plus inline"><i class="fa fa-plus-circle"></i></div>
-										<div @click="addCart" class="quantity-add-cart">加入購物車</div>
+										<div @click="quantity>1 ? quantity-- : 1" id="quantity-minus" class="inline"><i class="fa fa-minus-circle"></i></div>
+										<div id="quantity-input" class="inline"><div v-text="quantity" class="quantity-input-text inline"></div></div>
+										<div @click="quantity++" id="quantity-plus" class="inline"><i class="fa fa-plus-circle"></i></div>
+										<div @click="addCart" id="quantity-add-cart">加入購物車</div>
 									</div>
 								</div>
 							</div>
@@ -244,23 +219,27 @@
 			</div>
 		</div>
 	</div>
-
 	
 </div>
 <script>
 
-var events = [{"_id":1,"slides":["images/slide_image1.jpg","images/event_2.jpg","images/event_1.jpg"],"speakers":[1,2,3,4],"quotes":[{"author_id":3,"quote":"用想像力的設計說好一個故事。"},{"author_id":4,"quote":"時代潮流看設計的台灣。"},{"author_id":2,"quote":"設計師必須是不滿現實的哲學家。"}],"books":[1,2,3,4],"name":"「青鳥獨立系列」美意識","intro":"台灣的設計思考談未來閱讀","date":"6/28"},{"_id":3,"slides":["images/event_1.jpg","images/slide_image1.jpg","images/event_2.jpg"],"speakers":[4,3,2,1],"quotes":[{"author_id":4,"quote":"時代潮流看設計的台灣。"},{"author_id":2,"quote":"設計師必須是不滿現實的哲學家。"},{"author_id":3,"quote":"用想像力的設計說好一個故事。"}],"books":[4,3,2,1],"name":"色之力","intro":"「美好生活的色彩提案」","date":"6/30"},{"_id":2,"slides":["images/event_2.jpg","images/event_1.jpg","images/slide_image1.jpg"],"speakers":[2,4,1,3],"quotes":[{"author_id":2,"quote":"設計師必須是不滿現實的哲學家。"},{"author_id":3,"quote":"用想像力的設計說好一個故事。"},{"author_id":4,"quote":"時代潮流看設計的台灣。"}],"books":[2,4,1,3],"name":"《100種東京》新書分享暨聊天會","intro":"","date":"6/27"},{"_id":2,"slides":["images/event_2.jpg","images/event_1.jpg","images/slide_image1.jpg"],"speakers":[2,4,1,3],"quotes":[{"author_id":2,"quote":"設計師必須是不滿現實的哲學家。"},{"author_id":3,"quote":"用想像力的設計說好一個故事。"},{"author_id":4,"quote":"時代潮流看設計的台灣。"}],"books":[2,4,1,3],"name":"《100種東京》新書分享暨聊天會","intro":"","date":"6/27"}];
+var test = {
+	events: [{"_id":4,"slides":[{"type":"video","url":"https://www.youtube.com/embed/N7ROmvjuCeI"},{"type":"picture","url":"images/0504_slide.jpg"}],"speakers":[{"role":"主持人","author_id":18,"image":""},{"role":"與會人","author_id":9,"image":""},{"role":"與會人","author_id":10,"image":""},{"role":"與會人","author_id":11,"image":""}],"quotes":[{"author_id":9,"quote":"「建築對我來說不只有單單去設計外型，而是各種面向與人的觸及，碰撞出一些新想法。」"},{"author_id":10,"quote":"「品牌如果沒有故事，就是大災難，要創造出超越成本的價格，擁有一個讓消費者認同、追隨的理念。」"},{"author_id":11,"quote":"「原來最能感動人心的，還是源自簡單的設計本身。」"}],"books":[1,2,3,4],"name":"設計力與經濟力─「從災難看Honest誠實之道，如何從設計走出營運思考？」","intro":"","date":"5/4","time":"19:00-21:00","place":"青鳥書店","news":[{"image":"images/0504_bookNews.jpg","title":"【評書青鳥】從幫災曲做椅子的工作坊，變成世界知名的「誠實設計」品牌","link":"https://news.readmoo.com/2017/06/03/170603-honest-design/"}],"detail":"<p><strong>講座簡介：</strong></p><p>台灣的921相對於日本的311，都是影響兩國極大的風災事件，然而時間經過，以「企業」誕生的思考來看，由日本建築師蘆沢啟治於2011年開啟的《石卷工坊》，從原是一間沿海地區的商店街，轉型成為致力於活用DIY技巧的家具工作室，設計師與志工們從開放經濟的角度，與設計的相互交集下，融合產出文化的新面貌。</p><p>石卷工房：誕生於2011年的非營利組織，其中「復興Bar」一店已成為當地的傳奇並延伸成為城市樣貌與對外發聲場所的公共空間代名詞。地震發生那年，蘆沢啟治為星空電影院活動設計椅凳，並跟高中生們一同完成了四十張椅子，爾後加入捐助石卷工房的行列，其後「手工打造」成為非營利永續經營的石卷品牌，也於2012年獲頒「Good Design獎」成功創造新興商業模式。</p><p>回看台灣有蓬勃發展的設計力，設計師們在台北街道上一間一間的小店百花齊放著，如何延伸設計注入經濟力，讓更多的文化得以創造新興商業模式並永久延續？</p><p><strong>◎推薦書本：</strong>蘆沢啟治《On Honest Design》- 田園出版社(<a href=\"https://www.facebook.com/gardencity.bookstore\">田園城市生活風格書店</a>)</p><p><strong>◎時間：</strong>5/4 19:00 - 21:00</p><p><strong>◎地點：</strong>青鳥書店</p><p><strong>◎報名方式：</strong><a href=\"https://www.facebook.com/events/433488333675294\">免費入場</a></p><p><strong>◎主辦單位：</strong> 青鳥書店、<a href=\"https://www.facebook.com/gardencitypublishers\">田園城市</a></p>","qanda":[],"event_live":"","event_vedio":"","event_photo":{"image":"images/0504_eventPhoto.jpg","link":"https://www.facebook.com/pg/bleubook/photos/?tab=album&album_id=825956107560808"}},{"_id":5,"slides":[{"type":"picture","url":"images/0527_slide.jpg"}],"speakers":[{"role":"主持人","author_id":1,"image":"images/participant_8.jpg"},{"role":"與會人","author_id":12,"image":"images/participant_9.jpg"}],"quotes":[{"author_id":12,"quote":"媒體記者是自由的遊牧民族，對任何素材都該擁有高度探討與深入的書寫空間。"},{"author_id":1,"quote":"新聞自由是媒體業重要的核心條件。這是一個特殊的時代，新思維的開拓與嘗試開發更多尚待發現的可能。"},{"author_id":12,"quote":"雖然台灣的傳統媒體結構開始崩潰，但媒體工作最可貴的價值，在於翔實記錄、自由報導。"}],"books":[5,6,7,8],"name":"世界最特殊的媒體生態－揭開日本言論的核心內幕","intro":"","date":"5/27","time":"19:00-21:00","place":"青鳥書店","news":[{"image":"images/0527_bookNews.jpg","title":"【評書青鳥】野島剛✕張鐵志：世界最特殊的媒體生態──從日本媒體看台灣媒體","link":"https://news.readmoo.com/2017/06/23/170623-media/"},{"image":"images/0527_bookNews_2.jpg","title":"行為「靦腆」卻又對性觀念無比前衛——外表循規蹈矩的日本人原來心裡是這麼想的","link":"https://buzzorange.com/2017/05/18/this-is-what-japanese-thinking/"}],"detail":"<p><strong>◎講座簡介：</strong></p><p>日本媒體長期以來擁有世界罕見的龐大讀者和雄厚財務，強力的採訪記者團隊，霸佔了日本社會上的“第四權利”。可是，面臨網絡時代的衝擊，這幾年日本的報紙和電視台等傳統媒體力量明顯下降，引起大量的人才流失，同時逐漸失去社會信任度。在這種惡劣環境之下，日本媒體和媒體人如何轉型，如何生存？長期從事日本媒體工作的野島剛揭開日本媒體最新的核心內幕和遊戲規則！</p><p><strong>◎講者：</strong>野島剛(資深媒體人，作家) X 張鐵志(文化評論家)</p><p><strong>◎推薦書本：</strong>日本人默默在想的事：野島剛由小見真的文化觀察</p><p><strong>◎時間：</strong>5/27(六) 19:00 - 21:00</p><p><strong>◎地點：</strong>青鳥書店</p><p><strong>◎報名方式：</strong><a href=\"https://goo.gl/FB887I\">填寫報名表單</a><br>請填寫報名表單後，於活動當日繳交入場費150元<br>現場備有台灣在地茶飲。</p><p><strong>◎主辦單位：</strong> 青鳥書店</p><p><strong>◎注意事項：</strong> <br>・因場地人數有限，請多利用表單登記報名 <br>・報名截止後將寄信通知是否報名成功，請務必留意信箱信件 <br>・預先報名觀眾入場後，將視人數開放現場民眾參與 <br>・若臨時有事無法出席，請提早寄信至 bleubook2016@gamil.com 告知，謝謝！</p>","event_live":"","event_vedio":"","event_photo":{"image":"images/0527_eventPhoto.jpg","link":"https://www.facebook.com/pg/bleubook/photos/?tab=album&album_id=825959954227090"}},{"_id":6,"slides":[{"type":"video","url":"https://www.youtube.com/embed/N7ROmvjuCeI"},{"type":"picture","url":"images/0615_slide.jpg"}],"speakers":[{"role":"主持人","author_id":13,"image":"images/participant_10.jpg"},{"role":"與會人","author_id":14,"image":"images/participant_11.jpg"}],"quotes":[{"author_id":14,"quote":"「《八月》沒有明星，只能創作者自己宣傳。」"},{"author_id":14,"quote":"人總是這樣，陷在某個情緒時，不會去聽相反情緒的音樂，就是要自己越陷溺進去。明知不可能倒流時光，仍用力地去抓住任何時間軌跡的可能。"},{"author_id":13,"quote":"當我們被不斷澆淋，發現焰火不再，才會意識到「The summer is gone.」"}],"books":[9,10,11,12],"name":"《八月》，重回那段「有雲的日子」-談電影配樂、時代氣息與搖滾情懷","intro":"","date":"6/15","time":"19:00-21:00","place":"青鳥書店","news":[{"image":"images/0615_bookNews.jpg","title":"【評書青鳥】用音樂串起的人生，在眾聲喧嘩的《八月》──張大磊X陳德政","link":"https://news.readmoo.com/2017/07/03/170703-august/"},{"image":"images/0615_bookNews_2.png","title":"《樂來越愛你》128 分鐘的啟示：夢想、現實以及愛情路，真的注定是要互斥的嗎？","link":"https://buzzorange.com/2017/06/11/lalaland-dream-love-and-reality/"}],"detail":"<p><strong>◎講座簡介：</strong></p><p>他們的身軀，都曾在異鄉漂泊。 </p><p>張大磊從高中輟學後，本該進俄羅斯學院唸音樂的他，試都考過了卻又在臨門一腳時為自己的人生轉了一個大彎，毅然決然栽進電影世界，縱使拍攝行程緊密忙碌，卻無法阻擋他對音樂的熱情和創作；而陳德政在二十餘歲前往紐約攻讀媒體碩士之餘，架設「音速青春」網站，分享身在搖滾之都的所見所聞，從而撰寫了《給所有明日的聚會》一書。  </p><p>他們的靈魂，都曾被搖滾浸潤。 </p><p>即使不是專職搖滾客，他們仍以不同的形式，將搖滾精神融入各自的創作中－一個從15歲立志成為搖滾樂手，到34歲蛻變為以電影在金馬獎一鳴驚人的新銳導演；一個是在而立之年前，嘗試過樂手、DJ、紀錄片導演等不同角色，後來選擇以文字為創作載具的書寫者。 </p><p>兩人的生命歷程，伴隨著搖滾樂的嘶吼聲，都走過一段躁動而難以磨滅的青春時光。</p><p>來聽張大磊彈吉他，唱一首〈有雲的日子〉;<br>來聽陳德政解析電影中的音樂，以及導演埋下的線索；<br>來聽兩位熱愛搖滾的人，回溯搖滾如何形塑了自己。</p><p>六月十五日，晚上七點，準時開講！</p><p><strong>◎講者：</strong>張大磊 X 陳德政</p><p><strong>◎推薦書本：</strong>《從文自傳》、《在遠方相遇》、《給所有明日的聚會》、《未來千年文學備忘錄》、《紅氣球的旅行：侯孝賢電影記錄補遺》、《朱天文電影小說集》、《最好的時光》、《太平廣記》</p><p><strong>◎時間：</strong>6/15(四) 19:00 - 21:00 （18:30開放入場）</p><p><strong>◎地點：</strong>青鳥書店（華山園區內，台北市中正區八德路一段一號，玻璃屋二樓）</p><p><strong>◎報名方式：</strong><a href=\"https://docs.google.com/forms/d/1wKG0ZL6PUVqLXoa3WXFa-jtDCYmXvO8j2P0KUX8lVHI/edit\">填寫報名表單</a><br>請填寫報名表單後，於活動當日繳交入場費150元，現場備有台灣在地茶飲。<br>（若報名成功，我們將於活動前一天發函通知，若不克前來，也請主動告知活動方，以便遞補名額）</p><p><strong>◎主辦單位：</strong> 青鳥書店</p><p><strong>◎合辦單位：</strong> <a href=\"https://www.facebook.com/ffe.tw\">前景娛樂</a></p><p><strong>◎指導單位：</strong> 文化部</p><p><strong>","event_live":"","event_vedio":"","event_photo":{"image":"images/0615_eventPhoto.jpg","link":"https://www.facebook.com/pg/bleubook/photos/?tab=album&album_id=825962517560167"}},{"_id":7,"slides":[{"type":"picture","url":"images/0630_slide.png"}],"speakers":[{"role":"與會人","author_id":15,"image":"images/participant_12.jpg"}],"quotes":[{"author_id":15,"quote":"「你必須讓耳朵持續不斷地再打開一點,從而讓身體乃至心智都愈加開放。在這趟旅程中,我們一起感受並思索跨時空、跨類型的音樂,如何與複雜的人類社會,緊密交織、相互推進。 」"},{"author_id":28,"quote":"「耳朵沒有塞子,注定會一直聽著;但這並不表示,我們有雙開放的耳朵 。」"},{"author_id":15,"quote":"「審判是我說的算,但真相是透過聆聽慢慢拼湊出來的。」"}],"books":[13,14,15,16],"name":"聽覺之色—最後失去的感覺＿李明璁從聲音談共感聯覺","intro":"","date":"6/30","time":"19:30-21:00","place":"青鳥書店","news":[{"image":"images/0630_bookNews.jpg","title":"【就是要聽獨立音樂】在女巫店聽過蘇打綠、滅火器後，推薦你再聽這些國外獨立樂團","link":"https://buzzorange.com/2016/11/09/how-music-works/"}],"detail":"<p><strong>◎講座簡介：</strong></p><p>作曲家Murray Schafer曾說，「我們的耳朵沒有塞子，注定會一直聽著；但這並不表示，我們有一雙開放的耳朵。」我們經常忽略了記憶的方式，不僅只有一種。在速度為上的科技發達世代，視覺容易成為第一先決。那我們曾幾何時，嘗試以聽覺來想像物件與空間的顏色？ </p><p>我們偶爾會被施工的吵雜聲響，仰或蟲鳴鳥叫喚起；咖啡廳裡播放的音樂，常會是用來判斷這間店是否符合自己的調性的因素之一；甚至有人說，人類在頻臨死亡之時，最後失去的會是「聽覺」。日常生活中，聲音無所不在，就如色彩存於環境之間，是多元而繽紛的。</p><p>早在2009年，聯合文學以〈台北聲音日記24時〉為主題，策劃此題的台大社會系教授李明璁，在系上所開設的「音樂社會學」課程，以「素人作者」的集體寫作計畫，進行田野訪查、深入生活周遭的場域。投入聲音地景的採集，帶領學生用聲音去探索生活及挖掘印象。</p><p>至今，音樂社會學無疑是熱門課程，不僅從而理解音樂與文化的脈絡，身為嚮導的李明璁，更期許課程能夠跳脫時間與空間去反思。音樂就算不能改變世界，但能改變自己，保有真誠的自我，甚至不被世界所變。</p><p>本次日常經典與青鳥書店的講座，邀請李明璁主講以「聽覺」為主軸的「共感聯覺」，透過五感體驗發掘色彩的連結，及記憶獨處生活。<br><br>青鳥Ｘ日常經典＿色之力共同策展講座第三場<br>聽覺之色－「 最後失去的感覺：李明璁從聲音談共感聯覺」</p><p><strong>◎講者：</strong>李明璁</p><p><strong>◎推薦書本：</strong><br>《耳朵的棲息與散步》<br>《單聲道：城市的聲音與記憶》<br>《搶救寂靜：一個野地錄音師的探索之旅》</p><p><strong>◎時間：</strong>6/30(五) 19:30-21:00 （19:00開放入場）</p><p><strong>◎地點：</strong>青鳥書店（華山園區內，台北市中正區八德路一段一號，玻璃屋二樓）</p><p><strong>◎報名方式：</strong><a href=\"https://goo.gl/forms/NJ5KbxV6TjdmPPUx1\">填寫報名表單</a><br>請填寫報名表單後，於活動當日繳交入場費250元，現場備有台灣在地茶飲，可另以NT$80 優惠價加購氣泡飲。</p><p><strong>◎主辦單位：</strong> 青鳥書店</p><p><strong>◎指導單位：</strong> 文化部</p><p><strong>◎主題色系：</strong><br> 藍色 Flat Piece | 經典多用途包 <br>從迪士尼到Pantone色彩中心都認為，藍色是堅毅、勇敢的顏色，所以迪士尼讓公主們穿上藍色洋裝、藍色禮服、藍色褲裝，所以Pantone色彩中心總監曾說：「藍色給人可靠和安心的感覺。」執一方天際在手裡，彷彿將勇氣與希望都握在掌心。</p><p><strong>◎講座超值優惠 </strong><br> 1. 參與【日常經典Ｘ青鳥系列講座】即享有【日常經典品牌85折優惠 】🛍️（當日限定，最高相當於折抵一千三百元）<br>2. 講座當日：凡購買日常經典包包即贈送 青鳥Ｘ日常特調氣泡飲</p>","event_live":"","event_vedio":"","event_photo":{"image":"images/0630_eventPhoto.jpg","link":"https://www.facebook.com/pg/bleubook/photos/?tab=album&album_id=825965864226499"}}],
+	book: {"1":{"_id":1,"ISBN":"9789869331586","name":"On Honest Design：蘆沢啓治空間‧物件設計作品","api_author":"蘆沢啓治(KEIJI ASHIZAWA DESIGN)","author":[11],"image":"images/book_9789869331586.jpg","api_translate":"王中偉、林書嫻","price":580,"off":9.5,"comments":[],"publisher":"田園城市"},"2":{"_id":2,"ISBN":"9789868899766","name":"工藝之道：日本百年生活美學之濫觴","api_author":"柳宗悅","author":[19],"image":"images/book_9789868899766.jpg","api_translate":"","price":300,"off":9,"comments":[],"publisher":"大藝出版"},"3":{"_id":3,"ISBN":"9789865657024","name":"台灣木職人才懂的享木生活：去住、去做、去學！跟家人住木民宿、替自己做木湯匙、幫房子做木家具。","api_author":"林黛羚、詹雅蘭","author":[19],"image":"images/book_9789865657024.jpg","api_translate":"","price":399,"off":10,"comments":[],"publisher":"原點"},"4":{"_id":4,"ISBN":"9789863360001","name":"丸林家的手感家具帖2：Cafe質感的小家裝潢術","api_author":"丸林家族","author":[22,23],"image":"images/book_9789863360001.jpg","api_translate":"鄭衍偉","price":330,"off":10,"comments":[],"publisher":"太雅出版社"},"5":{"_id":5,"ISBN":"9789571369914","name":"日本人默默在想的事：野島剛由小見真的文化觀察","api_author":"野島剛","author":[12],"image":"images/book_9789571369914.jpg","api_translate":"","price":300,"off":10,"comments":[],"publisher":"時報出版"},"6":{"_id":6,"ISBN":"9789570848762","name":"台灣十年大變局：野島剛觀察的日中台新框架","api_author":"野島剛","author":[12],"image":"images/book_9789570848762.jpg","api_translate":"蘆荻","price":350,"off":10,"comments":[],"publisher":"聯經出版公司"},"7":{"_id":7,"ISBN":"9789869280235","name":"故宮90話：文化的政治力，從理解故宮開始","api_author":"野島剛","author":[12],"image":"images/book_9789869280235.png","api_translate":"張惠君","price":450,"off":10,"comments":[],"publisher":"典藏藝術家庭"},"8":{"_id":8,"ISBN":"9789570846454","name":"銀幕上的新台灣：新世紀台灣電影裡的台灣新形象","api_author":"野島剛","author":[12],"image":"images/book_9789570846454.jpg","api_translate":"張雅婷","price":380,"off":10,"comments":[],"publisher":"聯經出版公司"},"9":{"_id":9,"ISBN":"9789862355862","name":"我在拍電影時思考的事","api_author":"是枝裕和","author":[24],"image":"images/book_9789862355862.jpeg","api_translate":"張秋明","price":480,"off":10,"comments":[],"publisher":"臉譜"},"10":{"_id":10,"ISBN":"9789863594024","name":"長夜之光：電影擁抱千瘡百孔的心","api_author":"馬欣","author":[25],"image":"images/book_9789863594024.jpeg","api_translate":"","price":330,"off":10,"comments":[],"publisher":"木馬文化"},"11":{"_id":11,"ISBN":"9789869024228","name":"臺灣、跨國與自我的主體：日記電影研究","api_author":"李明宇","author":[26],"image":"images/book_9789869024228.jpg","api_translate":"","price":360,"off":10,"comments":[],"publisher":"恆河出版社"},"12":{"_id":12,"ISBN":"9789863443995","name":"痛史：現代華語文學與電影的歷史創傷","api_author":"白睿文 Michael Berry","author":[27],"image":"images/book_9789863443995.jpg","api_translate":"李美燕、陳湘陽、潘華琴、孔令謙","price":550,"off":10,"comments":[],"publisher":"麥田"},"13":{"_id":13,"ISBN":"9789860506211","name":"耳朵的棲息與散步：記憶台北聲音風景","api_author":"李明璁(策劃)、張婉昀(主編)","author":[15,29],"image":"images/book_9789860506211.jpg","api_translate":"","price":380,"off":10,"comments":[],"publisher":"大塊文化"},"14":{"_id":14,"ISBN":"9789860506204","name":"台北祕密音樂場所：有音樂，我就能在這城市生存","api_author":"李明璁(策劃)、張婉昀(主編)","author":[15,29],"image":"images/book_9789860506204.jpeg","api_translate":"","price":380,"off":10,"comments":[],"publisher":"大塊文化"},"15":{"_id":15,"ISBN":"9789862138021","name":"台北祕密音樂場所：有音樂，我就能在這城市生存","api_author":"R‧莫瑞‧薛佛(R. Murray Schafer)","author":[30],"image":"images/book_9789862138021.jpg","api_translate":"趙盛慈","price":280,"off":10,"comments":[],"publisher":"大塊文化"},"16":{"_id":16,"ISBN":"9789573276081","name":"搶救寂靜：一個野地錄音師的探索之旅","api_author":"范欽慧","author":[31],"image":"images/book_9789573276081.jpeg","api_translate":"","price":420,"off":10,"comments":[],"publisher":"遠流"},"17":{"_id":17,"ISBN":"9789864770687","name":"品牌．城市：從風格生活再造城市DNA","api_author":"黃金樺","author":[17],"image":"images/book_9789864770687.jpg","api_translate":"","price":350,"off":10,"comments":[],"publisher":"商周出版"},"18":{"_id":18,"ISBN":"9789863207078","name":"時尚是門好生意","api_author":"孫正華、林靜宜","author":[16,32],"image":"images/book_9789863207078.jpg","api_translate":"","price":300,"off":10,"comments":[],"publisher":"天下文化"},"19":{"_id":19,"ISBN":"9789862351772","name":"時尚是門好生意","api_author":"水野學","author":[33],"image":"images/book_9789862351772.jpeg","api_translate":"林欣儀","price":280,"off":10,"comments":[],"publisher":"臉譜"},"20":{"_id":20,"ISBN":"9789864082643","name":"解謎蔦屋：TSUTAYA的未來生活提案實驗所","api_author":"川島蓉子","author":[6],"image":"images/book_9789864082643.jpg","api_translate":"蘇暐婷","price":350,"off":9,"comments":[],"publisher":"麥浩斯"}},
+	author: {"1":{"_id":1,"name":"張鐵志","title":"文化評論家","image":"images/participant_1.jpg","intro":"<p>著名作家與愛書人，過去幾年他更不斷透過設計的力量，希望讓思想更性感，2012年在香港擔任傳奇創意文化雜誌「號外」總編輯，結合該雜誌前衛設計風格，推出多個引起廣泛迴響的封面與封面故事。回到台灣，更與多位重要設計師一起創辦直播節目「政問」，並擔任主持人。也曾在台北城市設計展擔任分區策展人，並曾任學學文創顧問。</p>"},"2":{"_id":2,"name":"杜祖業","title":"GQ 雜誌總編輯","image":"images/participant_2.jpg","intro":""},"3":{"_id":3,"name":"方序中","title":"究方社創辦人","image":"images/participant_3.jpg","intro":""},"4":{"_id":4,"name":"梁浩軒","title":"NCEPTION 啟藝創辦人","image":"images/participant_4.jpg","intro":""},"5":{"_id":5,"name":"原研哉","title":"","image":"","intro":""},"6":{"_id":6,"name":"川島蓉子","title":"","image":"","intro":"<p>ifs未來研究所所長。一九六一年出生於新潟，早稻田大學商學院畢業，文化服裝學院商品企畫系結業。自二○一三年起擔任現職。身兼多摩美術大學臨時講師及G-Mark審查委員。擅長以時尚觀點參與企業品牌設計等專案，在《日經網路商業誌》、《日經MJ》、《Brain》、《讀賣新聞》等皆有連載專欄。著有《給未來的創新經營者》（台灣由啟動文化出版）等多本著作。</p>"},"7":{"_id":7,"name":"安德魯．哈斯蘭","title":"","image":"","intro":""},"8":{"_id":8,"name":"奈傑爾・懷特里 Nigel Whiteley","title":"","image":"","intro":""},"9":{"_id":9,"name":"方尹萍","title":"台灣建築師","image":"images/participant_5.jpg","intro":"<p>旅居日本、西班牙、法國、英國多年,畢業於日本大學藝術學部建築設計科,以及西班牙加泰隆尼亞工科大建築博士候選人。曾經歷於伊東豐雄建築設計事務所、中村拓志&NAP建築設計事務所、大矩聯合建築師事務所之國際案窗口。2011年年底歸國後，設立Adamas Architect Ateliers 方尹萍建築設計之外，兼任於實踐大學建築設計系講師。</p><p>立志推動生活美學與自然環境共生之概念，重視在地性文化與永續經濟的發展，並以運用新時代思想創造賦予療癒性特質的作品精神。同時促進國際文化與技術交流,策劃書籍出版及建築教育講座。日前在台鑽研茶空間設計及永續經濟之建築領域。</p>"},"10":{"_id":10,"name":"鄧博文","title":"台灣品牌師","image":"images/participant_6.jpg","intro":"<p>擁有豐富大型整合行銷傳播經驗，精準的策略判斷力與貫徹執行力，對創意的敏銳與熱情，協助品牌建立與商品銷售並屢屢創作傑出的創意作品的鄧博文目前任職台灣智威湯遜董事總經理，有19年的廣告公司經驗； TAAA台北市廣告代理商業同業公會理事及4A台北市廣告業經營人協會理事，4A創意獎籌委會主委。</p><p>曾主辦中等學校廣設科教師研習營、擔任時報廣告營、動腦廣告營等講師，經濟部國貿局台灣國際品牌論壇講師，TAAA暨中國生產力中心廣告教師營講師、大學客座講師、經理人（Manager Today）品牌高峰論壇講師，行銷傳播認證（TMCA）講師與命題委員、廣告獎評審。鄧博文同時也是2013年台灣傑出廣告代理經營人、2015年傑出廣告公司經營者、2015年亞洲廣告會議籌委會秘書長及第14屆台北市廣告代理商業同業公會理事長。</p>"},"11":{"_id":11,"name":"蘆沢啟治","title":"日本建築師","image":"images/participant_7.jpg","intro":"<p>1996 年畢業自橫濱國立大學建築科，曾於architecture WORKSHOP任職，與接受客製訂做的鋼鐵加工公司「super robot」負責人細川鐵也、燈光設計師岡安泉，開始一起製作原創家具、燈具設計等，並於2002年加入super robot。2005年獨立創設了自己的同名建築事務所</p>。<p>在家具、甚或是尺度大於家具的建築領域中，他都保持相同的基本態度與熱情，竭力將在製造現場、各種條件限制下所產生的點子盡可能付諸實現、並傳達給他人。自行開業至今，他始終維持一貫的姿態，致力於「誠實設計」。</p>"},"12":{"_id":12,"name":"野島剛","title":"資深媒體人x作家","image":"images/participant_8.jpg","intro":"<p>1968年出生，就讀日本上智大學新聞系期間，曾赴台灣師範大學及香港中文大學交流學習。1992年畢業後，進入朝日新聞社展開記者生涯。曾任職於朝日新聞社佐賀支局、西部本社等，2001年起擔任駐新加坡特派員。曾赴伊拉克、阿富汗等戰地前線採訪。其後擔任東京本社政治部記者，2007至2010年擔任駐台北特派員。擅長採訪報導兩岸三地華人圈的政治、外交、文化等多面向議題，目前在日本、台灣、大陸等地許多媒體上開闢專欄發表時事評論。著有《伊拉克戰爭從軍記》等多部作品，已在台灣出版《銀輪的巨人GIANT》、《兩個故宮的離合》(聯經)、《謎樣的清明上河圖》(聯經)、《最後的帝國軍人：蔣介石與白團》(聯經)。2014年將中文漫畫《中國人的人生》譯為日文，榮獲日本文化廳藝術祭漫畫部門優秀作品獎。</p>"},"13":{"_id":13,"name":"陳德政","title":"搖滾樂評","image":"images/participant_10.jpg","intro":""},"14":{"_id":"14","name":"張大磊","title":"《八月》導演","image":"images/participant_11.jpg","intro":""},"15":{"_id":"15","name":"李明璁","title":"台大社會系教授","image":"images/participant_12.jpg","intro":""},"16":{"_id":"16","name":"孫正華","title":"風格玩家主持人x作家","image":"images/participant_13.jpg","intro":"<p>台北輔仁大學織品行銷系畢業，自1998年起主持年代電視台「流行追蹤」、年代新聞台「FASHION NEWS 」、及TVBS-G台「流行前線」、年代電視台「風格時代」「風格玩家」等藝術、時尚、設計資訊節目。並擔任《C'est moi》雜誌副總編輯、ET TODAY 摩登玩家廣播節目主持人、《東西》雜誌創意總監、《VOGUE》雜誌國際中文版專欄作家。Weibo : flora sun 孫正華</p>"},"17":{"_id":"17","name":"黃金樺","title":"日常經典創辦人","image":"images/participant_14.jpg","intro":""},"18":{"_id":18,"name":"蔡瑞珊","title":"青鳥Bleu&Book店長","image":"images/author_shanshan.jpg","intro":""},"19":{"_id":19,"name":"柳宗悅","title":"宗教家x哲學家x工藝研究家","image":"","intro":"<p>1923年因東京大地震避居京都，在古董市集發現日常生活器物之美，經過研究之後提出「民藝」一詞，並與一群志同道合的朋友走訪日本各地，柳宗悅主要工作為收集保存各地民藝，陶作家河井寬次郎等人則是實際指導職人改良技術，1936年於東京開設日本民藝館，向一般大眾介紹「民藝的概念」等等，一連串活動被後人稱為民藝運動，柳宗悅更被稱作是民藝之父。</p><p直至1961年去世為止，柳宗悅將半生心力投注於民藝運動之上，不僅延續日本傳統手工製造業的生命並培養日本人民的美感意識，更對其後的創作者影響深遠，包括柳宗悅的兒子──日本工業設計巨匠，柳宗理。</p>"},"20":{"_id":20,"name":"林黛羚","title":"住的研究者","image":"","intro":"<p>綽號阿羚，豐原人。</p><p>住連棟透天長大，仰慕自然生活的都市俗，友善生活記錄者，記錄友善住居、工作場域及生活態度。至今記錄有友善生活包括《這輩子一定要當一次農夫》、《會說故事的空間》、《老屋綠改造》、《樂在原木生活》、《蓋自然的家屋》、《改造老房子》及《蓋綠色的房子》等書。</p>"},"21":{"_id":21,"name":"詹雅蘭","title":"","image":"","intro":"<p>台北人，東吳中文系畢，曾從事作家經紀、叢書企畫與小說散文創作，因喜愛空間而想盡辦法擠入居家雜誌社工作，以企畫家的採購特刊，以及居家書為主。在轉職的中場休息時間，突發奇想，上山學木工替自己添傢具，持續的計畫以自的家做為實驗室，將裝修與設計的生活點子一一置入。</p>"},"22":{"_id":22,"name":"石川聰","title":"","image":"","intro":"<p>多摩美術大學畢業後，於手塚製作公司擔任4年的動畫師，隨後以設計師的身分活躍於角色商品設計與平面設計的領域，現在夫妻倆正在院子裡興建工作小屋。愛車是1964年款的廂型巴士，喜歡的咖啡店是「cafe la famille」(茨城縣)、「CAFE SHOZO」(栃木縣)。</p>"},"23":{"_id":23,"name":"丸林佐和子","title":"","image":"","intro":"<p>多摩美術大學畢業後於兒童館擔任工藝老師，趁懷孕之便離職，開始踏上造型創作之路。曾經擔任NHK教育電視台「動手一起玩」的美術工作人員，並在雜誌等媒體進行連載。針對女性推廣生活雜貨動手作，推廣親子休閒工藝活動，也在全國各地召開工藝工作坊。喜歡的咖啡店是「AN RIZ L’EAU」(栃木縣)、「cafe la famille」(茨城縣)。</p>"},"24":{"_id":24,"name":"是枝裕和 Hirokazu Koreeda","title":"電影導演","image":"","intro":"<p>日本最重要的電影導演之一，1962年出生於東京，原本夢想成為小說家。1978年從早稻田大學第一文學部文藝學科畢業後，加入TV Man Union公司從事電視紀錄片拍攝工作，後來接觸到侯孝賢的電影，更堅定他往拍電影這條路走去。2016年獲得第八回伊丹十三賞，該獎項意於鼓勵日本國內各領域活躍的創作者，評選的考量重點是「有趣」、「令人出其不意」、「普羅大眾都能領略」。</p>"},"25":{"_id":25,"name":"馬欣","title":"","image":"","intro":"<p>同時是音樂迷與電影癡，其實背後動機為嗜讀人性。在娛樂線擔任採訪與編輯工作二十多年，持續觀察電影與音樂，近年轉為自由文字工作者，從事專欄文字的筆耕。曾任金曲獎流行類評審、金音獎評審、中國時報娛樂周報十大國語流行專輯評審、海洋音樂祭評審、AMP音樂推動者大獎評審，樂評與電影專欄文字散見於各網路、報章刊物，如：《中國時報》娛樂周報、《聯合報》、《GQ》、《VOGUE》、誠品《提案》、《KKBOX》、博客來OKAPI、MTV中文音樂網站、娛樂重擊網站與《HINOTER》、《音痴路》等，著有《反派的力量》、《當代寂寞考》。</p>"},"26":{"_id":26,"name":"李明宇","title":"世新大學廣電系助理教授","image":"","intro":"<p>英國格拉斯哥大學電影博士，世新大學廣播電視電影研究所M.F.A電影創作碩士。</p><p>電影作品曾於法國巴黎網球美術館Jeu de Paume、巴西聖保羅MIS-Museum of Image & Sound、國立臺灣美術館，及各國影展展出放映。短片《仍未到家》(Home Not Yet Arrived)於2012 年10 月入選2012年國際家庭電影日Home Movie Day Bari 於義大利Bari 展出、2010 年9 月入選巴黎國立網球場現代美術館(Jeu de Paume) – Faux Amis單元；短片《回家》(Going Home)於2008 年11 月入選參加國立臺灣美術館「家 –2008 台灣美術雙年展」、2009 年3月入圍法國克萊蒙・費朗VIDEOFORMES 國際新媒體藝術展、2008 年11 月入圍法國第26 屆Festival Tous Courts 國際短片競賽「日記」(Journal Intime)單元、2008 年入圍瑞士洛桑地下電影音樂展(LUFF) – 國際實驗短片競賽。2007年短片《時間變奏曲》(Time Variations)入圍義大利Imaginaria FilmFestival並獲得Videoart Experimental競賽類「評審特別獎」。目前任教於世新大學廣播電視電影學系。</p>"},"27":{"_id":27,"name":"白睿文 Michael Berry","title":"","image":"","intro":"<p>1974年於美國芝加哥出生。美國哥倫比亞大學現代中國文學與電影博士。現職美國加州大學洛杉磯分校（UCLA）亞洲語言文化教授，主要研究領域為當代華語文學、電影、流行文化和翻譯學。</p>"},"28":{"_id":28,"name":"Murray Schafer","title":"","image":"","intro":""},"29":{"_id":29,"name":"張婉昀","title":"","image":"","intro":"<p>畢業於台灣大學法律系、倫敦政經學院性別與媒體研究碩士。十五歲隻身來到台北生活，至今仍在城中尋找安身立命的所在。曾參與北部流行音樂中心常設展規劃，主編《時代迴音》（獲第40屆金鼎獎優良出版品推薦）與《樂進未來》。</p>"},"30":{"_id":30,"name":"R‧莫瑞‧薛佛（R. Murray Schafer）","title":"","image":"","intro":"<p>生於1933年，加拿大著名作曲家、作家、音樂教育者和環境保護者。他從1960年代開始投身「世界音景計畫」（World Soundscape Project），旨在透過對環境中聲音的描繪，讓人們除了最常使用的視覺外，能提升以「聽覺」感知世界的體驗。透過分析出「記憶音」、「意象音」、「文化音」及「社會音」等內涵，人們不僅可強化對環境的認識，更有助於建構特定場域的歷史記憶。他關心聲音生態學，著有《The Tuning of the World》，同時也是加拿大著名的室內樂獎項Jules Léger Prize (1978年)的首位獲獎者。</p>"},"31":{"_id":31,"name":"范欽慧","title":"","image":"","intro":"<p>自然作家、廣播電視節目製作主持人、紀錄片編導、田野錄音師。因為喜歡傾聽鳥鳴而走進自然，長期用聲音記錄台灣、並致力發展土地的聽音美學。</p><p>政大新聞學系學士、美國雪城大學廣播電視電影系碩士。於1997年起在教育廣播電台製作主持「自然筆記」節目迄今，曾獲五座廣播金鐘獎及多次入圍。同時擔任大愛電視「愛悅讀」節目主持人，並於2015年創立「台灣聲景協會」。</p><p>著有《跟著節氣去旅行》《搶救寂靜》等七本創作。文字作品曾獲林榮三文學獎、陽明海運海洋文學獎、永續台灣報導獎、入圍金鼎獎、卓越新聞獎等。</p>"},"32":{"_id":32,"name":"林靜宜","title":"","image":"","intro":"<p>國立台北大學企管所畢業。曾任《遠見》記者、《30》主編。主要作品有《鼎泰豐，有溫度的完美》《台積電的綠色力量：21個關鍵行動打造永續競爭力》、《捷安特傳奇：GIANT全球 品牌經營學》、《微笑走出自己的路：施振榮的Smile學，20堂創業、創新、人生課》、《改變成功的定義：白袍CEO蔡長海的利他願景學》、《愛，讓孩 子做自己：我這樣教出季衡與季剛》 、《淚光奇蹟：陪伴曉鈴的病床手記》、《發現台灣藍海》等書（以上皆由天下文化出版）。</p>"},"33":{"_id":33,"name":"水野學","title":"","image":"","intro":"<p>1972年生於東京。1996年畢業於多摩美術大學平面設計系。1999年成立Good Design Company。從打造品牌到商標、包裝、店面設計，全面監製。主要成果包含NTT Docomo「iD」、「農林水產省」CI、宇多田光「SINGLE COLLECTION VOL.2」、台灣7-11「7-SELECT」商品設計、國立新美術館「梵谷展」、「多摩美術大學」、「東京Midtown」、Lumine「iLumine」、「adidas」、UNIQLO「UT」、首都高速公路車禍減量計畫「TOKYO SMART DRIVER」、森美術館「勒．柯布西耶展」等等。主要著作有《Good Design Company設計成果》、《SCHOOL OF DESIGN》、《SCHOOL OF GRAPHIC DESIGN》（以上為誠文堂新光社出版)。</p>"}},
+};
+
 var data = {
 	index: 0,
-	show: false,
+        bid: 1,
 	quantity: 1,
 	cart: get('cart', []),
 	list: get('list', []),
-	events: events,
+	events: test.events,
 	//event: events[0],
 	//i: 0,
-	book: {"1":{"_id":1,"name":"欲望的教育：美意識創造未來","author_id":5,"image":"images/book_1.jpg","translate":"李柏黎","publisher":"雄獅美術","price":420,"discount":378,"off":9,"comment_id":2,"comment":"如此的簡潔並非是理性探求之下所得到的成果，也不是偶然的產物。而是將「什麼都沒有」這件事給有意圖地設定為目的。藉著空無一物之器皿的建立，「空（emptiness）」的概念就得以體現，進而吸引人群注意並產生向心力，此概念便能被有效運用。","comments":[{"author_id":2,"comment":"如此的簡潔並非是理性探求之下所得到的成果，也不是偶然的產物。而是將「什麼都沒有」這件事給有意圖地設定為目的。藉著空無一物之器皿的建立，「空（emptiness）」的概念就得以體現，進而吸引人群注意並產生向心力，此概念便能被有效運用。"}]},"2":{"_id":2,"name":"給未來的創新經營者：從蔦屋書店到佐藤可士和的六堂設計管理課","author_id":6,"image":"images/book_2.jpg","price":1000,"discount":900,"off":9,"comments":[{"author_id":1,"comment":"這是測試如此的簡潔並非是理性探求之下所得到的成果，也不是偶然的產物。而是將「什麼都沒有」這件事給有意圖地設定為目的。藉著空無一物之器皿的建立，「空（emptiness）」的概念就得以體現，進而吸引人群注意並產生向心力，此概念便能被有效運用。"}]},"3":{"_id":3,"name":"書設計：入行必備的權威聖經，編輯、設計、印刷全事典","author_id":7,"image":"images/book_3.jpg","price":500,"discount":450,"off":9,"comments":[{"author_id":3,"comment":"這還是測試如此的簡潔並非是理性探求之下所得到的成果，也不是偶然的產物。而是將「什麼都沒有」這件事給有意圖地設定為目的。藉著空無一物之器皿的建立，「空（emptiness）」的概念就得以體現，進而吸引人群注意並產生向心力，此概念便能被有效運用。"}]},"4":{"_id":4,"name":"為社會而設計","author_id":8,"image":"images/book_4.jpg","price":400,"discount":360,"off":9,"comments":[{"author_id":4,"comment":"都是測試如此的簡潔並非是理性探求之下所得到的成果，也不是偶然的產物。而是將「什麼都沒有」這件事給有意圖地設定為目的。藉著空無一物之器皿的建立，「空（emptiness）」的概念就得以體現，進而吸引人群注意並產生向心力，此概念便能被有效運用。"}]}},
-	author: {"1":{"_id":1,"name":"張鐵志","title":"文化評論家","image":"images/participant_1.jpg"},"2":{"_id":2,"name":"杜祖業123","title":"GQ 雜誌總編輯","image":"images/participant_2.jpg"},"3":{"_id":3,"name":"方序中","title":"究方社創辦人","image":"images/participant_3.jpg"},"4":{"_id":4,"name":"梁浩軒","title":"NCEPTION 啟藝創辦人","image":"images/participant_4.jpg"},"5":{"_id":5,"name":"原研哉"},"6":{"_id":6,"name":"川島蓉子"},"7":{"_id":7,"name":"安德魯．哈斯蘭"},"8":{"_id":8,"name":"奈傑爾・懷特里 Nigel Whiteley"}},
+	book: test.book,
+	author: test.author,
 };
 
 //data//
@@ -269,7 +248,17 @@ var vue = new Vue({
     el: '#vue',
     data: data,
     computed: {
-	},
+        event: function () {
+			return this.events[this.index];
+        },
+        show: function () { // TODO
+			//var b = this.book[this.event.books[this.bindex]];
+			var b = this.book[this.bid];
+			b.offShow = (b.off == 10) ? 0 : b.off | 0.1;
+			b.discount = b.price * b.off / 10 + 0.5 | 0;
+			return b;
+        },
+    },
     methods: {
         prev: function (i) {
 			var l = this.events.length;
