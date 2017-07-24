@@ -116,7 +116,7 @@
 					<!--section2 與談人-->
 					<div id="section2" class="section container-fluid row-centered">
 						<h2>與會人</h2>
-						<div class="col-xs-3" v-for="q in event.speakers">
+						<div class="col-xs-3 col-centered" v-for="q in event.speakers">
 							<img :src="q.image==''?author[q.author_id].image:q.image" :alt="author[q.author_id].name + author[q.author_id].title" class="img-responsive">
 							<h4 v-text="author[q.author_id].name"></h4>
 							<h5 v-text="author[q.author_id].title"></h5>

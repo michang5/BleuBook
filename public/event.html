@@ -251,17 +251,17 @@
             </div>
 -->
             <!--section8 傳媒報導-->
-            <div id="section8" class="section container-fluid row-centered">
-                <div class="row news-block">
-                   <h2>傳媒報導</h2>
-                    <div class="col-sm-4" v-for="n in event.news">
-                        <figure>
-                            <img :src="n.image" alt="" class="img-responsive">
-                            <figcaption><a :href="n.link" target="_blank" v-text="n.title"></a></figcaption>
-                        </figure>
-                    </div>
-                </div> 
-            </div>
+        <div id="section8" class="section container-fluid row-centered">
+            <div class="row news-block">
+               <h2>傳媒報導</h2>
+                <div class="col-sm-4 col-centered" v-for="n in event.news">
+                    <figure>
+                        <img :src="n.image" alt="" class="img-responsive">
+                        <figcaption><a :href="n.link" target="_blank" v-text="n.title"></a></figcaption>
+                    </figure>
+                </div>
+            </div> 
+        </div>
 		<!--section5 相關連結-->
 		<div id="section5" class="section container-fluid row-centered">
 			<div class="row link-block">
