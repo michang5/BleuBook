@@ -57,7 +57,11 @@ api.get('/bleu.html', (req, res) => {
   var events = Mongo('event');
   var book = dict(Mongo('book'));
   var author = dict(Mongo('author'));
-  events = events.slice(events.length-4, events.length); // for demo
+  //events = events.slice(events.length-4, events.length); // for demo
+  events = events.splice(1);
+  var t = events[0];
+  events[0] = events[1];
+  events[1] = t;
   res.render({events, book, author}, 'public/bleu.html');
 });
 
@@ -65,7 +69,11 @@ api.get('/index.html', (req, res) => {
   var events = Mongo('event');
   var book = dict(Mongo('book'));
   var author = dict(Mongo('author'));
-  events = events.slice(events.length-4, events.length); // for demo
+  //events = events.slice(events.length-4, events.length); // for demo
+  events = events.splice(1);
+  var t = events[0];
+  events[0] = events[1];
+  events[1] = t;
   res.render({events, book, author}, 'public/index.html');
 });
 
