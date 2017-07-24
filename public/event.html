@@ -286,7 +286,7 @@
 			</div>	
 		</div>
 		<!--section6 推薦選書-->
-            <div id="section6" class="section container-fluid">
+            <div id="section6" class="section container-fluid" style="border-bottom-color: #fff">
                 <h2>推薦選書</h2>
                 <div class="content">
                     <div class="slider">
@@ -301,40 +301,12 @@
                 </div>
             </div>
             <!--section7 前後活動-->
+            <!-- 先隱藏 -->
             <div id="section7" class="section container-fluid">
                 <div class="row recent-events">
                 	<div class="col-sm-6">
-                		<div class="event-list" v-if="prev">
-                			<h2>上一場活動</h2>
-                			<img v-if="prev.slides[0].type === 'picture'" :src="prev.slides[0].url" :alt="prev.computedText" class="img-responsive">
-					<div v-if="prev.slides[0].type === 'video'" class="embed-responsive embed-responsive-16by9" id="video">
-					    <iframe class="embed-responsive-item" :src="prev.slides[0].url" frameborder="0" allowfullscreen><div class="video_mask"></div></iframe>
-					</div>
-                			<h3 v-text="prev.computedText"></h3>
-                			<h4>{{ prev.date }} {{ prev.time }}</h4>
-                			<div class="recent-event-single">
-                				<div class="photo" v-for="s in prev.speakers">
-                					<img :src="s.image == '' ? author[s.author_id].image : s.image" alt="">
-                					<h6 v-text="s.name"></h6>
-                				</div>
-                			</div>
-                		</div>
 					</div>
 					<div class="col-sm-6">
-                		<div class="event-list" v=if="next">
-                			<h2>下一場活動</h2>
-                			<img v-if="next.slides[0].type === 'picture'" :src="next.slides[0].url" :alt="next.computedText" class="img-responsive">
-					<div v-if="next.slides[0].type === 'video'" class="embed-responsive embed-responsive-16by9" id="video">
-					    <iframe class="embed-responsive-item" :src="next.slides[0].url" frameborder="0" allowfullscreen><div class="video_mask"></div></iframe>
-					</div>
-                			<h3 v-text="next.computedText"></h3>
-                			<h4>{{ next.date }} {{ next.time }}</h4>
-                			<div class="recent-event-single">
-                				<div class="photo" v-for="s in next.speakers">
-                					<img :src="s.image == '' ? author[s.author_id].image : s.image" alt="">
-                					<h6 v-text="s.name"></h6>
-                				</div>
-                			</div>
                 		</div>
 					</div>
 				</div>
