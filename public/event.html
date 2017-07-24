@@ -325,7 +325,7 @@
                 			<h2>下一場活動</h2>
                 			<img v-if="next.slides[0].type === 'picture'" :src="next.slides[0].url" :alt="next.computedText" class="img-responsive">
 					<div v-if="next.slides[0].type === 'video'" class="embed-responsive embed-responsive-16by9" id="video">
-					    <iframe class="embed-responsive-item" :src="prev.slides[0].url" frameborder="0" allowfullscreen><div class="video_mask"></div></iframe>
+					    <iframe class="embed-responsive-item" :src="next.slides[0].url" frameborder="0" allowfullscreen><div class="video_mask"></div></iframe>
 					</div>
                 			<h3 v-text="next.computedText"></h3>
                 			<h4>{{ next.date }} {{ next.time }}</h4>
