@@ -362,8 +362,7 @@
                                 <div class="col-sm-8 col-sm-offset-2">
                                     <div class="author-block">
                                         <div class="row" v-for="_id in show.author">
-                                            <div class="author-photo col-sm-2 col-xs-3"><img :src="author[_id].image" :alt="author[_id].name + '' + author[_id].title" class="img-responsive"></div>
-                                            <div class="author-content col-sm-10 col-xs-9">
+                                            <div class="author-content col-sm-12 col-xs-12">
                                                 <p class="name" v-text="author[_id].name"><i class="fa fa-book" aria-hidden="true"></i></p>
                                                 <p class="info" v-html="author[_id].intro"></p>
                                             </div>
