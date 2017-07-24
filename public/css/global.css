@@ -930,7 +930,7 @@ blockquote:hover:after {
 }
 .content .slick-prev,
 .content .slick-next {
-  border: 1px solid #999;
+  border: 0;
   width: 40px;
   height: 40px;
   top: 38%;
@@ -938,11 +938,12 @@ blockquote:hover:after {
 }
 .content .slick-prev::before,
 .content .slick-next::before {
-  color: #45423D;
+  color: #AF946F;
   content: "\f105";
   font-family: FontAwesome;
   font-style: normal;
   font-weight: normal;
+  z-index: 99;
 }
 .content .slick-prev {
   left: -20px;
@@ -1130,30 +1131,38 @@ blockquote:hover:after {
   float: right;
 }
 
-.recommand-block {
+.author_referrer_block {
+  margin: 20px 0;
+}
+
+.recommand-block, .author-block {
   border: 1px solid #AF946F;
-  margin: 18px 0;
+  margin: 6px 0;
   padding: 18px;
 }
-.recommand-block .col-sm-2 {
+.recommand-block .col-sm-2, .author-block .col-sm-2 {
   padding-right: 5px;
 }
-.recommand-block .col-sm-10 {
+.recommand-block .col-sm-10, .author-block .col-sm-10 {
   padding-left: 5px;
 }
-.recommand-block .name {
+.recommand-block .name, .author-block .name {
   font-size: 18px;
 }
-.recommand-block .title {
+.recommand-block .name i, .author-block .name i {
+  padding-left: 10px;
+  color: #AF946F;
+}
+.recommand-block .title, .author-block .title {
   font-size: 14px;
   color: #AF946F;
   font-weight: lighter;
   border-bottom: 1px solid #AF946F;
 }
-.recommand-block .icon_recommand {
+.recommand-block .icon_recommand, .author-block .icon_recommand {
   margin-left: 10px;
 }
-.recommand-block .icon_recommand img {
+.recommand-block .icon_recommand img, .author-block .icon_recommand img {
   width: 25px;
   margin-top: -4px;
 }

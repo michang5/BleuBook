@@ -974,17 +974,18 @@ blockquote {
 	}
 	.slick-prev,
 	.slick-next {
-		border: 1px solid #999;
+		border: 0;
 		width: 40px;
 		height: 40px;
 		top: 38%;
 		z-index: 99;
 		&::before {
-			color: $black;
+			color: $gold;
 			content: "\f105";
 			font-family: FontAwesome;
 			font-style: normal;
 			font-weight: normal;
+            z-index: 99;
 		}
 	}
 	.slick-prev {
@@ -1214,9 +1215,12 @@ blockquote {
 	padding: 10px 30px;
 	float: right;
 }
-.recommand-block {
+.author_referrer_block {
+    margin: 20px 0;
+}
+.recommand-block, .author-block {
 	border: 1px solid $gold;
-	margin: 18px 0;
+	margin: 6px 0;
 	padding: 18px;
 	.col-sm-2 {
 		padding-right: 5px;
@@ -1226,6 +1230,10 @@ blockquote {
 	}
 	.name {
 		font-size: 18px;
+        i {
+            padding-left: 10px;
+            color: $gold;
+        }
 	}
 	.title {
 		font-size: 14px;
