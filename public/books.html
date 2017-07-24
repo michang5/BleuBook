@@ -164,29 +164,15 @@
 							</div>
 						</div>
 						<div class="author_referrer_block">
-						    <!--作者-->
-                            <div class="row">
-                                <div class="col-sm-8 col-sm-offset-2">
-                                    <div class="author-block">
-                                        <div class="row">
-                                            <div class="author-photo col-sm-2 col-xs-3"><img src="images/participant_2.jpg" alt="杜祖業 GQ 雜誌總編輯" class="img-responsive"></div>
-                                            <div class="author-content col-sm-10 col-xs-9">
-                                                <p class="name">作者名字<i class="fa fa-book" aria-hidden="true"></i></p>
-                                                <p class="info">如此的簡潔並非是理性探求之下所得到的成果，也不是偶然的產物。而是將「什麼都沒有」這件事給有意圖地設定為目的。藉著空無一物之器皿的建立，「空（emptiness）」的概念就得以體現，進而吸引人群注意並產生向心力，此概念便能被有效運用。</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                             <!--作者-->
                             <div class="row">
                                 <div class="col-sm-8 col-sm-offset-2">
                                     <div class="author-block">
-                                        <div class="row">
-                                            <div class="author-photo col-sm-2 col-xs-3"><img src="images/participant_2.jpg" alt="杜祖業 GQ 雜誌總編輯" class="img-responsive"></div>
+                                        <div class="row" v-for="_id in show.author">
+                                            <div class="author-photo col-sm-2 col-xs-3"><img :src="author[_id].image" :alt="author[_id].name + '' + author[_id].title" class="img-responsive"></div>
                                             <div class="author-content col-sm-10 col-xs-9">
-                                                <p class="name">作者名字<i class="fa fa-book" aria-hidden="true"></i></p>
-                                                <p class="info">如此的簡潔並非是理性探求之下所得到的成果，也不是偶然的產物。而是將「什麼都沒有」這件事給有意圖地設定為目的。藉著空無一物之器皿的建立，「空（emptiness）」的概念就得以體現，進而吸引人群注意並產生向心力，此概念便能被有效運用。</p>
+                                                <p class="name" v-text="author[_id].name"><i class="fa fa-book" aria-hidden="true"></i></p>
+                                                <p class="info" v-html="author[_id].intro"></p>
                                             </div>
                                         </div>
                                     </div>
